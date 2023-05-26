@@ -1,20 +1,20 @@
 ﻿AnotherTry
-1.0.0.0
+
 
 winexe
 C#
 .cs
-D:\Documents\Visual Studio 2022\FirstTeamProject\AnotherTry\obj\Debug\net6.0-windows\
+D:\Documents\Visual Studio 2022\FirstTeamProject\AnotherTry\obj\Release\net6.0-windows\
 AnotherTry
 none
 false
-TRACE;DEBUG;NET;NET6_0;NETCOREAPP
+TRACE;RELEASE;NET;NET6_0;NETCOREAPP
 D:\Documents\Visual Studio 2022\FirstTeamProject\AnotherTry\App.xaml
 11407045341
 
-6-125337951
+4463857826
 194237474483
 MainWindow.xaml;
 
-False
+True
 
