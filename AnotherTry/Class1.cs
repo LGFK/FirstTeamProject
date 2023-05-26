@@ -8,5 +8,7 @@ namespace AnotherTry
 {
     internal class Class1
     {
+        string t;
+        public Class1() { }
     }
 }
