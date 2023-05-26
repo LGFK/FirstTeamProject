@@ -8,19 +8,24 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\компуктер\\.nuget\\packages\\": {}
+    "C:\\Users\\gamle\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\AnotherTry.csproj",
+      "projectUniqueName": "C:\\Users\\gamle\\source\\repos\\Repo\\FirstTeamProject\\AnotherTry\\AnotherTry.csproj",
       "projectName": "AnotherTry",
-      "projectPath": "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\AnotherTry.csproj",
-      "packagesPath": "C:\\Users\\компуктер\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\obj\\",
+      "projectPath": "C:\\Users\\gamle\\source\\repos\\Repo\\FirstTeamProject\\AnotherTry\\AnotherTry.csproj",
+      "packagesPath": "C:\\Users\\gamle\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gamle\\source\\repos\\Repo\\FirstTeamProject\\AnotherTry\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\компуктер\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gamle\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -64,7 +70,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
