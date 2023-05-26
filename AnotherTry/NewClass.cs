@@ -8,5 +8,6 @@ namespace AnotherTry
 {
     internal class NewClass
     {
+        //code
     }
 }
