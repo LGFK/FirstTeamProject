@@ -8,19 +8,24 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\potlo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\Experiment\\Experiment\\Experiment.csproj",
+      "projectUniqueName": "C:\\Users\\potlo\\OneDrive\\Desktop\\MyProject\\FirstTeamProject\\Experiment\\Experiment\\Experiment.csproj",
       "projectName": "Experiment",
-      "projectPath": "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\Experiment\\Experiment\\Experiment.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\Experiment\\Experiment\\obj\\",
+      "projectPath": "C:\\Users\\potlo\\OneDrive\\Desktop\\MyProject\\FirstTeamProject\\Experiment\\Experiment\\Experiment.csproj",
+      "packagesPath": "C:\\Users\\potlo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\potlo\\OneDrive\\Desktop\\MyProject\\FirstTeamProject\\Experiment\\Experiment\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\potlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +69,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
