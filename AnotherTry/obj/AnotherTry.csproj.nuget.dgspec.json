@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\AnotherTry\\AnotherTry.csproj": {}
+    "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\AnotherTry.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\AnotherTry\\AnotherTry.csproj": {
+    "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\AnotherTry.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\AnotherTry\\AnotherTry.csproj",
+        "projectUniqueName": "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\AnotherTry.csproj",
         "projectName": "AnotherTry",
-        "projectPath": "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\AnotherTry\\AnotherTry.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\Visual Studio 2022\\FirstTeamProject\\AnotherTry\\obj\\",
+        "projectPath": "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\AnotherTry.csproj",
+        "packagesPath": "C:\\Users\\компуктер\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\компуктер\\Source\\Repos\\FirstTeamProject__\\AnotherTry\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\компуктер\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
