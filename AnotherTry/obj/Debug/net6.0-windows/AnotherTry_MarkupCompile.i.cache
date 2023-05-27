@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\potlo\OneDrive\Desktop\MyProject\FirstTeamProject\AnotherTry\App.xaml
-11407045341
+5-619775360
 
-8-619234246
+14159783386
 194618410957
-MainWindow.xaml;
+MVVM\View\DiscoveryView.xaml;MVVM\View\HomeView.xaml;MVVM\View\MainWindow.xaml;Theme\MenuButtonTheme.xaml;Theme\TextBoxTheme.xaml;
 
-False
+True
 
