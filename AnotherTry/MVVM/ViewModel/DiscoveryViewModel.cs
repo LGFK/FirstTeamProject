@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AnotherTry
+namespace AnotherTry.MVVM.ViewModel;
+internal class DiscoveryViewModel
 {
-    internal class IvansClass
-    {
-
-    }
 }
