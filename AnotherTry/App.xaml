@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:AnotherTry"
              xmlns:viewModel ="clr-namespace:AnotherTry.MVVM.ViewModel"
              xmlns:view ="clr-namespace:AnotherTry.MVVM.View"
-             StartupUri="MainWindow.xaml">
+             StartupUri="/MVVM/View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
