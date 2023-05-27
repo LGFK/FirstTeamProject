@@ -8,6 +8,6 @@ namespace AnotherTry
 {
     internal class IvansClass
     {
-
+        string Name;
     }
 }
