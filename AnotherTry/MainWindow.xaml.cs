@@ -23,6 +23,7 @@ namespace AnotherTry
         public MainWindow()
         {
             InitializeComponent();
+            string addString = "Hello all , i'm delete your clas";
         }
     }
 }
