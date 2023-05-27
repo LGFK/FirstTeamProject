@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\potlo\OneDrive\Desktop\MyProject\FirstTeamProject\AnotherTry\obj\Debug\net6.0-windows\
+D:\Documents\Visual Studio 2022\TestGid\FirstTeamProject\AnotherTry\obj\Debug\net6.0-windows\
 AnotherTry
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\potlo\OneDrive\Desktop\MyProject\FirstTeamProject\AnotherTry\App.xaml
-11407045341
+D:\Documents\Visual Studio 2022\TestGid\FirstTeamProject\AnotherTry\App.xaml
+5-334153495
 
-8-619234246
-194618410957
-MainWindow.xaml;
+13461445483
+194237474483
+MainWindow.xaml;MVVM\View\DiscoveryView.xaml;MVVM\View\HomeView.xaml;Theme\MenuButtonTheme.xaml;Theme\TextBoxTheme.xaml;
 
 False
 
