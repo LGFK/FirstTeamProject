@@ -1,4 +1,5 @@
-﻿using VendorSys.Core;
+﻿using System.Windows;
+using VendorSys.Core;
 using VendorSys.MVVM.View;
 
 namespace VendorSys.MVVM.ViewModel
@@ -7,6 +8,9 @@ namespace VendorSys.MVVM.ViewModel
     {
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand CatalogViewCommand { get; set; }
+        public RelayCommand ButtonMinimizeClickCommand { get; set; }
+        public RelayCommand WindowsSateButtonClickCommand { get; set; }
+        public RelayCommand CoseButtonClickCommand { get; set; }
         //~~~~~~~~~~//
         public HomeViewModel HomeVM { get; set; }
         public CatalogView CatalogVM { get; set; }
@@ -37,6 +41,26 @@ namespace VendorSys.MVVM.ViewModel
             {
                 CurrentView = CatalogVM;
             });
+
+            ButtonMinimizeClickCommand = new RelayCommand(o =>
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            });
+
+            WindowsSateButtonClickCommand = new RelayCommand(o =>
+            {
+                if(Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                else
+                    Application.Current.MainWindow.WindowState = WindowState.Normal;
+            });
+
+            CoseButtonClickCommand = new RelayCommand(o =>
+            {
+                Application.Current.Shutdown();
+            });
+
+
 
             /*            Page = new RelayCommand(o =>
                         {
