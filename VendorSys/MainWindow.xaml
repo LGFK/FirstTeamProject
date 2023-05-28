@@ -4,9 +4,101 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VendorSys"
+        
+        xmlns:viewModel="clr-namespace:VendorSys.MVVM.ViewModel"
+        
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    </Grid>
+<!--Start def-->
+    <Window.DataContext>
+        <viewModel:MainViewModel></viewModel:MainViewModel>
+    </Window.DataContext>
+    
+    <Border Background="#272537"
+            CornerRadius="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="LOGO"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Foreground="White"
+                   FontSize="22"
+                   Margin="20,0,0,0"
+            />
+            <StackPanel Grid.Row="1">
+                <RadioButton Content="Home"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14 "
+                             IsChecked="True"
+                             Command="{Binding HomeViewCommand}"
+                             Style="{StaticResource MenuButtonTheme}"
+                             >
+
+                </RadioButton>
+                <RadioButton Content="Catalog"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14 "
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding CatalogViewCommand}"
+                             >
+
+                </RadioButton>
+                <RadioButton Content="Basket"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14 "
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding BasketViewCommand}"
+                             >
+
+                </RadioButton>
+
+                <RadioButton Content="Page4"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14 "
+                             Style="{StaticResource MenuButtonTheme}"
+
+                             >
+
+                </RadioButton>
+            </StackPanel>
+            <TextBox Width="250"
+                       Height="40"
+                       VerticalContentAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="5"
+                       Grid.Column="1"
+                       Style="{StaticResource ModernTextBox}">
+
+            </TextBox>
+            <!--Default Start-->
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}">
+
+            </ContentControl>
+        </Grid>
+
+
+    </Border>
+
 </Window>

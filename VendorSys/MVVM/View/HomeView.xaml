@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="VendorSys.MVVM.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VendorSys.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=" 50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBox Text="Discounts"
+                 Background="Transparent"
+                 Foreground="White"
+                 FontSize="28"
+                 HorizontalContentAlignment="Center">
+            
+        </TextBox>
+        
+        <ListBox Grid.Row="1"
+                 Background="Transparent"></ListBox>
+        
+    </Grid>
+
+
+</UserControl>
