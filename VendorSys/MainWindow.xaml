@@ -11,9 +11,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="920"
         WindowStyle="None"
-        ResizeMode="NoResize"
+        
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        >
 
 <!--Start def-->
     <Window.DataContext>
@@ -29,18 +31,66 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition Height="75"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="LOGO"
+            <TextBlock Grid.Row="1" Text="LOGO"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Foreground="White"
                    FontSize="22"
                    Margin="20,0,0,0"
             />
-            <StackPanel Grid.Row="1">
+            <Border Grid.ColumnSpan="2"
+                    Background="#252525"
+                    MouseDown="Border_MouseDown">
+                <Grid HorizontalAlignment="Stretch">
+                    <Label Content="CRM"
+                           Foreground="Gray"
+                           FontWeight="SemiBold">
+                    </Label>
+                    <StackPanel HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+
+                        <Button Width="20" Height="20"
+                                Content="_"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="Gray"
+                                FontWeight="Bold"
+                                Margin="0,0,0,1"
+                                Command="{Binding ButtonMinimizeClickCommand}">
+
+                        </Button>
+
+                        <Button Width="20" Height="20"
+                                Content="⬜"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="Gray"
+                                FontWeight="Bold"
+                                Command="{Binding WindowsSateButtonClickCommand}">
+
+                        </Button>
+
+                        <Button Width="20" Height="20"
+                                Content="X"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="Gray"
+                                FontWeight="Bold"
+                                Command="{Binding CoseButtonClickCommand}">
+                            
+                        </Button>
+                        
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            
+            <StackPanel Grid.Row="2">
                 <RadioButton Content="Home"
                              Height="50"
                              Foreground="White"
@@ -86,11 +136,12 @@
                        HorizontalAlignment="Left"
                        Margin="5"
                        Grid.Column="1"
+                       Grid.Row="1"
                        Style="{StaticResource ModernTextBox}">
 
             </TextBox>
             <!--Default Start-->
-            <ContentControl Grid.Row="1"
+            <ContentControl Grid.Row="2"
                             Grid.Column="1"
                             Margin="10"
                             Content="{Binding CurrentView}">
