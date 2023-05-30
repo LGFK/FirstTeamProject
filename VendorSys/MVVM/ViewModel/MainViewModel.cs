@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Documents;
 using VendorSys.Core;
-using VendorSys.MVVM.View;
 
 namespace VendorSys.MVVM.ViewModel
 {
@@ -8,12 +11,16 @@ namespace VendorSys.MVVM.ViewModel
     {
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand CatalogViewCommand { get; set; }
+        public RelayCommand BasketViewCommand { get; set; }
         public RelayCommand ButtonMinimizeClickCommand { get; set; }
         public RelayCommand WindowsSateButtonClickCommand { get; set; }
         public RelayCommand CoseButtonClickCommand { get; set; }
+
         //~~~~~~~~~~//
         public HomeViewModel HomeVM { get; set; }
-        public CatalogView CatalogVM { get; set; }
+        public CatalogViewModel CatalogVM { get; set; }
+        public BasketViewModel BasketVM { get; set; }
+
 
 
         private object _currentView;
@@ -28,8 +35,38 @@ namespace VendorSys.MVVM.ViewModel
         }
         public MainViewModel()
         {
+            SwitchBetweenPages();
+            ButtonLogic();
+
+        }
+
+        private void ButtonLogic()
+        {
+            ButtonMinimizeClickCommand = new RelayCommand(o =>
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            });
+
+            WindowsSateButtonClickCommand = new RelayCommand(o =>
+            {
+                if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                else
+                    Application.Current.MainWindow.WindowState = WindowState.Normal;
+            });
+
+            CoseButtonClickCommand = new RelayCommand(o =>
+            {
+                Application.Current.Shutdown();
+            });
+        }
+
+        private void SwitchBetweenPages()
+        {
             HomeVM = new HomeViewModel();
-            CatalogVM = new CatalogView();
+            CatalogVM = new CatalogViewModel();
+            BasketVM = new BasketViewModel();
+
             CurrentView = HomeVM;
 
             HomeViewCommand = new RelayCommand(o =>
@@ -42,31 +79,10 @@ namespace VendorSys.MVVM.ViewModel
                 CurrentView = CatalogVM;
             });
 
-            ButtonMinimizeClickCommand = new RelayCommand(o =>
+            BasketViewCommand = new RelayCommand(o =>
             {
-                Application.Current.MainWindow.WindowState = WindowState.Minimized;
+                CurrentView = BasketVM;
             });
-
-            WindowsSateButtonClickCommand = new RelayCommand(o =>
-            {
-                if(Application.Current.MainWindow.WindowState != WindowState.Maximized)
-                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
-                else
-                    Application.Current.MainWindow.WindowState = WindowState.Normal;
-            });
-
-            CoseButtonClickCommand = new RelayCommand(o =>
-            {
-                Application.Current.Shutdown();
-            });
-
-
-
-            /*            Page = new RelayCommand(o =>
-                        {
-                            CurrentView = PageVM;
-                        });*/
-
         }
     }
 }

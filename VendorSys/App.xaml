@@ -18,6 +18,14 @@
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/> 
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:CatalogViewModel}">
+                <view:CatalogView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:BasketViewModel}">
+                <view:BasketView/>
+            </DataTemplate>
             
         </ResourceDictionary>
     </Application.Resources>
