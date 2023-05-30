@@ -13,17 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VendorSys.MVVM.View
+namespace VendorSys.MVVM.View;
+/// <summary>
+/// Interaction logic for BasketView.xaml
+/// </summary>
+public partial class BasketView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for CatalogView.xaml
-    /// </summary>
-    public partial class CatalogView : UserControl
+    public BasketView()
     {
-        public CatalogView()
-        {
-            InitializeComponent();
-
-        }
+        InitializeComponent();
     }
 }

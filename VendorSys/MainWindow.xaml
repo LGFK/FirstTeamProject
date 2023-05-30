@@ -61,7 +61,8 @@
                                 Foreground="Gray"
                                 FontWeight="Bold"
                                 Margin="0,0,0,1"
-                                Command="{Binding ButtonMinimizeClickCommand}">
+                                Command="{Binding ButtonMinimizeClickCommand}"
+                                >
 
                         </Button>
 
@@ -130,6 +131,7 @@
 
                 </RadioButton>
             </StackPanel>
+
             <TextBox Width="250"
                        Height="40"
                        VerticalContentAlignment="Center"
