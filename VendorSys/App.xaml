@@ -7,12 +7,14 @@
              xmlns:view="clr-namespace:VendorSys.MVVM.View"
              
              
+             
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/TextboxTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/TextboxTheme1.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
@@ -26,6 +28,7 @@
             <DataTemplate DataType="{x:Type viewModel:BasketViewModel}">
                 <view:BasketView/>
             </DataTemplate>
+            
             
         </ResourceDictionary>
     </Application.Resources>

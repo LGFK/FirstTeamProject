@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:VendorSys"
         
         xmlns:viewModel="clr-namespace:VendorSys.MVVM.ViewModel"
-        
-        
+        xmlns:core="clr-namespace:VendorSys.Core"     
+       
+
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="920"
         WindowStyle="None"
@@ -21,7 +22,8 @@
     <Window.DataContext>
         <viewModel:MainViewModel></viewModel:MainViewModel>
     </Window.DataContext>
-    
+
+
     <Border Background="#272537"
             CornerRadius="20">
         <Grid>
@@ -89,8 +91,7 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            
-            
+
             <StackPanel Grid.Row="2">
                 <RadioButton Content="Home"
                              Height="50"
@@ -120,18 +121,16 @@
                              >
 
                 </RadioButton>
-
                 <RadioButton Content="Page4"
                              Height="50"
                              Foreground="White"
                              FontSize="14 "
-                             Style="{StaticResource MenuButtonTheme}"
-
-                             >
+                             Style="{StaticResource MenuButtonTheme}">
 
                 </RadioButton>
             </StackPanel>
-
+            
+            <!--Visibility="Hidden"-->
             <TextBox Width="250"
                        Height="40"
                        VerticalContentAlignment="Center"
@@ -139,9 +138,12 @@
                        Margin="5"
                        Grid.Column="1"
                        Grid.Row="1"
-                       Style="{StaticResource ModernTextBox}">
+                       Style="{StaticResource ModernTextBox}"
+                     Visibility="Hidden">
 
             </TextBox>
+
+
             <!--Default Start-->
             <ContentControl Grid.Row="2"
                             Grid.Column="1"
