@@ -113,5 +113,10 @@ namespace Server.DB
         }
 
 
+        public async Task<ProductType> GetProductTypeById(int id)
+        {
+            return _dbContext.ProductTypes.Where(x => x.Id == id).FirstOrDefault();
+        }
+
     }
 }
