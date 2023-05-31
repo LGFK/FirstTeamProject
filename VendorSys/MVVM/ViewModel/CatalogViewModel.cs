@@ -34,13 +34,6 @@ internal class CatalogViewModel : ObservableObject
     }
     public CatalogViewModel() 
     {
-        _data = new List<ProductTest>() { new ProductTest() {Name ="Test1" },
-            new ProductTest() {Name ="Burger" },
-            new ProductTest() { Name = "qweqwad" },
-            new ProductTest() { Name = "123edqd" },
-            new ProductTest() {Name ="asdaf" },new ProductTest() {Name ="213dqf" },
-            new ProductTest() {Name ="asdf" },new ProductTest() {Name ="Burger" } };
-
         FilterData();
     }
     private void FilterData()

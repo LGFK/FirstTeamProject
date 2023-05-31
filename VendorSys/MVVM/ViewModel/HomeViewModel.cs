@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using VendorSys.Core;
 
 namespace VendorSys.MVVM.ViewModel;
@@ -19,6 +20,8 @@ class HomeViewModel : ObservableObject
     private string _filterText;
     private List<ProductTest> _data;
     private List<ProductTest> _filteredData;
+
+    public RelayCommand AddCommand { get; set; }
 
     public string FilterText
     {
@@ -45,11 +48,6 @@ class HomeViewModel : ObservableObject
     }
     public HomeViewModel()
     {
-        /*        _data = new List<string>()
-                {
-                        "Apple", "Banana", "Orange", "Mango", "Grapes", "Watermelon", "Pineapple"
-                };*/
-
         _data = new List<ProductTest>() { new ProductTest() {Name ="Test1" },
             new ProductTest() {Name ="Burger" }, 
             new ProductTest() { Name = "qweqwad" },
@@ -58,6 +56,12 @@ class HomeViewModel : ObservableObject
             new ProductTest() {Name ="asdf" },new ProductTest() {Name ="Burger" } };
 
         FilterData();
+
+        // Тут описати логіку при натисканні на кнопку куди воно добавиться 
+        AddCommand = new RelayCommand(o =>
+        {
+            MessageBox.Show("Click");
+        });
     }
 
     private void FilterData()
