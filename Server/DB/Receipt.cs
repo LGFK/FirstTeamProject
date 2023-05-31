@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using VendorSys.MVVM.Model;
 
-namespace VendorSys;
+namespace Server.DB;
 
 public partial class Receipt
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VendorSys.MVVM.Model;
+namespace Server.DB;
 
 public partial class Product
 {
