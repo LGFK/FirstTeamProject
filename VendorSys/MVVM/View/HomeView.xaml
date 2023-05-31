@@ -66,8 +66,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-
         <!--<ListBox x:Name="listView" Grid.Column="1" Grid.Row="1" Margin="10"
          ItemsSource="{Binding FilteredData}"
          Background="Transparent" 
@@ -96,8 +94,6 @@
             </ListBox.ItemTemplate>
         </ListBox>-->
     </Grid>
-
-
 </UserControl>
 
 
