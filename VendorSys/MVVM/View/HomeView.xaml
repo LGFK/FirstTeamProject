@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VendorSys.MVVM.View"
+             xmlns:local="clr-namespace:VendorSys.MVVM.View" xmlns:viewmodel="clr-namespace:VendorSys.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+    <Grid>      
         <Grid.RowDefinitions>
             <RowDefinition Height=" 50"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -18,13 +18,117 @@
                  Foreground="White"
                  FontSize="28"
                  HorizontalContentAlignment="Center">
-            
+
         </TextBox>
-        
-        <ListBox Grid.Row="1"
-                 Background="Transparent"></ListBox>
-        
+
+        <TextBox x:Name="filterTextBox" Width="250"
+                       Height="40"
+                       VerticalContentAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="5"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       Style="{StaticResource ModernTextBox1}" 
+                     Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <ListBox x:Name="listView" Grid.Column="1" Grid.Row="1" Margin="10"
+         ItemsSource="{Binding FilteredData}"
+         Background="Transparent">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="2" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="#CCE5FF">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Width="150" Height="150" Grid.Row="0"
+                       Source="{Binding Image}"/>
+                        <TextBlock VerticalAlignment="Center" 
+                           Grid.Row="1"
+                           Margin="5,0"
+                           Text="{Binding Name}"/>
+                        <Button Grid.Row="2" Margin="5,0,0,0"
+                        Command="{Binding ElementName=listView, Path=DataContext.AddCommand}"
+                        CommandParameter="{Binding}">Add</Button>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <!--<ListBox x:Name="listView" Grid.Column="1" Grid.Row="1" Margin="10"
+         ItemsSource="{Binding FilteredData}"
+         Background="Transparent" 
+                 >
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="#CCE5FF">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Width="150" Height="150" Grid.Row="0"
+                       Source="{Binding Image}"/>
+                        <TextBlock VerticalAlignment="Center" 
+                           Grid.Row="1"
+                           Margin="5,0"
+                           Text="{Binding Name}"/>
+                        <Button Grid.Row="2" Margin="5,0,0,0"
+                        Command="{Binding ElementName=listView, Path=DataContext.AddCommand}"
+                        CommandParameter="{Binding}">Add</Button>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
     </Grid>
 
 
 </UserControl>
+
+
+
+<!--<ListView.ItemTemplate>
+    <DataTemplate>
+        <TextBlock Text="{Binding}" Margin="0,5"/>
+    </DataTemplate>
+</ListView.ItemTemplate>-->
+
+
+<!--<ListBox x:Name="listView" Grid.Column="1" Grid.Row="1" Margin="10"
+                      ItemsSource="{Binding FilteredData}"
+                  Background="Transparent" >
+
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="#CCE5FF">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=" 50"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Width="50" Height="50" Grid.Column="0"
+                               Source="{Binding Image}"/>
+                        <TextBlock VerticalAlignment="Center" 
+                                   Grid.Column="1"
+                                   Margin="5,0"
+                                   Text="{Binding Name}"/>
+                        <Button Grid.Column="2" Margin="5,0,0,0"
+                                Command="{Binding ElementName=listView, Path=DataContext.AddCommand}"
+                                CommandParameter="{Binding}">Add</Button>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+        </ListBox>-->
