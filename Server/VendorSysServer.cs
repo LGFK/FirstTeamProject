@@ -1,4 +1,5 @@
 ﻿using Accessibility;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Server.DB;
 using System;
@@ -19,7 +20,9 @@ namespace Server
         public VendorSysServer()
         {
             tcpListener = new TcpListener(IPAddress.Any,1488);
-            
+            DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
+            var config = new ConfigurationBuilder().SetBasePath(di.FullName).AddJsonFile("appsettings1.json").Build();
+            db = new VendorSysDb(config.GetConnectionString("MainConnectionString"));
         }
         
         public void StartServer()
@@ -28,8 +31,18 @@ namespace Server
         }
         public async Task GetConnection()
         {
-            var _client = await tcpListener.AcceptTcpClientAsync();
-            HandleConnectionAsync(_client);
+            try
+            {
+                while (true)
+                {
+                    var _client = await tcpListener.AcceptTcpClientAsync();
+                    _ = HandleConnectionAsync(_client);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public async Task HandleConnectionAsync(TcpClient _client)
