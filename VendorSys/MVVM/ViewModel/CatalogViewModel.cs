@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VendorSys.Core;
+using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
 internal class CatalogViewModel : ObservableObject
 {
     private string _filterText;
-    private List<ProductTest> _data;
-    private List<ProductTest> _filteredData;
+    private List<Model.Product> _data;
+    private List<Model.Product> _filteredData;
 
     public string FilterText
     {
@@ -23,7 +24,7 @@ internal class CatalogViewModel : ObservableObject
         }
     }
 
-    public List<ProductTest> FilteredData
+    public List<Model.Product> FilteredData
     {
         get { return _filteredData; }
         set
@@ -32,8 +33,10 @@ internal class CatalogViewModel : ObservableObject
             OnPropertyChanged(nameof(FilteredData));
         }
     }
-    public CatalogViewModel() 
+    public CatalogViewModel()
     {
+        ProductRepository.ReadProductRepository();
+        _data = ProductRepository.Products.ToList();
         FilterData();
     }
     private void FilterData()

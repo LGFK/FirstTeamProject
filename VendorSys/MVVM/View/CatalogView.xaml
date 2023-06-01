@@ -55,7 +55,7 @@
                         <TextBlock VerticalAlignment="Center" 
                            Grid.Row="1"
                            Margin="5,0"
-                           Text="{Binding Name}"/>
+                           Text="{Binding Pname}"/>
                         <Button Grid.Row="2" Margin="5,0,0,0"
                         Command="{Binding ElementName=listView, Path=DataContext.AddCommand}"
                         CommandParameter="{Binding}">Add</Button>
