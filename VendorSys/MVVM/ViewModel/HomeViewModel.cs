@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using VendorSys.Core;
+using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
 
-class ProductTest // Приклад 
+class Product
 {
-    public string? Name { get; set; }
+    public string? Pname { get; set; }
 
     public string ToLower()
     {
-        return Name.ToLower();
+        return Pname.ToLower();
     }
 }
 
 class HomeViewModel : ObservableObject
 {
     private string _filterText;
-    private List<ProductTest> _data;
-    private List<ProductTest> _filteredData;
-
-    public RelayCommand AddCommand { get; set; }
+    private List<Model.Product> _data;
+    private List<Model.Product> _filteredData;
 
     public string FilterText
     {
@@ -37,7 +36,7 @@ class HomeViewModel : ObservableObject
         }
     }
 
-    public List<ProductTest> FilteredData
+    public List<Model.Product> FilteredData
     {
         get { return _filteredData; }
         set
@@ -48,20 +47,9 @@ class HomeViewModel : ObservableObject
     }
     public HomeViewModel()
     {
-        _data = new List<ProductTest>() { new ProductTest() {Name ="Test1" },
-            new ProductTest() {Name ="Burger" }, 
-            new ProductTest() { Name = "qweqwad" },
-            new ProductTest() { Name = "123edqd" },
-            new ProductTest() {Name ="asdaf" },new ProductTest() {Name ="213dqf" }, 
-            new ProductTest() {Name ="asdf" },new ProductTest() {Name ="Burger" } };
-
+        ProductRepository.ReadProductRepository();
+        _data = ProductRepository.Products.Where(item => item.Discount > 0).ToList();
         FilterData();
-
-        // Тут описати логіку при натисканні на кнопку куди воно добавиться 
-        AddCommand = new RelayCommand(o =>
-        {
-            MessageBox.Show("Click");
-        });
     }
 
     private void FilterData()
