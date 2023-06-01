@@ -8,7 +8,9 @@
              
              
              
+
              StartupUri="\MVVM\View\MainWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

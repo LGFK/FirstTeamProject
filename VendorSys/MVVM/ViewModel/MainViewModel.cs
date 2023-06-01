@@ -31,7 +31,6 @@ class MainViewModel : ObservableObject
         }
     }
 
-
     public MainViewModel()
     {
 
@@ -83,9 +82,4 @@ class MainViewModel : ObservableObject
             CurrentView = BasketVM;
         });
     }
-
-
-
- 
-
 }
