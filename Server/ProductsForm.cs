@@ -52,7 +52,6 @@ namespace Server
                 lvItem.SubItems.Add(product.Pname);
                 lvItem.SubItems.Add((await _db.GetProductTypeById((int)product.ProdType)).TypeName);
                 lvItem.SubItems.Add(product.Amount.ToString());
-
                 lV1.Items.Add(lvItem);
             }
         }

@@ -7,7 +7,7 @@ namespace Server
 {
     public partial class Form1 : Form
     {
-        
+        VendorSysServer _server;
         VendorSysDb _db;
         public Form1()
         {
@@ -39,6 +39,27 @@ namespace Server
             DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
             var config = new ConfigurationBuilder().SetBasePath(di.FullName).AddJsonFile("appsettings1.json").Build();
             _db = new VendorSysDb(config.GetConnectionString("MainConnectionString"));
+        }
+
+        private void serverStart_Click(object sender, EventArgs e)
+        {
+            _server.StartServer();
+            AcceptClients();
+        }
+
+        private async Task AcceptClients()
+        {
+            while(true)
+            {
+                try
+                {
+                    _server.GetConnection();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

@@ -73,6 +73,7 @@
             this.serverStart.TabIndex = 3;
             this.serverStart.Text = "Start Server";
             this.serverStart.UseVisualStyleBackColor = false;
+            this.serverStart.Click += new System.EventHandler(this.serverStart_Click);
             // 
             // Form1
             // 
