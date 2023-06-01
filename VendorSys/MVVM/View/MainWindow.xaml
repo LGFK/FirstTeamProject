@@ -152,8 +152,5 @@
 
             </ContentControl>
         </Grid>
-
-
     </Border>
-
 </Window>
