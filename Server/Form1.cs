@@ -43,23 +43,15 @@ namespace Server
 
         private void serverStart_Click(object sender, EventArgs e)
         {
+            _server = new VendorSysServer();
             _server.StartServer();
             AcceptClients();
+            serverStart.Enabled = false;
         }
 
-        private async Task AcceptClients()
+        private void AcceptClients()
         {
-            while(true)
-            {
-                try
-                {
-                    _server.GetConnection();
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            _ = _server.GetConnection();
         }
     }
 }
