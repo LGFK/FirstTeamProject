@@ -60,6 +60,8 @@
                        Style="{StaticResource ModernTextBox1}" 
                      Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
 
+                
+                <!--Variant1-->
                 <!--<ListBox x:Name="listView" Grid.Column="1" Grid.Row="1" Margin="10" 
          ItemsSource="{Binding FilteredData}"
          Background="Transparent"
@@ -92,7 +94,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>-->
-
+                
+                <!--Variant2-->
                 <ListBox x:Name="listView" Grid.Column="1" Grid.Row="1" Margin="10" 
          ItemsSource="{Binding FilteredData}"
          Background="Transparent"
@@ -118,6 +121,9 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
+                <!--Variant3-->
+
             </Grid>
         </Border>
     </Border>

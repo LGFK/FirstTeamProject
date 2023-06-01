@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="Theme/TextboxTheme1.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/ButtonStyleBasket.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/ScrollBarStyle.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
