@@ -9,10 +9,10 @@
              Background="Transparent">
 
     <Border CornerRadius="50">
-        <!--<Border.Background>
+        <Border.Background>
             <ImageBrush ImageSource="/Image/BackgroundBasket.jpeg"
                         Stretch="Fill"/>
-        </Border.Background>-->
+        </Border.Background>
         <Border CornerRadius="25"
                 BorderThickness="5"
                 Opacity="0.9">
@@ -46,7 +46,7 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>                                    
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -54,6 +54,7 @@
                                 </Grid.ColumnDefinitions>
                                 <!--Потрібно дадати місце знаходження Sourse= ""-->
                                 <Image Grid.Column="0" Grid.RowSpan="2" Width="32"
+                                       Source="{Binding Image}"
                                        Height="32" HorizontalAlignment="Center"
                                        VerticalAlignment="Center"></Image>
                                 <!--Style="{StaticResource}" потрібно додати-->
