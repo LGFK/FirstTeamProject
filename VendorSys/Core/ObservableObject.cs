@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace VendorSys.Core;
-internal class ObservableObject : INotifyPropertyChanged  
+internal class ObservableObject : INotifyPropertyChanged 
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -15,5 +15,4 @@ internal class ObservableObject : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
-
 }

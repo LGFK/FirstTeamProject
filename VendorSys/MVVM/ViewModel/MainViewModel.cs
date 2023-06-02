@@ -73,6 +73,7 @@ class MainViewModel : ObservableObject
 
         //Підписка на подію додавання із каталога в кошик товарів
         CatalogVM.ProductSelected += (sender, e) => BasketVM.AddProductToBasket(e.SelectedProduct);
+        HomeVM.ProductSelected += (sender, e) => BasketVM.AddProductToBasket(e.SelectedProduct);
 
         CurrentView = HomeVM;
 
