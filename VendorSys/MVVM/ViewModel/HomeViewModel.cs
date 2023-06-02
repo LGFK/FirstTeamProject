@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
@@ -17,6 +17,21 @@ class HomeViewModel : ObservableObject
     private string _filterText;
     private List<Product> _data;
     private List<Product> _filteredData;
+    private Product _selectedProduct;
+    public event EventHandler<ProductSelectedEventArgs> ProductSelected;
+    public RelayCommand AddCommand { get; set; }
+    public Product? SelectedProduct
+    {
+        get { return _selectedProduct; }
+        set
+        {
+            if (_selectedProduct != value)
+            {
+                _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+            }
+        }
+    }
 
     public string FilterText
     {
@@ -46,6 +61,19 @@ class HomeViewModel : ObservableObject
         ProductRepository.ReadProductRepository();
         _data = ProductRepository.Products.Where(item => item.Discount > 0).ToList();
         FilterData();
+
+        AddCommand = new RelayCommand(o =>
+        {
+            if (_selectedProduct != null)
+            {
+                OnProductSelected(_selectedProduct);
+            }
+        });
+    }
+
+    private void OnProductSelected(Product selectedProduct)
+    {
+        ProductSelected?.Invoke(this, new ProductSelectedEventArgs(selectedProduct));
     }
 
     private void FilterData()
