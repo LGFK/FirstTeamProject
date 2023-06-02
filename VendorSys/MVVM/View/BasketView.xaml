@@ -24,7 +24,7 @@
                     <GradientStop Color="#8A16C1" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            
+
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color="#060531" Offset="0"/>
@@ -38,7 +38,9 @@
                     <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="lvProducts" ItemsSource="{Binding Products}"
+                <ListView x:Name="lvProducts" 
+                          ItemsSource="{Binding ProductInBosket}"
+                          SelectedItem="{Binding SelectedProduct}"
                           Background="Transparent"
                           BorderThickness="0">
                     <ListView.ItemTemplate>
@@ -51,6 +53,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <!--Потрібно дадати місце знаходження Sourse= ""-->
                                 <Image Grid.Column="0" Grid.RowSpan="2" Width="32"
@@ -59,10 +62,18 @@
                                        VerticalAlignment="Center"></Image>
                                 <!--Style="{StaticResource}" потрібно додати-->
                                 <TextBlock Grid.Column="1" Text="{Binding Pname}"
-                                           Margin="12,6,0,0"/>
+                                           Margin="12,6,0,0"
+                                           Foreground="White"/>
                                 <TextBlock Grid.Column="1" Grid.Row="1"
                                            Text="{Binding Price}"
-                                           Margin="12,0,0,6"/>
+                                           Margin="12,0,0,6"
+                                           Foreground="White"/>
+                                <Button Grid.Column="2"
+                                        Margin="5,5,5,5"
+                                        Style="{StaticResource btnStyle2}"
+                                        Command="{Binding ElementName=lvProducts,Path=DataContext.DellCommand }"
+                                        CommandParameter="{Binding}"
+                                        >Delete</Button>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -75,10 +86,10 @@
                         FontFamily="Motserrat"
                         Cursor="Hand"
                         Command="{Binding BuyCommand}"
-                        Style="{StaticResource btnStyle2 }">
-                    
+                        Style="{StaticResource btnStyle2 }" Margin="500,0,0,0">
+
                 </Button>
             </Grid>
-        </Border>        
+        </Border>
     </Border>
 </UserControl>

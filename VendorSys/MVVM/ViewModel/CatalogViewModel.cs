@@ -1,30 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
+/// <summary>
+/// Властивість FilterText, яка відповідає за текст фільтрації продуктів у каталозі.
+///Властивість FilteredData, яка представляє відфільтровану колекцію продуктів у каталозі.
+///Властивість SelectedProduct, яка представляє обраний продукт у каталозі.
+///Подія ProductSelected, яка виникає при виборі продукту і має підписників, які можуть реагувати на цю подію.
+///Метод OnProductSelected, який викликає подію ProductSelected і передає обраний продукт у вигляді аргументу події.
+///Метод FilterData, який виконує фільтрацію продуктів згідно з введеним текстом фільтра.
+/// </summary>
 internal class CatalogViewModel : ObservableObject
 {
     private string _filterText;
-    private List<Model.Product> _data;
-    private List<Model.Product> _filteredData;
-
-    public string FilterText
+    private List<Product> _data;
+    private List<Product> _filteredData;
+    private Product _selectedProduct;
+    public event EventHandler<ProductSelectedEventArgs> ProductSelected;
+    public RelayCommand AddCommand { get; set; }
+    public Product? SelectedProduct
     {
-        get { return _filterText; }
+        get { return _selectedProduct; }
         set
         {
-            if (_filterText != value)
+            if (_selectedProduct != value)
             {
-                _filterText = value;
-                FilterData();
-                OnPropertyChanged(nameof(FilterText));
+                _selectedProduct = value;
+                OnPropertyChanged();
             }
         }
     }
 
-    public List<Model.Product> FilteredData
+    public List<Product> FilteredData
     {
         get { return _filteredData; }
         set
@@ -38,6 +49,36 @@ internal class CatalogViewModel : ObservableObject
         ProductRepository.ReadProductRepository();
         _data = ProductRepository.Products.ToList();
         FilterData();
+
+        AddCommand = new RelayCommand(o =>
+        {
+            if(_selectedProduct != null)
+            {
+                OnProductSelected(_selectedProduct);
+            }            
+        });
+    }
+
+    /// <summary>
+    /// Цей метод OnProductSelected викликає подію ProductSelected, якщо є підписники (subscribers), і передає обраний продукт у вигляді аргументу події.
+    /// </summary>
+    /// <param name="selectedProduct"></param>
+    private void OnProductSelected(Product selectedProduct)
+    {
+        ProductSelected?.Invoke(this, new ProductSelectedEventArgs(selectedProduct));
+    }
+    public string FilterText
+    {
+        get { return _filterText; }
+        set
+        {
+            if (_filterText != value)
+            {
+                _filterText = value;
+                FilterData();
+                OnPropertyChanged(nameof(FilterText));
+            }
+        }
     }
     private void FilterData()
     {
