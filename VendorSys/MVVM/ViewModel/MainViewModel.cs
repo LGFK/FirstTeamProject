@@ -3,9 +3,16 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using VendorSys.Core;
+using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
-
+/// <summary>
+/// Властивості RelayCommand для керування командами кнопок.
+///Властивості HomeVM, CatalogVM і BasketVM для інстанціювання відповідних моделей представлення.
+///Властивість CurrentView, яка представляє поточне відображення на основі обраної сторінки(Home, Catalog, Basket).
+///Ініціалізація моделей представлення та налаштування команд переключення між сторінками.
+///Підписка на подію ProductSelected в CatalogVM і виклик методу AddProductToBasket в BasketVM при виборі продукту з каталогу.
+/// </summary>
 class MainViewModel : ObservableObject
 {
     public RelayCommand HomeViewCommand { get; set; }
@@ -33,7 +40,6 @@ class MainViewModel : ObservableObject
 
     public MainViewModel()
     {
-
         SwitchBetweenPages();
         ButtonLogic();
     }
@@ -62,8 +68,11 @@ class MainViewModel : ObservableObject
     private void SwitchBetweenPages()
     {
         HomeVM = new HomeViewModel();
-        CatalogVM = new CatalogViewModel();
         BasketVM = new BasketViewModel();
+        CatalogVM = new CatalogViewModel();
+
+        //Підписка на подію додавання із каталога в кошик товарів
+        CatalogVM.ProductSelected += (sender, e) => BasketVM.AddProductToBasket(e.SelectedProduct);
 
         CurrentView = HomeVM;
 

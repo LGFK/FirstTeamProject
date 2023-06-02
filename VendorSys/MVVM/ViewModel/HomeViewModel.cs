@@ -5,22 +5,18 @@ using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
-
-class Product
-{
-    public string? Pname { get; set; }
-
-    public string ToLower()
-    {
-        return Pname.ToLower();
-    }
-}
-
+/// <summary>
+/// Читання списку продуктів з репозиторію (ProductRepository) за допомогою методу ReadProductRepository().
+///Ініціалізація списку продуктів(_data) з продуктами, що мають знижку(Discount).
+///Фільтрація списку продуктів залежно від значення властивості FilterText.Якщо FilterText не є порожнім або null, 
+///відбувається фільтрація продуктів за назвою, і результат зберігається у властивості FilteredData.
+///Оновлення відображення списку продуктів за допомогою методу OnPropertyChanged().
+/// </summary>
 class HomeViewModel : ObservableObject
 {
     private string _filterText;
-    private List<Model.Product> _data;
-    private List<Model.Product> _filteredData;
+    private List<Product> _data;
+    private List<Product> _filteredData;
 
     public string FilterText
     {
@@ -36,7 +32,7 @@ class HomeViewModel : ObservableObject
         }
     }
 
-    public List<Model.Product> FilteredData
+    public List<Product> FilteredData
     {
         get { return _filteredData; }
         set
