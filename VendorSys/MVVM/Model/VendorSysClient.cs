@@ -116,7 +116,7 @@ namespace VendorSys.MVVM.Model
                 MessageBox.Show(ex.Message);
             }
         }
-        public async Task GetReceiptsAsync()
+        public async Task GetReceiptsAsync(int id)
         {
             try
             {
@@ -126,11 +126,13 @@ namespace VendorSys.MVVM.Model
 
                 var networkStream = client.GetStream();
                 buffer = new byte[4];
-                string message = "Cashiers";
+                string message = $"Cashiers<|>{id}";
                 var requestMessage = Encoding.UTF8.GetBytes(message);
                 buffer = BitConverter.GetBytes(requestMessage.Length);
                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
                 await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
+
+
             }
             catch(Exception ex)
             {
