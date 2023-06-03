@@ -30,7 +30,12 @@ internal abstract class BaseViewModel : ObservableObject
     public List<Product> Data
     {
         get { return _data; }
-        set { _data = value; }
+        set 
+        { 
+
+            _data = value;
+            OnPropertyChanged(nameof(FilteredData));
+        }
     }
     public Product? SelectedProduct
     {

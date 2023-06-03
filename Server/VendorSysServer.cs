@@ -1,15 +1,9 @@
-﻿using Accessibility;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Server.DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Server
 {
@@ -19,12 +13,12 @@ namespace Server
         VendorSysDb db;
         public VendorSysServer()
         {
-            tcpListener = new TcpListener(IPAddress.Any,1488);
+            tcpListener = new TcpListener(IPAddress.Any, 1488);
             DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
             var config = new ConfigurationBuilder().SetBasePath(di.FullName).AddJsonFile("appsettings1.json").Build();
             db = new VendorSysDb(config.GetConnectionString("MainConnectionString"));
         }
-        
+
         public void StartServer()
         {
             tcpListener.Start();
@@ -47,7 +41,7 @@ namespace Server
 
         public async Task HandleConnectionAsync(TcpClient _client)
         {
-            if(_client.Connected)
+            if (_client.Connected)
             {
                 try
                 {
@@ -60,7 +54,7 @@ namespace Server
                     buffer = new byte[reqSize];
                     await networkStream.ReadAsync(buffer, 0, reqSize);
                     string reqStr = Encoding.UTF8.GetString(buffer);
-                    switch(reqStr)
+                    switch (reqStr)
                     {
                         case "Customers":
                             {
@@ -86,7 +80,7 @@ namespace Server
                             {
                                 byte[] receiptId = new byte[4];
                                 await networkStream.ReadAsync(receiptId, 0, 4);
-                                var id = BitConverter.ToInt32(receiptId,0);
+                                var id = BitConverter.ToInt32(receiptId, 0);
                                 var _receipt = await db.GetConcreeteReceiptById(id);
                                 jsonToSend = JsonConvert.SerializeObject(_receipt);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
@@ -111,11 +105,11 @@ namespace Server
                             }
                         case "AddCustomer":
                             {
-                                buffer= new byte[4];
+                                buffer = new byte[4];
                                 await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                                reqSize = BitConverter.ToInt32(buffer,0);
+                                reqSize = BitConverter.ToInt32(buffer, 0);
                                 buffer = new byte[reqSize];
-                                await networkStream.ReadAsync(buffer,0, buffer.Length);
+                                await networkStream.ReadAsync(buffer, 0, buffer.Length);
                                 reqStr = Encoding.UTF8.GetString(buffer);
                                 Customer custToSave = JsonConvert.DeserializeObject<Customer>(reqStr);
                                 db.AddCustomer(custToSave);
@@ -129,25 +123,25 @@ namespace Server
                                 buffer = new byte[reqSize];
                                 await networkStream.ReadAsync(buffer, 0, buffer.Length);
                                 reqStr = Encoding.UTF8.GetString(buffer);
-                                (Receipt,List<(Product,int amount)>) receiptToSave = JsonConvert.DeserializeObject<(Receipt, List<(Product, int amount)>)>(reqStr);
-                                db.AddReceipt(receiptToSave.Item1,receiptToSave.Item2);
+                                (Receipt, List<(Product, int amount)>) receiptToSave = JsonConvert.DeserializeObject<(Receipt, List<(Product, int amount)>)>(reqStr);
+                                db.AddReceipt(receiptToSave.Item1, receiptToSave.Item2);
                                 break;
                             }
-                            
-                            
+
+
                     }
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
-            
+
 
         }
 
-        
+
     }
 }
