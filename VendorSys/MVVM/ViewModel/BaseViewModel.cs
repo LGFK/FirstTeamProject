@@ -30,7 +30,14 @@ internal abstract class BaseViewModel : ObservableObject
     public List<Product> Data
     {
         get { return _data; }
-        set { _data = value; }
+        set 
+        {
+            if (_data != value)
+            {
+                _data = value;
+                OnPropertyChanged(nameof(Data));
+            }
+        }
     }
     public Product? SelectedProduct
     {
@@ -76,7 +83,7 @@ internal abstract class BaseViewModel : ObservableObject
     {
         if (_filterText != "" && _filterText != null)
         {
-            _filteredData = _data.Where(item => item.ToLower().Contains(_filterText.ToLower())).ToList();
+            _filteredData = _data.Where(item => item.Pname.ToLower().Contains(_filterText.ToLower())).ToList();
         }
         else
         {
@@ -87,7 +94,7 @@ internal abstract class BaseViewModel : ObservableObject
 
     protected BaseViewModel()
     {
-        LoadData();
+        LoadDataAsync();
         FilterData();
 
         AddCommand = new RelayCommand(o =>
@@ -99,7 +106,7 @@ internal abstract class BaseViewModel : ObservableObject
         });
     }
 
-    protected abstract void LoadData();
+    protected abstract void LoadDataAsync();
 
     private void OnProductSelected(Product selectedProduct)
     {

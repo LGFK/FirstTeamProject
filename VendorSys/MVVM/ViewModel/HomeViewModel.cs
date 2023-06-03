@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
@@ -8,11 +10,15 @@ namespace VendorSys.MVVM.ViewModel;
 
 internal class HomeViewModel : BaseViewModel
 {
-    protected override void LoadData()
+    protected override void LoadDataAsync()
     {
         // Логіка отримання даних товарів на знижку з бази даних
-        ProductRepository.ReadProductRepository();
-        Data = ProductRepository.Products.Where(item => item.Discount > 0).ToList();
+        //ProductRepository.ReadProductRepository();
+        //Data = ProductRepository.Products.ToList();
+        VendorSysClient vendorSysClient = new VendorSysClient();
+        vendorSysClient.GetProductsAsync();
+        Data = vendorSysClient.Products;
+        
     }
     // Додатковий код специфічний для HomeViewModel
 }
