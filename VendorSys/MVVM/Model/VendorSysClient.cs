@@ -18,10 +18,17 @@ namespace VendorSys.MVVM.Model
     {
         public VendorSysClient()
         {
+            customers = new List<Customer>();
+            cashiers = new List<Cashier>();
+            receipt = new Receipt();
+            receiptProducts = new List<Product>();
             products = new List<Product>();
+            
         }
         List<Customer>customers;
         List<Cashier> cashiers;
+        Receipt receipt;
+        List<Product> receiptProducts;
         List<Product> products;
 
         string jsonToReceive;
@@ -38,6 +45,16 @@ namespace VendorSys.MVVM.Model
         {
             get { return cashiers; }
             set { cashiers = value; }
+        }
+        public Receipt Receipt
+        {
+            get { return receipt; }
+            set { receipt = value; }
+        }
+        public List<Product> ReceiptProducts
+        {
+            get { return receiptProducts; }
+            set { receiptProducts = value; }
         }
         public List<Product> Products 
         { 
@@ -120,19 +137,53 @@ namespace VendorSys.MVVM.Model
         {
             try
             {
+                
                 var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
                 TcpClient client = new TcpClient();
                 client.Connect(endPoint);
 
                 var networkStream = client.GetStream();
                 buffer = new byte[4];
-                string message = $"Cashiers<|>{id}";
+                string message = $"Receipts<|>{id}";
                 var requestMessage = Encoding.UTF8.GetBytes(message);
                 buffer = BitConverter.GetBytes(requestMessage.Length);
                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
                 await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
 
+                buffer = new byte[4];
+                await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                respSize = BitConverter.ToInt32(buffer, 0);
+                requestToReceive = new byte[respSize];
+                await networkStream.ReadAsync(requestToReceive, 0, requestToReceive.Length);
+                jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
+                var receipt = JsonConvert.DeserializeObject<Receipt>(jsonToReceive);
 
+                buffer = new byte[4];
+                await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                respSize = BitConverter.ToInt32(buffer, 0);
+                requestToReceive = new byte[respSize];
+                await networkStream.ReadAsync(requestToReceive, 0, requestToReceive.Length);
+                jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
+                var receiptProducts = JsonConvert.DeserializeObject<List<Product>>(jsonToReceive);
+                client.Close();
+
+                Receipt = receipt;
+                foreach (var item in receiptProducts)
+                {
+                    ReceiptProducts.Add(new Product(item.Id, item.Pname, item.Price,
+                        item.Amount, item.ProdType, item.Image, item.Discount,
+                        item.ProdTypeNavigation, item.ProductsSolds));
+                }
+
+
+                //foreach(var item in ReceiptProducts)
+                //{
+                //    MessageBox.Show($"Id{item.Id}" +
+                //        $"\nPname: {item.Pname}" +
+                //        $"\n{item.Price}" +
+                //        $"\n{item.Amount}" +
+                //        $"\n{item.ProdType}");
+                //}
             }
             catch(Exception ex)
             {
@@ -143,7 +194,6 @@ namespace VendorSys.MVVM.Model
         {
             try
             {
-                
                 var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
                 TcpClient client = new TcpClient();
                 client.Connect(endPoint);
@@ -170,8 +220,9 @@ namespace VendorSys.MVVM.Model
                 {
                     Products.Add(new Product(item.Id, item.Pname, item.Price,
                         item.Amount, item.ProdType, item.Image, item.Discount,
-                        new ProductType(), new List<ProductsSold>()));
+                        item.ProdTypeNavigation, item.ProductsSolds));
                 }
+
                 //Products = products;
                 //ObservableCollection<Product> productCollection = new ObservableCollection<Product>();
                 //foreach (var item in products)

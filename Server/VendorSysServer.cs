@@ -85,7 +85,13 @@ namespace Server
 
                                 var id = Int32.Parse(reqStr[1]);
                                 var _receipt = await db.GetConcreeteReceiptById(id);
-                                jsonToSend = JsonConvert.SerializeObject(_receipt);
+                                MessageBox.Show(_receipt._receipt.TotalPrice.ToString());
+                                jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
+                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+                                buffer = BitConverter.GetBytes(responseToSend.Length);
+                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                jsonToSend = JsonConvert.SerializeObject(_receipt._prodsInReceipt);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
