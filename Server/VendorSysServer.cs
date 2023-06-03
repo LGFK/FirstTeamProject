@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Server.DB;
-
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -14,12 +13,12 @@ namespace Server
         VendorSysDb db;
         public VendorSysServer()
         {
-            tcpListener = new TcpListener(IPAddress.Any,1488);
+            tcpListener = new TcpListener(IPAddress.Any, 1488);
             DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
             var config = new ConfigurationBuilder().SetBasePath(di.FullName).AddJsonFile("appsettings1.json").Build();
             db = new VendorSysDb(config.GetConnectionString("MainConnectionString"));
         }
-        
+
         public void StartServer()
         {
             tcpListener.Start();
@@ -42,7 +41,7 @@ namespace Server
 
         public async Task HandleConnectionAsync(TcpClient _client)
         {
-            if(_client.Connected)
+            if (_client.Connected)
             {
                 try
                 {
@@ -55,8 +54,7 @@ namespace Server
                     buffer = new byte[reqSize];
                     await networkStream.ReadAsync(buffer, 0, reqSize);
                     var reqStr = Encoding.UTF8.GetString(buffer).Split("<|>");
-
-                    switch(reqStr[0])
+        switch(reqStr[0])
                     {
                         case "Customers":
                             {
@@ -176,12 +174,12 @@ namespace Server
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
-            
+
 
         }
 
-        
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Abstractions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
@@ -32,12 +33,10 @@ internal class BasketViewModel : ObservableObject
     public BasketViewModel()
     {
         //TEST
-        ProductInBosket.Add(new Product(3, "Banana", 300, 3, 2, "image2.jpg", 25, new ProductType(), new List<ProductsSold>()));
-        
+        //ProductInBosket.Add(new Product(3, "Banana", 300, 3, 2, "image2.jpg", 25, new ProductType(), new List<ProductsSold>()));        
        
         BuyCommand = new RelayCommand(o =>
         {
-            
             // тут реалізувати логіку відправки чека на сервер (Гамлет)
             MessageBox.Show("TestBuy");
         });
@@ -48,12 +47,18 @@ internal class BasketViewModel : ObservableObject
             {
                 ProductInBosket.Remove(SelectedProduct);
             }
-            
         });
     }
+
     public void AddProductToBasket(Product product)
     {
         // Додати продукт до кошика
+        if(ProductInBosket.Contains(product)) // логіка перевірки скільки на складі вже є
+        {
+            int index = ProductInBosket.IndexOf(product);
+            ProductInBosket[index].Amount = ProductInBosket[index].Amount++;
+        }
+        product.Amount = 1;
         ProductInBosket.Add(product);
     }
 }

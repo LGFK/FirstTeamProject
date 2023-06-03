@@ -11,6 +11,8 @@
 
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="920"
+        MinHeight="600"
+        MinWidth="920"
         WindowStyle="None"
         
         Background="Transparent"

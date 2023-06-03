@@ -22,4 +22,5 @@ public partial class Product
     public virtual ProductType? ProdTypeNavigation { get; set; }
 
     public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
+    
 }

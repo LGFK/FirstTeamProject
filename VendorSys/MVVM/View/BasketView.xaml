@@ -54,6 +54,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <!--Потрібно дадати місце знаходження Sourse= ""-->
                                 <Image Grid.Column="0" Grid.RowSpan="2" Width="32"
@@ -74,6 +75,10 @@
                                         Command="{Binding ElementName=lvProducts,Path=DataContext.DellCommand }"
                                         CommandParameter="{Binding}"
                                         >Delete</Button>
+                                <TextBlock Grid.Column="3" Grid.Row="1"
+                                           Text="{Binding Amount}"
+                                           Margin="12,0,0,6"
+                                           Foreground="White"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
