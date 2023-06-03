@@ -1,5 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Server.DB.ConfigFiles;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +31,21 @@ namespace Server.DB
         public async Task AddCustomer(Customer _cust)
         {
             _dbContext?.Customers.Add(_cust);
-            _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task DelCustomer(int _id)
         {
-            _dbContext.Remove(_dbContext.Customers.FirstOrDefault(x => x.Id == _id));
+            try
+            {
+                _dbContext.Remove(_dbContext.Customers.FirstOrDefault(x => x.Id == _id));
+                _dbContext.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         public async Task<(Receipt? _receipt, List<Product?> _prodsInReceipt)> GetConcreeteReceiptById(int id)
@@ -113,9 +124,16 @@ namespace Server.DB
         }
 
 
-        public async Task<ProductType> GetProductTypeById(int id)
+        public async Task<string> GetProductTypeById(int id)
         {
-            return _dbContext.ProductTypes.Where(x => x.Id == id).FirstOrDefault();
+            var res = _dbContext.ProductTypes.Where(x=>x.Id == id).Select(x => x.TypeName);
+            foreach (var type in res)
+            {
+                return type;
+            }
+            throw new Exception("Unhandled Exception");
+
+            
         }
 
     }

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Server.DB.ConfigFiles;
 
- namespace Server.DB;
+namespace Server.DB;
 public partial class VendorSysDbContext : DbContext
 {
     public VendorSysDbContext()

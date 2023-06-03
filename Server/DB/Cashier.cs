@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Server.DB;
 
-namespace Server.DB;
+namespace Server.DB.ConfigFiles;
 
 public partial class Cashier
 {

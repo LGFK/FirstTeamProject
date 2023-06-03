@@ -14,6 +14,7 @@ namespace Server
 {
     public partial class CustomerForm : Form
     {
+        int _customerId;
         VendorSysDb _db;
         public CustomerForm(VendorSysDb db)
         {
@@ -60,5 +61,21 @@ namespace Server
             FillWithCustomers();
             
         }
+
+        private async void deleteFromDbBttn_Click(object sender, EventArgs e)
+        {
+            await _db.DelCustomer(Int32.Parse(lV1.SelectedItems[0].Text));
+            FillWithCustomers();
+        }
+
+        private void addNewBttn_Click(object sender, EventArgs e)
+        {
+            AddNewCustommerForm frm = new AddNewCustommerForm(_db);
+            frm.ShowDialog();
+            FillWithCustomers();
+            
+        }
+
+        
     }
 }

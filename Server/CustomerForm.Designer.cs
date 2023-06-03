@@ -41,6 +41,7 @@
             this.deleteFromDbBttn.TabIndex = 10;
             this.deleteFromDbBttn.Text = "Delete From DB";
             this.deleteFromDbBttn.UseVisualStyleBackColor = true;
+            this.deleteFromDbBttn.Click += new System.EventHandler(this.deleteFromDbBttn_Click);
             // 
             // addNewBttn
             // 
@@ -50,11 +51,13 @@
             this.addNewBttn.TabIndex = 9;
             this.addNewBttn.Text = "Add New";
             this.addNewBttn.UseVisualStyleBackColor = true;
+            this.addNewBttn.Click += new System.EventHandler(this.addNewBttn_Click);
             // 
             // lV1
             // 
             this.lV1.FullRowSelect = true;
             this.lV1.Location = new System.Drawing.Point(24, 25);
+            this.lV1.MultiSelect = false;
             this.lV1.Name = "lV1";
             this.lV1.Size = new System.Drawing.Size(477, 343);
             this.lV1.TabIndex = 8;
