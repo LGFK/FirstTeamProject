@@ -34,8 +34,8 @@ public partial class Product
         ProdTypeNavigation = prodTypeNavigation;
         ProductsSolds = productsSolds;
     }
-    public string ToLower()
-    {
-        return Pname.ToLower();
-    }
+    //public string ToLower()
+    //{
+    //    return Pname.ToLower();
+    //}
 }

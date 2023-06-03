@@ -8,11 +8,12 @@ using VendorSys.MVVM.Model;
 namespace VendorSys.MVVM.ViewModel;
 internal class CatalogViewModel : BaseViewModel
 {
-    protected override void LoadData()
+    protected override async void LoadDataAsync()
     {
         // Логіка отримання всіх товарів з бази даних
-        ProductRepository.ReadProductRepository();
-        Data = ProductRepository.Products.ToList();
+        //ProductRepository.ReadProductRepository();
+        //Data = ProductRepository.Products.ToList();
+        
     }
     // Додатковий код специфічний для CatalogViewModel
 }

@@ -92,7 +92,11 @@ namespace Server
                         case "Products":
                             {
                                 var _product = await db.GetProductsList();
-                                jsonToSend = JsonConvert.SerializeObject(_product);
+                                jsonToSend = JsonConvert.SerializeObject(_product,Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -134,7 +138,7 @@ namespace Server
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Server\n"+ex.Message);
                 }
 
             }

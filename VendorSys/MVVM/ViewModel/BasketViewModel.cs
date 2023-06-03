@@ -33,8 +33,7 @@ internal class BasketViewModel : ObservableObject
     public BasketViewModel()
     {
         //TEST
-        ProductInBosket.Add(new Product(3, "Banana", 300, 1, 2, "image2.jpg", 25, new ProductType(), new List<ProductsSold>()));
-        
+        //ProductInBosket.Add(new Product(3, "Banana", 300, 3, 2, "image2.jpg", 25, new ProductType(), new List<ProductsSold>()));        
        
         BuyCommand = new RelayCommand(o =>
         {
