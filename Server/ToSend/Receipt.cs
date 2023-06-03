@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Server.DB.ConfigFiles;
 
-namespace Server.DB;
-
-public partial class Receipt
+namespace Server.ToSend;
+public partial class ReceiptToSend
 {
     public int Id { get; set; }
 
@@ -16,9 +15,7 @@ public partial class Receipt
 
     public DateTime Date { get; set; }
 
-    public virtual Cashier? Cashier { get; set; }
+    
 
-    public virtual Customer? Customer { get; set; }
-
-    public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
+    
 }

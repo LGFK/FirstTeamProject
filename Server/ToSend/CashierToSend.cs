@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Server.DB;
 
-namespace Server.DB.ConfigFiles;
+namespace Server.ToSend;
 
-public partial class Cashier
+public class CashierToSend
 {
     public int Id { get; set; }
 
@@ -18,5 +18,5 @@ public partial class Cashier
 
     public bool IsFired { get; set; }
 
-    public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
+    
 }

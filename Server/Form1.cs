@@ -41,7 +41,7 @@ namespace Server
             _db = new VendorSysDb(config.GetConnectionString("MainConnectionString"));
         }
 
-        private void serverStart_Click(object sender, EventArgs e)
+        private async void serverStart_Click(object sender, EventArgs e)
         {
             _server = new VendorSysServer();
             _server.StartServer();
