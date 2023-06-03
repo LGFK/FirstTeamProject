@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Server.DB;
 
 namespace Server.DB.ConfigFiles;
@@ -17,6 +18,6 @@ public partial class Cashier
     public string PhoneN { get; set; } = null!;
 
     public bool IsFired { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
 }
