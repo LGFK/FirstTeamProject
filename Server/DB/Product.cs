@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Server.DB;
@@ -18,9 +19,9 @@ public partial class Product
     public string Image { get; set; } = null!;
 
     public int? Discount { get; set; }
-
+    [JsonIgnore]
     public virtual ProductType? ProdTypeNavigation { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
     
 }

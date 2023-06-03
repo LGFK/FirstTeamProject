@@ -54,33 +54,26 @@ namespace Server
                     buffer = new byte[reqSize];
                     await networkStream.ReadAsync(buffer, 0, reqSize);
                     var reqStr = Encoding.UTF8.GetString(buffer).Split("<|>");
-        switch(reqStr[0])
+                    switch (reqStr[0])
                     {
                         case "Customers":
                             {
                                 var _customers = await db.GetCustomers();
-                               
-                                jsonToSend = JsonConvert.SerializeObject(_customers ,Formatting.Indented,
-                                    new JsonSerializerSettings()
-                                    {
-                                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                                    });
+
+                                jsonToSend = JsonConvert.SerializeObject(_customers, Formatting.Indented);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 MessageBox.Show(responseToSend.Length.ToString());
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                await networkStream.WriteAsync(buffer, 0, 4);
                                 await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
                             }
                         case "Cashiers":
                             {
                                 var _cashiers = await db.GetCashiers();
-                                
-                                jsonToSend = JsonConvert.SerializeObject(_cashiers, Formatting.Indented,
-                                    new JsonSerializerSettings()
-                                    {
-                                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                                    });
+
+                                jsonToSend = JsonConvert.SerializeObject(_cashiers, Formatting.Indented);
+
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -92,7 +85,6 @@ namespace Server
 
                                 var id = Int32.Parse(reqStr[1]);
                                 var _receipt = await db.GetConcreeteReceiptById(id);
-
                                 jsonToSend = JsonConvert.SerializeObject(_receipt);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
@@ -103,12 +95,8 @@ namespace Server
                         case "Products":
                             {
                                 var _products = await db.GetProductsList();
-                               
-                                jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented,
-                                    new JsonSerializerSettings()
-                                    {
-                                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                                    });
+
+                                jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -119,15 +107,11 @@ namespace Server
                             {
                                 int id = Int32.Parse(reqStr[1]);
                                 var _pType = await db.GetProductTypeById(id);
-                                MessageBox.Show(_pType);
-                                //if(_pType.Length>=2)
-                                //{
-                                //    _pType += "  ";
-                                //}
+
                                 responseToSend = Encoding.UTF8.GetBytes(_pType);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, 4);
-                                await networkStream.WriteAsync(responseToSend, 0, buffer.Length);
+                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
                             }
                         case "AddCustomer":
@@ -156,26 +140,22 @@ namespace Server
                             }
                         case "DeleteCust":
                             {
-
-
-
-
                                 int id = Int32.Parse(reqStr[1]);
                                 db.DelCustomer(id);
                                 break;
-                                
                             }
 
 
                     }
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message + "Server");
                 }
 
             }
+
 
 
         }

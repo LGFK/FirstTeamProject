@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Server.DB;
@@ -12,8 +13,8 @@ public partial class ProductsSold
     public int AmountSold { get; set; }
 
     public int? ReceiptId { get; set; }
-
+    [JsonIgnore]
     public virtual Product? Product { get; set; }
-
+    [JsonIgnore]
     public virtual Receipt? Receipt { get; set; }
 }
