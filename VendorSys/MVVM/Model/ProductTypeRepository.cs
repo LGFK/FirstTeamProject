@@ -27,7 +27,6 @@ namespace VendorSys.MVVM.Model
         public static ObservableCollection<ProductType>? ReadProductRepository()
         {
             ObservableCollection<ProductType>? ProductTypes = new ObservableCollection<ProductType>();
-
             // в колекцію "ProductType" отримати ProductType від сервера. 
 
             return ProductTypes;

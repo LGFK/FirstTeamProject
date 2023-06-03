@@ -20,10 +20,122 @@ namespace VendorSys.MVVM.Model
         {
             products = new List<Product>();
         }
+        List<Customer>customers;
+        List<Cashier> cashiers;
         List<Product> products;
-        public List<Product> Products { 
+
+        string jsonToReceive;
+        byte[] requestToReceive;
+        byte[] buffer;
+        int respSize;
+
+        public List<Customer> Customers
+        {
+            get { return customers; } 
+            set { customers = value; }
+        }
+        public List<Cashier> Cashiers
+        {
+            get { return cashiers; }
+            set { cashiers = value; }
+        }
+        public List<Product> Products 
+        { 
             get { return products; } 
             set { products = value; }
+        }
+
+        public async Task GetCustomersAsync()
+        {
+            try
+            {
+                var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
+                TcpClient client = new TcpClient();
+                client.Connect(endPoint);
+
+                var networkStream = client.GetStream();
+                buffer = new byte[4];
+                string message = "Customers";
+                var requestMessage = Encoding.UTF8.GetBytes(message);
+                buffer = BitConverter.GetBytes(requestMessage.Length);
+                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
+
+                await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                respSize = BitConverter.ToInt32(buffer, 0);
+
+                requestToReceive = new byte[respSize];
+                await networkStream.ReadAsync(requestToReceive, 0, requestToReceive.Length);
+                jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
+                List<Customer>? customers = new List<Customer>();
+                customers = JsonConvert.DeserializeObject<List<Customer>>(jsonToReceive);
+                client.Close();
+                foreach (var item in customers)
+                {
+                    Customers.Add(new Customer(item.Id, item.FirstName, item.SecondName, item.Email, item.PhoneN, item.Receipts));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public async Task GetCashiersAsync()
+        {
+            try
+            {
+                var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
+                TcpClient client = new TcpClient();
+                client.Connect(endPoint);
+
+                var networkStream = client.GetStream();
+                buffer = new byte[4];
+                string message = "Cashiers";
+                var requestMessage = Encoding.UTF8.GetBytes(message);
+                buffer = BitConverter.GetBytes(requestMessage.Length);
+                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
+
+                await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                respSize = BitConverter.ToInt32(buffer, 0);
+
+                requestToReceive = new byte[respSize];
+                await networkStream.ReadAsync(requestToReceive, 0, requestToReceive.Length);
+                jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
+                List<Cashier>? cashiers = new List<Cashier>();
+                cashiers = JsonConvert.DeserializeObject<List<Cashier>>(jsonToReceive);
+                client.Close();
+                foreach (var item in cashiers)
+                {
+                    Cashiers.Add(new Cashier(item.Id,item.FirstName,item.SecondName,
+                        item.Email,item.PhoneN,item.IsFired,item.Receipts));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public async Task GetReceiptsAsync()
+        {
+            try
+            {
+                var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
+                TcpClient client = new TcpClient();
+                client.Connect(endPoint);
+
+                var networkStream = client.GetStream();
+                buffer = new byte[4];
+                string message = "Cashiers";
+                var requestMessage = Encoding.UTF8.GetBytes(message);
+                buffer = BitConverter.GetBytes(requestMessage.Length);
+                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         public async Task GetProductsAsync()
         {
@@ -34,10 +146,9 @@ namespace VendorSys.MVVM.Model
                 TcpClient client = new TcpClient();
                 client.Connect(endPoint);
 
-                string jsonToReceive;
-                byte[] requestToReceive;
+               
                 var networkStream = client.GetStream();
-                byte[] buffer = new byte[4];
+                buffer = new byte[4];
                 string message = "Products";
                 var requestMessage = Encoding.UTF8.GetBytes(message);
                 buffer = BitConverter.GetBytes(requestMessage.Length);
@@ -45,7 +156,7 @@ namespace VendorSys.MVVM.Model
                 await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
 
                 await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                int respSize = BitConverter.ToInt32(buffer, 0);
+                respSize = BitConverter.ToInt32(buffer, 0);
 
                 requestToReceive = new byte[respSize];
                 await networkStream.ReadAsync(requestToReceive, 0, requestToReceive.Length);
@@ -73,5 +184,7 @@ namespace VendorSys.MVVM.Model
                 MessageBox.Show(ex.Message);
             }
         }
+        
+
     }
 }
