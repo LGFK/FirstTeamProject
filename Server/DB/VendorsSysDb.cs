@@ -124,9 +124,16 @@ namespace Server.DB
         }
 
 
-        public async Task<ProductType> GetProductTypeById(int id)
+        public async Task<string> GetProductTypeById(int id)
         {
-            return _dbContext.ProductTypes.Where(x => x.Id == id).FirstOrDefault();
+            var res = _dbContext.ProductTypes.Where(x=>x.Id == id).Select(x => x.TypeName);
+            foreach (var type in res)
+            {
+                return type;
+            }
+            throw new Exception("Unhandled Exception");
+
+            
         }
 
     }

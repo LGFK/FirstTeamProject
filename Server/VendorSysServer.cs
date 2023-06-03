@@ -61,15 +61,15 @@ namespace Server
                         case "Customers":
                             {
                                 var _customers = await db.GetCustomers();
-                                //List<CustomerToSend> _custToSend = new List<CustomerToSend>();
-                                //foreach(var customer in _customers)
-                                //{
-                                //    _custToSend.Add(new CustomerToSend() { Email = customer.Email
-                                //        , FirstName = customer.FirstName, SecondName = customer.SecondName, Id = customer.Id,PhoneN=customer.PhoneN });
-                                //}    
-                                jsonToSend = JsonConvert.SerializeObject(_customers);
+                               
+                                jsonToSend = JsonConvert.SerializeObject(_customers ,Formatting.Indented,
+                                    new JsonSerializerSettings()
+                                    {
+                                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                    });
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
+                                MessageBox.Show(responseToSend.Length.ToString());
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
                                 await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
@@ -77,13 +77,12 @@ namespace Server
                         case "Cashiers":
                             {
                                 var _cashiers = await db.GetCashiers();
-                                //List<CashierToSend> cashiers = new List<CashierToSend>();
-                                //foreach( var cashier in _cashiers)
-                                //{
-                                //    cashiers.Add(new CashierToSend() { Email = cashier.Email
-                                //        , FirstName = cashier.FirstName, Id = cashier.Id, IsFired = cashier.IsFired, PhoneN = cashier.PhoneN, SecondName = cashier.SecondName });
-                                //}
-                                jsonToSend = JsonConvert.SerializeObject(_cashiers);
+                                
+                                jsonToSend = JsonConvert.SerializeObject(_cashiers, Formatting.Indented,
+                                    new JsonSerializerSettings()
+                                    {
+                                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                    });
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -106,29 +105,31 @@ namespace Server
                         case "Products":
                             {
                                 var _products = await db.GetProductsList();
-                                //var prodsToSend = new List<ProductToSend>();
-                                //for(int i = 0; i<_products.Count;i++)
-                                //{
-                                //    prodsToSend.Add(new ProductToSend()
-                                //    {
-                                //        Pname = _products[i].Pname,
-                                //        Id = _products[i].Id,
-                                //        Amount = _products[i].Amount,
-                                //        Discount = _products[i].Discount,
-                                //        Image = _products[i].Image,
-                                //        Price = _products[i].Price,
-                                //        ProdType = _products[i].ProdType
-                                //    });
-                                //}
-                                jsonToSend = JsonConvert.SerializeObject(_products);
+                               
+                                jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented,
+                                    new JsonSerializerSettings()
+                                    {
+                                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                    });
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
                                 await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
                             }
-                        case "ProductTypes":
+                        case "ProductType":
                             {
+                                int id = Int32.Parse(reqStr[1]);
+                                var _pType = await db.GetProductTypeById(id);
+                                MessageBox.Show(_pType);
+                                //if(_pType.Length>=2)
+                                //{
+                                //    _pType += "  ";
+                                //}
+                                responseToSend = Encoding.UTF8.GetBytes(_pType);
+                                buffer = BitConverter.GetBytes(responseToSend.Length);
+                                await networkStream.WriteAsync(buffer, 0, 4);
+                                await networkStream.WriteAsync(responseToSend, 0, buffer.Length);
                                 break;
                             }
                         case "AddCustomer":
@@ -154,6 +155,17 @@ namespace Server
                                 (Receipt, List<(Product, int amount)>) receiptToSave = JsonConvert.DeserializeObject<(Receipt, List<(Product, int amount)>)>(reqStr[1]);
                                 db.AddReceipt(receiptToSave.Item1, receiptToSave.Item2);
                                 break;
+                            }
+                        case "DeleteCust":
+                            {
+
+
+
+
+                                int id = Int32.Parse(reqStr[1]);
+                                db.DelCustomer(id);
+                                break;
+                                
                             }
 
 

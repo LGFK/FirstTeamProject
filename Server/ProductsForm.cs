@@ -50,7 +50,7 @@ namespace Server
             {
                 ListViewItem lvItem = new ListViewItem(product.Id.ToString());
                 lvItem.SubItems.Add(product.Pname);
-                lvItem.SubItems.Add((await _db.GetProductTypeById((int)product.ProdType)).TypeName);
+                lvItem.SubItems.Add(await _db.GetProductTypeById((int)product.ProdType));
                 lvItem.SubItems.Add(product.Amount.ToString());
                 lV1.Items.Add(lvItem);
             }

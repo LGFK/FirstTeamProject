@@ -26,7 +26,7 @@ namespace Server
             {
                 if (string.IsNullOrEmpty(tbEmail.Text) != true && string.IsNullOrEmpty(tbName.Text) != true)
                 {
-                    CustomerToSend cust = new CustomerToSend() { FirstName = tbName.Text, SecondName = tbEmail.Text };
+                    Customer cust = new Customer() { FirstName = tbName.Text, SecondName = tbEmail.Text };
                     if(string.IsNullOrEmpty(tbSName.Text)!=true)
                     {
                         cust.Email = tbSName.Text;
