@@ -13,7 +13,9 @@ internal class CatalogViewModel : BaseViewModel
         // Логіка отримання всіх товарів з бази даних
         //ProductRepository.ReadProductRepository();
         //Data = ProductRepository.Products.ToList();
-        
+        VendorSysClient vendorSysClient = new VendorSysClient();
+        vendorSysClient.GetProductsAsync();
+        Data = vendorSysClient.Products;
     }
     // Додатковий код специфічний для CatalogViewModel
 }

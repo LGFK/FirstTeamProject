@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 
@@ -17,7 +18,7 @@ public partial class Cashier
     public string PhoneN { get; set; } = null!;
 
     public bool IsFired { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
 
     public Cashier(int id, string firstName, string secondName, string email, string phoneN, bool isFired, ICollection<Receipt> receipts)

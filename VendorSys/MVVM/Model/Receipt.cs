@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VendorSys.MVVM.Model;
@@ -14,10 +15,10 @@ public partial class Receipt
     public int? CashierId { get; set; }
 
     public DateTime Date { get; set; }
-
+    [JsonIgnore]
     public virtual Cashier? Cashier { get; set; }
-
+    [JsonIgnore]
     public virtual Customer? Customer { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
 }

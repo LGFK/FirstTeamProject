@@ -16,7 +16,9 @@ internal class HomeViewModel : BaseViewModel
         //ProductRepository.ReadProductRepository();
         //Data = ProductRepository.Products.ToList();
         VendorSysClient vendorSysClient = new VendorSysClient();
+        //Thread.Sleep(6000);
         vendorSysClient.GetProductsAsync();
+        //vendorSysClient.GetReceiptsAsync(1);
         Data = vendorSysClient.Products;
         
     }
