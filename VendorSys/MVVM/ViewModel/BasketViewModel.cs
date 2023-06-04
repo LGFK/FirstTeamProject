@@ -81,8 +81,10 @@ internal class BasketViewModel : ObservableObject
     protected async void LoadDataAsync()
     {
         // Отримання товарів з бази даних
-        VendorSysClient vendorSysClient = new VendorSysClient();
+
+
         //_cashiers = Task.Run(()=>;
+
     }
     public void AddProductToBasket(Product product)
     {
