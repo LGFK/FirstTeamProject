@@ -336,7 +336,7 @@ namespace VendorSys.MVVM.Model
             throw new Exception();
         }
 
-        public async Task SendNewReceiptAsync(Receipt receipt,List<(Product,int amount)> productsAmount)
+        public async Task SendNewReceiptAsync(Receipt receipt,List<Product> products,List<int> amount)
         {
             var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
             TcpClient client = new TcpClient();
@@ -344,8 +344,9 @@ namespace VendorSys.MVVM.Model
 
             var networkStream = client.GetStream();
             buffer = new byte[4];
-            (Receipt, List<(Product, int)>) receiptProductsAmount = (receipt,productsAmount);
-            string message = $"AddReceipt<|>{receiptProductsAmount}";
+            string productsToSend = JsonConvert.SerializeObject(products);
+            string amountToSend = JsonConvert.SerializeObject(amount);
+            string message = $"AddReceipt<|>{receipt}<|>{productsToSend}<|>{amountToSend}";
             var requestMessage = Encoding.UTF8.GetBytes(message);
             buffer = BitConverter.GetBytes(requestMessage.Length);
             await networkStream.WriteAsync(buffer, 0, buffer.Length);
