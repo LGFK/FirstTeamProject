@@ -29,7 +29,15 @@ namespace Server.DB
             _dbContext.ProductTypes.Add(productType);
             _dbContext.SaveChanges();
         }
-
+        public async Task SetDiscounts(List<int> _ids,int discount)
+        {
+            for(int i=0;i<_ids.Count;i++)
+            {
+                _dbContext.Products.FirstOrDefault(x => x.Id == _ids[i]).Discount = discount;
+                
+            }
+            _dbContext.SaveChanges();
+        }
         public async Task<List<ProductType>> GetAllTypes()
         {
             return _dbContext.ProductTypes.ToList();

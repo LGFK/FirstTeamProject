@@ -94,15 +94,19 @@ namespace Server
                                 await networkStream.WriteAsync(responseToSend,0,responseToSend.Length);
                                 break;
                             }
+                        case "Discounts":
+                            {
+                                int discount = Int32.Parse(reqStr[1]);
+                                List<int> _ids = JsonConvert.DeserializeObject<List<int>>(reqStr[2]);
+                                
+                                db.SetDiscounts(_ids,discount);
+                                break;
+                            }
                         case "Receipts":
                             {
                                 var id = Int32.Parse(reqStr[1]);
                                 var _receipt = await db.GetConcreeteReceiptById(id);
-
-                                MessageBox.Show(_receipt._receipt.TotalPrice.ToString());
                                 jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
-                                MessageBox.Show(jsonToSend);
-
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -148,8 +152,6 @@ namespace Server
                             }
                         case "AddReceipt":
                             {
-
-                                
                                 var receipt = JsonConvert.DeserializeObject<Receipt>(reqStr[1]);
                                 var prodsInReceipt = JsonConvert.DeserializeObject<List<Product>>(reqStr[2]);
                                 var amountList = JsonConvert.DeserializeObject<List<int>>(reqStr[3]);

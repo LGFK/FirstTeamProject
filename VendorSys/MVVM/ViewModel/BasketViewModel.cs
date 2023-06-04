@@ -82,7 +82,7 @@ internal class BasketViewModel : ObservableObject
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
         vendorSysClient.GetCashiersAsync();
-        _cashiers = vendorSysClient.Cashiers;
+        
     }
     public void AddProductToBasket(Product product)
     {
