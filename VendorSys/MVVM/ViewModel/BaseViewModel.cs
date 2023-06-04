@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Markup;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
@@ -21,17 +17,18 @@ namespace VendorSys.MVVM.ViewModel;
 /// </summary>
 internal abstract class BaseViewModel : ObservableObject
 {
+
     private string? _filterText;
     private List<Product> _data;
     private List<Product> _filteredData;
     private Product _selectedProduct;
     public event EventHandler<ProductSelectedEventArgs> ProductSelected;
-    public RelayCommand AddCommand { get; set; }
-
+    protected abstract void LoadDataAsync();
+    public RelayCommand AddToCartCommand { get; private set; }
     public List<Product> Data
     {
         get { return _data; }
-        set 
+        set
         {
             if (_data != value)
             {
@@ -98,31 +95,15 @@ internal abstract class BaseViewModel : ObservableObject
         LoadDataAsync();
         FilterData();
 
-        AddCommand = new RelayCommand(o =>
-        {
-            if(_selectedProduct != null)
-            {
-                OnProductSelected(_selectedProduct);
-            }            
-        });
-
         AddToCartCommand = new RelayCommand(AddToCart);
     }
 
-    protected abstract void LoadDataAsync();
-
-    private void OnProductSelected(Product selectedProduct)
-    {
-        ProductSelected?.Invoke(this, new ProductSelectedEventArgs(selectedProduct));
-    }
-
-    public RelayCommand AddToCartCommand { get; private set; }
     private void AddToCart(object parameter)
     {
         if (ProductSelected != null)
         {
             var selectedProduct = parameter as Product;
             ProductSelected?.Invoke(this, new ProductSelectedEventArgs(selectedProduct));
-        }        
+        }
     }
 }

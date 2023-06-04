@@ -7,9 +7,10 @@
              xmlns:view="clr-namespace:VendorSys.MVVM.View"
              
              
+             StartupUri="\MVVM\View\SplashScreenView.xaml">
+                <!--StartupUri="\MVVM\View\MainWindow.xaml">-->
              
-
-             StartupUri="\MVVM\View\MainWindow.xaml">
+             
 
     <Application.Resources>
         <ResourceDictionary>
@@ -20,6 +21,9 @@
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/ButtonStyleBasket.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/ScrollBarStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/ButtonStyleBusketCounter.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/ImageStyleBusket.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/ButtonStyleBusketRemove.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
@@ -36,6 +40,10 @@
 
             <DataTemplate DataType="{x:Type viewModel:AllOrderViewModel}">
                 <view:AllOrderView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SplashScreenViewModel}">
+                <view:SplashScreenView/>
             </DataTemplate>
             
         </ResourceDictionary>

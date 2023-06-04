@@ -96,34 +96,6 @@
                             </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
-                                  
-                    
-                    <!--<ListBox x:Name="listView" Grid.Column="1" Grid.Row="1" Margin="10" 
-                         SelectedItem="{Binding SelectedProduct}"
-                         ItemsSource="{Binding FilteredData}"
-                         Background="Transparent"
-                         HorizontalContentAlignment="Stretch"
-                         BorderThickness="0">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="2" />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="#7C80C2" BorderThickness="1" Margin="5">
-                                    <StackPanel>
-                                        <Image Width="250" Height="250" Source="{Binding Image}" Stretch="UniformToFill" />
-                                        <TextBlock Text="{Binding Pname}" Margin="5,0,5,5" TextAlignment="Center" FontWeight="Bold" />
-                                        <Button Content="Add to Cart" Margin="5,0,5,5"
-                                            Style="{StaticResource btnStyle1}"
-                                            Command="{Binding ElementName=listView, Path=DataContext.AddCommand}"
-                                            CommandParameter="{Binding}" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>-->
                 </Grid>
             </Grid>
         </Border>

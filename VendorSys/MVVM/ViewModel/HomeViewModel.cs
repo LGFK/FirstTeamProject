@@ -13,6 +13,11 @@ internal class HomeViewModel : BaseViewModel
 {   
     protected override  void LoadDataAsync()
     {
+        // Логіка отримання даних товарів на знижку з бази даних
+       // VendorSysClient vendorSysClient = new VendorSysClient();
+        //vendorSysClient.GetProductsAsync();
+       // Data = vendorSysClient.Products;        
+
         //Thread.Sleep(6000);
         // Отримання товарів зі знижкою з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
@@ -33,7 +38,7 @@ internal class HomeViewModel : BaseViewModel
         await vendorSysClient.SendNewReceiptAsync(r, productsAndAmount);
 
         await vendorSysClient.GetDiscountProductsAsync();*/
-        Data = Task.Run(() => vendorSysClient.GetDiscountProductsAsync()).Result;        
+        Data = Task.Run(() => vendorSysClient.GetDiscountProductsAsync()).Result; 
     }
     // Додатковий код специфічний для HomeViewModel
 

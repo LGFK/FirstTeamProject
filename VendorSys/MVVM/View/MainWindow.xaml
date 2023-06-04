@@ -14,7 +14,7 @@
         MinHeight="600"
         MinWidth="920"
         WindowStyle="None"
-        
+        WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"

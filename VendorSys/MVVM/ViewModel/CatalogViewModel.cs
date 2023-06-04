@@ -11,6 +11,7 @@ internal class CatalogViewModel : BaseViewModel
 {
     protected override void LoadDataAsync()
     {
+
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
         //Receipt r = new Receipt();
