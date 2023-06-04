@@ -123,11 +123,12 @@
                              >
 
                 </RadioButton>
-                <RadioButton Content="Page4"
+                <RadioButton Content="All order"
                              Height="50"
                              Foreground="White"
                              FontSize="14 "
-                             Style="{StaticResource MenuButtonTheme}">
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding AllOrderViewCommand}">
 
                 </RadioButton>
             </StackPanel>

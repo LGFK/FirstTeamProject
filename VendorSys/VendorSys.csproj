@@ -9,6 +9,25 @@
 
   <ItemGroup>
     <None Remove="Image\BackgroundBasket.jpeg" />
+    <None Remove="img\ArtlinePc.png" />
+    <None Remove="img\CorsairHeadPhones.png" />
+    <None Remove="img\Dxracer.png" />
+    <None Remove="img\OutlastTrials.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\ArtlinePc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\CorsairHeadPhones.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Dxracer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\OutlastTrials.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
