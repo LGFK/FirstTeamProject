@@ -18,6 +18,7 @@ class MainViewModel : ObservableObject
     public RelayCommand HomeViewCommand { get; set; }
     public RelayCommand CatalogViewCommand { get; set; }
     public RelayCommand BasketViewCommand { get; set; }
+    public RelayCommand AllOrderViewCommand { get; set; }
     public RelayCommand ButtonMinimizeClickCommand { get; set; }
     public RelayCommand WindowsSateButtonClickCommand { get; set; }
     public RelayCommand CoseButtonClickCommand { get; set; }
@@ -26,6 +27,7 @@ class MainViewModel : ObservableObject
     public HomeViewModel HomeVM { get; set; }
     public CatalogViewModel CatalogVM { get; set; }
     public BasketViewModel BasketVM { get; set; }
+    public AllOrderViewModel AllOrderVM { get; set; }
 
     private object _currentView;
     public object CurrentView
@@ -90,6 +92,11 @@ class MainViewModel : ObservableObject
         BasketViewCommand = new RelayCommand(o =>
         {
             CurrentView = BasketVM;
+        });
+
+        AllOrderViewCommand = new RelayCommand(o =>
+        {
+            CurrentView = AllOrderVM;
         });
     }
 }

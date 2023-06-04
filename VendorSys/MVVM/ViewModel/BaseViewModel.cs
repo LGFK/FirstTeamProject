@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Markup;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
@@ -104,6 +105,8 @@ internal abstract class BaseViewModel : ObservableObject
                 OnProductSelected(_selectedProduct);
             }            
         });
+
+        AddToCartCommand = new RelayCommand(AddToCart);
     }
 
     protected abstract void LoadDataAsync();
@@ -111,5 +114,15 @@ internal abstract class BaseViewModel : ObservableObject
     private void OnProductSelected(Product selectedProduct)
     {
         ProductSelected?.Invoke(this, new ProductSelectedEventArgs(selectedProduct));
+    }
+
+    public RelayCommand AddToCartCommand { get; private set; }
+    private void AddToCart(object parameter)
+    {
+        if (ProductSelected != null)
+        {
+            var selectedProduct = parameter as Product;
+            ProductSelected?.Invoke(this, new ProductSelectedEventArgs(selectedProduct));
+        }        
     }
 }
