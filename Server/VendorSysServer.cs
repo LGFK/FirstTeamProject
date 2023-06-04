@@ -85,7 +85,7 @@ namespace Server
 
                                 var id = Int32.Parse(reqStr[1]);
                                 var _receipt = await db.GetConcreeteReceiptById(id);
-                                MessageBox.Show(_receipt._receipt.TotalPrice.ToString());
+                                //MessageBox.Show(_receipt._receipt.TotalPrice.ToString());
                                 jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
@@ -134,14 +134,15 @@ namespace Server
                             }
                         case "AddReceipt":
                             {
-                                buffer = new byte[4];
-                                await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                                reqSize = BitConverter.ToInt32(buffer, 0);
-                                buffer = new byte[reqSize];
-                                await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                                reqStr[1] = Encoding.UTF8.GetString(buffer);
+                                //buffer = new byte[4];
+                                //await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                                //reqSize = BitConverter.ToInt32(buffer, 0);
+                                //buffer = new byte[reqSize];
+                                //await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                                //reqStr[1] = Encoding.UTF8.GetString(buffer);
                                 (Receipt, List<(Product, int amount)>) receiptToSave = JsonConvert.DeserializeObject<(Receipt, List<(Product, int amount)>)>(reqStr[1]);
-                                db.AddReceipt(receiptToSave.Item1, receiptToSave.Item2);
+                                db?.AddReceipt(receiptToSave.Item1, receiptToSave.Item2);
+                                MessageBox.Show($"{receiptToSave.Item1.Date}");
                                 break;
                             }
                         case "DeleteCust":

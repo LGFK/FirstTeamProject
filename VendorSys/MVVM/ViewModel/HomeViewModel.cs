@@ -11,12 +11,28 @@ namespace VendorSys.MVVM.ViewModel;
 
 internal class HomeViewModel : BaseViewModel
 {   
-    protected override void LoadDataAsync()
+    protected override  void LoadDataAsync()
     {
         // Отримання товарів зі знижкою з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
-        vendorSysClient.GetDiscountProductsAsync();
-        Data = vendorSysClient.Products;        
+        /*List<Cashier> cashiers = Task.Run(() => vendorSysClient.GetCashiersAsync()).Result;
+        MessageBox.Show(cashiers[0].Email);*/
+        /*Thread.Sleep(6000);
+        (Receipt receipt, List<Product> products) receiptProducts = await vendorSysClient.GetReceiptsAsync(1);
+        MessageBox.Show($"{receiptProducts.receipt.Date}");
+        var r = receiptProducts.receipt;
+        var rP = receiptProducts.products;
+        List<(Product, int)> productsAndAmount = new List<(Product, int)>();
+        int i = 1;
+        foreach (var item in rP)
+        {
+            productsAndAmount.Add((item, i));
+            i++;
+        }
+        await vendorSysClient.SendNewReceiptAsync(r, productsAndAmount);
+
+        await vendorSysClient.GetDiscountProductsAsync();*/
+        Data = Task.Run(() => vendorSysClient.GetDiscountProductsAsync()).Result;        
     }
     // Додатковий код специфічний для HomeViewModel
 
