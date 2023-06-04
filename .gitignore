@@ -423,3 +423,4 @@ AnotherTry/obj/project.nuget.cache
 .vs/
 bin/
 obj/
+Server/DB/ConfigFiles/appsettings1.json

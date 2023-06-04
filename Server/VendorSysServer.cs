@@ -98,9 +98,11 @@ namespace Server
                             {
                                 var id = Int32.Parse(reqStr[1]);
                                 var _receipt = await db.GetConcreeteReceiptById(id);
+
                                 MessageBox.Show(_receipt._receipt.TotalPrice.ToString());
                                 jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
                                 MessageBox.Show(jsonToSend);
+
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -146,6 +148,7 @@ namespace Server
                             }
                         case "AddReceipt":
                             {
+
                                 
                                 var receipt = JsonConvert.DeserializeObject<Receipt>(reqStr[1]);
                                 var prodsInReceipt = JsonConvert.DeserializeObject<List<Product>>(reqStr[2]);

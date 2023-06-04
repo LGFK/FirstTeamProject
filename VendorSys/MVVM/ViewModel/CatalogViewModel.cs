@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
@@ -8,12 +9,13 @@ using VendorSys.MVVM.Model;
 namespace VendorSys.MVVM.ViewModel;
 internal class CatalogViewModel : BaseViewModel
 {
-    protected override async void LoadDataAsync()
+    protected override void LoadDataAsync()
     {
-        // Логіка отримання всіх товарів з бази даних
-        //ProductRepository.ReadProductRepository();
-        //Data = ProductRepository.Products.ToList();
-        
+        // Отримання товарів з бази даних
+        VendorSysClient vendorSysClient = new VendorSysClient();
+        //vendorSysClient.GetProductsAsync();
+        //var products = Task.Run(() => vendorSysClient.GetProductsAsync()).Result;
+        Data = Task.Run(() => vendorSysClient.GetProductsAsync()).Result;
     }
     // Додатковий код специфічний для CatalogViewModel
 }

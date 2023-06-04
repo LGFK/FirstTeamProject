@@ -33,7 +33,10 @@
             <DataTemplate DataType="{x:Type viewModel:BasketViewModel}">
                 <view:BasketView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewModel:AllOrderViewModel}">
+                <view:AllOrderView/>
+            </DataTemplate>
             
         </ResourceDictionary>
     </Application.Resources>
