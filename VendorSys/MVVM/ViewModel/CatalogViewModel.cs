@@ -13,6 +13,21 @@ internal class CatalogViewModel : BaseViewModel
     {
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
+        //Receipt r = new Receipt();
+        
+        //r.TotalPrice = 315500;
+        //r.CustomerId =1;
+        //r.CashierId = 1;
+        //r.Date = DateTime.Now;
+        //int i = 1;
+        //var p = Task.Run(() => vendorSysClient.GetProductsAsync()).Result;
+        //List<int> a = new List<int>();
+        //foreach (var item in p)
+        //{
+        //    a.Add(i);
+        //    i++;
+        //}
+        //vendorSysClient.SendNewReceiptAsync(r, p,a).Wait();
         //vendorSysClient.GetProductsAsync();
         //var products = Task.Run(() => vendorSysClient.GetProductsAsync()).Result;
         Data = Task.Run(() => vendorSysClient.GetProductsAsync()).Result;
