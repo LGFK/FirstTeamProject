@@ -84,5 +84,6 @@ internal class AllOrderViewModel : ObservableObject
             _filteredData = _data;
         }
         OnPropertyChanged(nameof(FilteredData));
+
     }
 }

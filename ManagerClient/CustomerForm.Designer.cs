@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace ManagerClient
 {
     partial class CustomerForm
     {
@@ -36,8 +36,10 @@
             // deleteFromDbBttn
             // 
             this.deleteFromDbBttn.Location = new System.Drawing.Point(386, 374);
+            this.deleteFromDbBttn.MaximumSize = new System.Drawing.Size(115, 27);
+            this.deleteFromDbBttn.MinimumSize = new System.Drawing.Size(115, 27);
             this.deleteFromDbBttn.Name = "deleteFromDbBttn";
-            this.deleteFromDbBttn.Size = new System.Drawing.Size(115, 23);
+            this.deleteFromDbBttn.Size = new System.Drawing.Size(115, 27);
             this.deleteFromDbBttn.TabIndex = 10;
             this.deleteFromDbBttn.Text = "Delete From DB";
             this.deleteFromDbBttn.UseVisualStyleBackColor = true;

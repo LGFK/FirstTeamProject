@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace ManagerClient
 {
     partial class AddNewCustommerForm
     {
@@ -46,6 +46,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(179, 23);
             this.tbName.TabIndex = 0;
+            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // tbSName
             // 
@@ -53,6 +54,7 @@
             this.tbSName.Name = "tbSName";
             this.tbSName.Size = new System.Drawing.Size(179, 23);
             this.tbSName.TabIndex = 1;
+            this.tbSName.TextChanged += new System.EventHandler(this.tbSName_TextChanged);
             // 
             // tbEmail
             // 
@@ -61,6 +63,7 @@
             this.tbEmail.PlaceholderText = "Not Necessary";
             this.tbEmail.Size = new System.Drawing.Size(179, 23);
             this.tbEmail.TabIndex = 2;
+            this.tbEmail.TextChanged += new System.EventHandler(this.tbEmail_TextChanged);
             // 
             // tbPhoneN
             // 
@@ -69,6 +72,7 @@
             this.tbPhoneN.PlaceholderText = "Not Necessary";
             this.tbPhoneN.Size = new System.Drawing.Size(179, 23);
             this.tbPhoneN.TabIndex = 3;
+            this.tbPhoneN.TextChanged += new System.EventHandler(this.tbPhoneN_TextChanged);
             // 
             // nameLbl
             // 
@@ -78,6 +82,7 @@
             this.nameLbl.Size = new System.Drawing.Size(67, 15);
             this.nameLbl.TabIndex = 4;
             this.nameLbl.Text = "First Name:";
+            this.nameLbl.Click += new System.EventHandler(this.nameLbl_Click);
             // 
             // pnLbl
             // 
@@ -87,6 +92,7 @@
             this.pnLbl.Size = new System.Drawing.Size(74, 15);
             this.pnLbl.TabIndex = 5;
             this.pnLbl.Text = "Phone Num:";
+            this.pnLbl.Click += new System.EventHandler(this.pnLbl_Click);
             // 
             // mailLbl
             // 
@@ -96,6 +102,7 @@
             this.mailLbl.Size = new System.Drawing.Size(39, 15);
             this.mailLbl.TabIndex = 6;
             this.mailLbl.Text = "Email:";
+            this.mailLbl.Click += new System.EventHandler(this.mailLbl_Click);
             // 
             // secondNLbl
             // 
@@ -105,6 +112,7 @@
             this.secondNLbl.Size = new System.Drawing.Size(84, 15);
             this.secondNLbl.TabIndex = 7;
             this.secondNLbl.Text = "Second Name:";
+            this.secondNLbl.Click += new System.EventHandler(this.secondNLbl_Click);
             // 
             // titleLbl
             // 
@@ -114,6 +122,7 @@
             this.titleLbl.Size = new System.Drawing.Size(99, 15);
             this.titleLbl.TabIndex = 8;
             this.titleLbl.Text = "NEW CUSTOMER:";
+            this.titleLbl.Click += new System.EventHandler(this.titleLbl_Click);
             // 
             // bttnAdd
             // 
@@ -140,6 +149,8 @@
             this.Controls.Add(this.tbEmail);
             this.Controls.Add(this.tbSName);
             this.Controls.Add(this.tbName);
+            this.MaximumSize = new System.Drawing.Size(456, 298);
+            this.MinimumSize = new System.Drawing.Size(456, 298);
             this.Name = "AddNewCustommerForm";
             this.Text = "AddNewCustommerForm";
             this.ResumeLayout(false);

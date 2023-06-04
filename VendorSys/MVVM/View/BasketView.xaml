@@ -35,7 +35,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <ListBox x:Name="lvProducts" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Stretch" FontSize="24"
@@ -100,110 +100,3 @@
     </Border>
 </UserControl>
 
-
-
-<!--<ListView x:Name="lvProducts" 
-                          ItemsSource="{Binding ProductInBosket}"
-                          SelectedItem="{Binding SelectedProduct}"
-                          Background="Transparent"
-                          BorderThickness="0">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                -->
-<!--Потрібно дадати місце знаходження Sourse= ""-->
-<!--
-                                <Image Grid.Column="0" Grid.RowSpan="2" Width="32"
-                                       Source="{Binding Image}"
-                                       Height="32" HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"></Image>
-                                -->
-<!--Style="{StaticResource}" потрібно додати-->
-<!--
-                                <TextBlock Grid.Column="1" Text="{Binding Pname}"
-                                           Margin="12,6,0,0"
-                                           Foreground="White"/>
-                                <TextBlock Grid.Column="1" Grid.Row="1"
-                                           Text="{Binding Price}"
-                                           Margin="12,0,0,6"
-                                           Foreground="White"/>
-                                <Button Grid.Column="2"
-                                        Margin="5,5,5,5"
-                                        Style="{StaticResource btnStyle2}"
-                                        Command="{Binding ElementName=lvProducts,Path=DataContext.DellCommand }"
-                                        CommandParameter="{Binding}"
-                                        >Delete</Button>
-                                <TextBlock Grid.Column="3" Grid.Row="1"
-                                           Text="{Binding Amount}"
-                                           Margin="12,0,0,6"
-                                           Foreground="White"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->
-
-<!--<ListView x:Name="lvProducts"
-                          ItemsSource="{Binding ProductInBosket}"
-                          SelectedItem="{Binding SelectedProduct}"
-                          Background="Transparent"
-                          BorderThickness="0">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,15,0,0" HorizontalAlignment="Center" Background="SkyBlue">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="27"/>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="110"/>
-                                    <ColumnDefinition Width="50"/>
-                                </Grid.ColumnDefinitions>
-                                <Ellipse Height="80" Width="80" Margin="15, 10,0, 10" HorizontalAlignment="Left">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{Binding Image}"/>
-                                    </Ellipse.Fill>
-                                </Ellipse>
-
-                                <TextBlock Grid.Column="1" Text="{Binding Pname}" FontWeight="SemiBold" FontSize="16" VerticalAlignment="Center" Foreground="White"/>
-                                <TextBlock Grid.Column="1" Text="{Binding ProdType}" FontSize="11" VerticalAlignment="Center" Margin="0,38,0,0" Foreground="White"/>
-                                <TextBlock Grid.Column="2" Text="{Binding Discount}" FontSize="16" VerticalAlignment="Center" Margin="0,38,0,0" Foreground="White"/>
-                                <TextBlock Grid.Column="3" Text="{Binding Amount }" FontSize="16" VerticalAlignment="Center" Margin="0,38,0,0" Foreground="White"/>
-
-
-                                <StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                    <Button  Style="{StaticResource buttonCounter}"
-                                             Command="{Binding ElementName=lvProducts , Path=DataContext.CounterPlusCommand}"
-                                             CommandParameter="{Binding}">
-                                        <Image Source="/Image/Plus.png"/>
-                                    </Button>
-                                    <Button   Style="{StaticResource buttonCounter}" Margin="0,5,0,0"
-                                              Command="{Binding ElementName=lvProducts , Path=DataContext.CounterMinusCommand}"
-                                             CommandParameter="{Binding}">
-                                        <Image Source="/Image/minus.png"/>
-                                    </Button>
-                                </StackPanel>
-
-                                <TextBlock Grid.Column="5" Text="{Binding Price}" FontWeight="SemiBold" FontSize="16" VerticalAlignment="Center"/>
-
-                                <Button Grid.Column="6" Style="{StaticResource buttonCounter}" Width="25" Height="25"
-                                        Command="{Binding ElementName=lvProducts,Path=DataContext.DellCommand }"
-                                        CommandParameter="{Binding}"
-                                        >
-                                    <Image Source="/Image/Untitled.png"/>
-                                </Button>
-                            </Grid>
-
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->

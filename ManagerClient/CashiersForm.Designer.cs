@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace ManagerClient
 {
     partial class CashiersForm
     {
@@ -45,21 +45,25 @@
             // 
             // createNewBttn
             // 
-            this.createNewBttn.Location = new System.Drawing.Point(389, 367);
+            this.createNewBttn.Location = new System.Drawing.Point(389, 365);
             this.createNewBttn.Name = "createNewBttn";
-            this.createNewBttn.Size = new System.Drawing.Size(115, 23);
+            this.createNewBttn.Size = new System.Drawing.Size(115, 25);
             this.createNewBttn.TabIndex = 7;
             this.createNewBttn.Text = "Hire";
             this.createNewBttn.UseVisualStyleBackColor = true;
+            this.createNewBttn.Click += new System.EventHandler(this.createNewBttn_Click);
             // 
             // fireBttn
             // 
-            this.fireBttn.Location = new System.Drawing.Point(27, 367);
+            this.fireBttn.Location = new System.Drawing.Point(27, 365);
+            this.fireBttn.MaximumSize = new System.Drawing.Size(115, 27);
+            this.fireBttn.MinimumSize = new System.Drawing.Size(115, 27);
             this.fireBttn.Name = "fireBttn";
-            this.fireBttn.Size = new System.Drawing.Size(115, 23);
+            this.fireBttn.Size = new System.Drawing.Size(115, 27);
             this.fireBttn.TabIndex = 6;
             this.fireBttn.Text = "Fire";
             this.fireBttn.UseVisualStyleBackColor = true;
+            this.fireBttn.Click += new System.EventHandler(this.fireBttn_Click);
             // 
             // CashiersForm
             // 

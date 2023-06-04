@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace ManagerClient
 {
     partial class AddNewCashierForm
     {
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.bttnAdd = new System.Windows.Forms.Button();
             this.titleLbl = new System.Windows.Forms.Label();
             this.secondNLbl = new System.Windows.Forms.Label();
             this.mailLbl = new System.Windows.Forms.Label();
@@ -38,16 +37,8 @@
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.tbSName = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // bttnAdd
-            // 
-            this.bttnAdd.Location = new System.Drawing.Point(202, 196);
-            this.bttnAdd.Name = "bttnAdd";
-            this.bttnAdd.Size = new System.Drawing.Size(98, 29);
-            this.bttnAdd.TabIndex = 19;
-            this.bttnAdd.Text = "Add";
-            this.bttnAdd.UseVisualStyleBackColor = true;
             // 
             // titleLbl
             // 
@@ -122,12 +113,22 @@
             this.tbName.Size = new System.Drawing.Size(179, 23);
             this.tbName.TabIndex = 10;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(201, 196);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Add";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.bttnAdd_Click);
+            // 
             // AddNewCashierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 259);
-            this.Controls.Add(this.bttnAdd);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.titleLbl);
             this.Controls.Add(this.secondNLbl);
             this.Controls.Add(this.mailLbl);
@@ -137,6 +138,8 @@
             this.Controls.Add(this.tbEmail);
             this.Controls.Add(this.tbSName);
             this.Controls.Add(this.tbName);
+            this.MaximumSize = new System.Drawing.Size(456, 298);
+            this.MinimumSize = new System.Drawing.Size(456, 298);
             this.Name = "AddNewCashierForm";
             this.Text = "AddNewCashierForm";
             this.ResumeLayout(false);
@@ -145,8 +148,6 @@
         }
 
         #endregion
-
-        private Button bttnAdd;
         private Label titleLbl;
         private Label secondNLbl;
         private Label mailLbl;
@@ -156,5 +157,6 @@
         private TextBox tbEmail;
         private TextBox tbSName;
         private TextBox tbName;
+        private Button button1;
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Server.DB;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,17 +8,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ManagerClient.Model;
+using Newtonsoft.Json;
 
-namespace Server
+namespace ManagerClient
 {
     public partial class CustomerForm : Form
     {
-        int _customerId;
-        VendorSysDb _db;
-        public CustomerForm(VendorSysDb db)
+
+        MyClient _cl;
+        public CustomerForm(MyClient cl)
         {
             InitializeComponent();
-            _db = db;   
+            
+            _cl = cl;
+            FillWithCustomers();
+
         }
 
         public async void FillWithCustomers()
@@ -45,8 +49,8 @@ namespace Server
             ch4.Text = "E-mail";
             ch4.Width = 150;
             lV1.Columns.Add(ch4);
-            var customers = await _db.GetCustomers();
-            foreach (var customer in customers)
+            List<Customer> _custs = await _cl.GetAllCustomers();
+            foreach (Customer customer in _custs)
             {
                 ListViewItem lvItem = new ListViewItem(customer.Id.ToString());
                 lvItem.SubItems.Add(customer.FirstName);
@@ -54,26 +58,24 @@ namespace Server
                 lvItem.SubItems.Add(customer.Email);
                 lV1.Items.Add(lvItem);
             }
+            
         }
         private void CustomerForm_Load(object sender, EventArgs e)
         {
            
-            FillWithCustomers();
-            
         }
 
         private async void deleteFromDbBttn_Click(object sender, EventArgs e)
         {
-            await _db.DelCustomer(Int32.Parse(lV1.SelectedItems[0].Text));
+            _cl.DeleteCustomer(Int32.Parse(lV1.SelectedItems[0].Text));
             FillWithCustomers();
         }
 
         private void addNewBttn_Click(object sender, EventArgs e)
         {
-            AddNewCustommerForm frm = new AddNewCustommerForm(_db);
+            AddNewCustommerForm frm = new AddNewCustommerForm(_cl);
             frm.ShowDialog();
             FillWithCustomers();
-            
         }
 
         
