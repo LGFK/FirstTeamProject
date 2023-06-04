@@ -10,20 +10,13 @@ using VendorSys.MVVM.Model;
 namespace VendorSys.MVVM.ViewModel;
 
 internal class HomeViewModel : BaseViewModel
-{
-   
+{   
     protected override void LoadDataAsync()
     {
-        // Логіка отримання даних товарів на знижку з бази даних
-        //ProductRepository.ReadProductRepository();
-        //Data = ProductRepository.Products.ToList();
-
+        // Отримання товарів зі знижкою з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
-        //Thread.Sleep(6000);
         vendorSysClient.GetDiscountProductsAsync();
-        //vendorSysClient.GetReceiptsAsync(1);
-        Data = vendorSysClient.Products;
-        
+        Data = vendorSysClient.Products;        
     }
     // Додатковий код специфічний для HomeViewModel
 
