@@ -20,7 +20,7 @@ internal class HomeViewModel : BaseViewModel
 
         VendorSysClient vendorSysClient = new VendorSysClient();
         //Thread.Sleep(6000);
-        vendorSysClient.GetProductsAsync();
+        vendorSysClient.GetDiscountProductsAsync();
         //vendorSysClient.GetReceiptsAsync(1);
         Data = vendorSysClient.Products;
         
