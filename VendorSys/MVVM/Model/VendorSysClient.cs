@@ -232,9 +232,12 @@ namespace VendorSys.MVVM.Model
                 /*var _products = new List<Product>();
                 foreach (var item in products)
                 {
-                    _products.Add(new Product(item.Id, item.Pname, item.Price,
+                    if (item.Amount > 0)
+                    {
+                        Products.Add(new Product(item.Id, item.Pname, item.Price,
                         item.Amount, item.ProdType, item.Image, item.Discount,
                         item.ProdTypeNavigation, item.ProductsSolds));
+                    }
                 }
 
                 Products = products;
@@ -280,7 +283,8 @@ namespace VendorSys.MVVM.Model
                 client.Close();
                 /*foreach (var item in products)
                 {
-                    if (item.Discount > 0)
+
+                    if(item.Discount > 0 && item.Amount > 0)
                     {
                         Products.Add(new Product(item.Id, item.Pname, item.Price,
                         item.Amount, item.ProdType, item.Image, item.Discount,
