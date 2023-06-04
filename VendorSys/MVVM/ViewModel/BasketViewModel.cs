@@ -16,8 +16,19 @@ internal class BasketViewModel : ObservableObject
 {
     public RelayCommand BuyCommand { get; set; }
     public RelayCommand DellCommand { get; set; }
+    public RelayCommand CounterMinusCommand { get; set; }
+    public RelayCommand CounterPlusCommand { get; set; }
     private Product _selectedProduct;
-    public ObservableCollection<Product> ProductInBosket { get; set; } = new ObservableCollection<Product>();
+    private ObservableCollection<Product> _productInBosket = new ObservableCollection<Product>();
+    public ObservableCollection<Product> ProductInBosket
+    {
+        get { return _productInBosket; }
+        set
+        {
+            _productInBosket = value;
+            OnPropertyChanged(nameof(ProductInBosket));
+        }
+    }
     public Product? SelectedProduct
     {
         get { return _selectedProduct; }
@@ -27,14 +38,12 @@ internal class BasketViewModel : ObservableObject
             {
                 _selectedProduct = value;
                 OnPropertyChanged(nameof(SelectedProduct));
+
             }
         }
     }
     public BasketViewModel()
     {
-        //TEST
-        //ProductInBosket.Add(new Product(3, "Banana", 300, 3, 2, "image2.jpg", 25, new ProductType(), new List<ProductsSold>()));        
-       
         BuyCommand = new RelayCommand(o =>
         {
             // тут реалізувати логіку відправки чека на сервер (Гамлет)
@@ -45,14 +54,50 @@ internal class BasketViewModel : ObservableObject
         {
             if(SelectedProduct != null)
             {
-                ProductInBosket.Remove(SelectedProduct);
+                _productInBosket.Remove(SelectedProduct);
+            }
+        });
+
+        CounterPlusCommand = new RelayCommand(o =>
+        {
+            if (SelectedProduct != null)
+            {
+                var p = ProductInBosket.FirstOrDefault(p=> p.Id == SelectedProduct.Id);
+                if (p != null)
+                {
+                    var updateProduce = new Product(p.Id,p.Pname, p.Price, p.Amount+1, p.ProdType,p.Image, p.Discount, p.ProdTypeNavigation, p.ProductsSolds);
+                    var index = ProductInBosket.IndexOf(p);
+                    ProductInBosket[index] = updateProduce;
+                }                
+            }
+        });
+
+        CounterMinusCommand = new RelayCommand(o =>
+        {
+            if (SelectedProduct != null)
+            {
+                var p = ProductInBosket.FirstOrDefault(p => p.Id == SelectedProduct.Id);
+                if (p != null && p.Amount >1)
+                {
+                    var updateProduce = new Product(p.Id, p.Pname, p.Price, p.Amount - 1, p.ProdType, p.Image, p.Discount, p.ProdTypeNavigation, p.ProductsSolds);
+                    var index = ProductInBosket.IndexOf(p);
+                    ProductInBosket[index] = updateProduce;
+                }
+                else
+                {
+                    _productInBosket.Remove(SelectedProduct);
+                }
             }
         });
     }
 
     public void AddProductToBasket(Product product)
     {
-        // Додати продукт до кошика
+        if (ProductInBosket.Where(p => p.Id == product.Id).Any())
+        {
+            return;
+        }
+        
         if(ProductInBosket.Contains(product)) // логіка перевірки скільки на складі вже є
         {
             int index = ProductInBosket.IndexOf(product);

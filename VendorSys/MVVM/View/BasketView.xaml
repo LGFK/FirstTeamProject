@@ -38,7 +38,71 @@
                     <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="lvProducts" 
+                <ListBox x:Name="lvProducts" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Stretch" FontSize="24"
+                         Background="Transparent"
+                         ItemsSource="{Binding ProductInBosket}"
+                         SelectedItem="{Binding SelectedProduct}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Background="SkyBlue" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5" Width="50" Height="50" Grid.Column="0" Source="{Binding Image}"></Image>
+                                <TextBlock VerticalAlignment="Center" Grid.Column="1" Margin="5 0" Text="{Binding Pname}"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding Amount}"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" Grid.Column="3" 
+                                           Text="{Binding Price}"></TextBlock>
+
+                                <Button  Grid.Column="4" Margin="5 5 5 5" 
+                                         Style="{StaticResource buttonCounter}" 
+                                         Command="{Binding ElementName=lvProducts , Path=DataContext.CounterMinusCommand}"
+                                         CommandParameter="{Binding}">
+                                    <Image Source="/Image/minus.png"/>
+                                </Button>
+
+                                <Button  Grid.Column="5" Margin="5 5 0 5"
+                                            Style="{StaticResource buttonCounter}"
+                                             Command="{Binding ElementName=lvProducts , Path=DataContext.CounterPlusCommand}"
+                                             CommandParameter="{Binding}">
+                                    <Image Source="/Image/Plus.png"/>
+                                </Button>
+
+                                <Button Grid.Column="6" Style="{StaticResource buttonCounter}" Width="60" Height="60"
+                                        Command="{Binding ElementName=lvProducts,Path=DataContext.DellCommand }"
+                                        CommandParameter="{Binding}"
+                                        >
+                                    <Image Source="/Image/Untitled.png"/>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Grid.Row="1" 
+                        Width="90" Height="20"
+                        BorderThickness="0"
+                        Content="Buy"
+                        FontSize="14"
+                        FontFamily="Motserrat"
+                        Cursor="Hand"
+                        Command="{Binding BuyCommand}"
+                        Style="{StaticResource btnStyle2 }" Margin="500,0,0,0">
+                </Button>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>
+
+
+
+<!--<ListView x:Name="lvProducts" 
                           ItemsSource="{Binding ProductInBosket}"
                           SelectedItem="{Binding SelectedProduct}"
                           Background="Transparent"
@@ -56,12 +120,16 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <!--Потрібно дадати місце знаходження Sourse= ""-->
+                                -->
+<!--Потрібно дадати місце знаходження Sourse= ""-->
+<!--
                                 <Image Grid.Column="0" Grid.RowSpan="2" Width="32"
                                        Source="{Binding Image}"
                                        Height="32" HorizontalAlignment="Center"
                                        VerticalAlignment="Center"></Image>
-                                <!--Style="{StaticResource}" потрібно додати-->
+                                -->
+<!--Style="{StaticResource}" потрібно додати-->
+<!--
                                 <TextBlock Grid.Column="1" Text="{Binding Pname}"
                                            Margin="12,6,0,0"
                                            Foreground="White"/>
@@ -82,19 +150,60 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
-                <Button Grid.Row="1" 
-                        Width="90" Height="20"
-                        BorderThickness="0"
-                        Content="Buy"
-                        FontSize="14"
-                        FontFamily="Motserrat"
-                        Cursor="Hand"
-                        Command="{Binding BuyCommand}"
-                        Style="{StaticResource btnStyle2 }" Margin="500,0,0,0">
+                </ListView>-->
 
-                </Button>
-            </Grid>
-        </Border>
-    </Border>
-</UserControl>
+<!--<ListView x:Name="lvProducts"
+                          ItemsSource="{Binding ProductInBosket}"
+                          SelectedItem="{Binding SelectedProduct}"
+                          Background="Transparent"
+                          BorderThickness="0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,15,0,0" HorizontalAlignment="Center" Background="SkyBlue">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="27"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Height="80" Width="80" Margin="15, 10,0, 10" HorizontalAlignment="Left">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding Image}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+                                <TextBlock Grid.Column="1" Text="{Binding Pname}" FontWeight="SemiBold" FontSize="16" VerticalAlignment="Center" Foreground="White"/>
+                                <TextBlock Grid.Column="1" Text="{Binding ProdType}" FontSize="11" VerticalAlignment="Center" Margin="0,38,0,0" Foreground="White"/>
+                                <TextBlock Grid.Column="2" Text="{Binding Discount}" FontSize="16" VerticalAlignment="Center" Margin="0,38,0,0" Foreground="White"/>
+                                <TextBlock Grid.Column="3" Text="{Binding Amount }" FontSize="16" VerticalAlignment="Center" Margin="0,38,0,0" Foreground="White"/>
+
+
+                                <StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Button  Style="{StaticResource buttonCounter}"
+                                             Command="{Binding ElementName=lvProducts , Path=DataContext.CounterPlusCommand}"
+                                             CommandParameter="{Binding}">
+                                        <Image Source="/Image/Plus.png"/>
+                                    </Button>
+                                    <Button   Style="{StaticResource buttonCounter}" Margin="0,5,0,0"
+                                              Command="{Binding ElementName=lvProducts , Path=DataContext.CounterMinusCommand}"
+                                             CommandParameter="{Binding}">
+                                        <Image Source="/Image/minus.png"/>
+                                    </Button>
+                                </StackPanel>
+
+                                <TextBlock Grid.Column="5" Text="{Binding Price}" FontWeight="SemiBold" FontSize="16" VerticalAlignment="Center"/>
+
+                                <Button Grid.Column="6" Style="{StaticResource buttonCounter}" Width="25" Height="25"
+                                        Command="{Binding ElementName=lvProducts,Path=DataContext.DellCommand }"
+                                        CommandParameter="{Binding}"
+                                        >
+                                    <Image Source="/Image/Untitled.png"/>
+                                </Button>
+                            </Grid>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->

@@ -11,8 +11,6 @@ internal class CatalogViewModel : BaseViewModel
     protected override async void LoadDataAsync()
     {
         // Логіка отримання всіх товарів з бази даних
-        //ProductRepository.ReadProductRepository();
-        //Data = ProductRepository.Products.ToList();
         VendorSysClient vendorSysClient = new VendorSysClient();
         vendorSysClient.GetProductsAsync();
         Data = vendorSysClient.Products;

@@ -44,6 +44,7 @@ class MainViewModel : ObservableObject
     {
         SwitchBetweenPages();
         ButtonLogic();
+        
     }
 
     private void ButtonLogic()
@@ -59,6 +60,7 @@ class MainViewModel : ObservableObject
                 Application.Current.MainWindow.WindowState = WindowState.Maximized;
             else
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
+            // WindowState.Minimized;
         });
 
         CoseButtonClickCommand = new RelayCommand(o =>
@@ -72,6 +74,7 @@ class MainViewModel : ObservableObject
         HomeVM = new HomeViewModel();
         BasketVM = new BasketViewModel();
         CatalogVM = new CatalogViewModel();
+        AllOrderVM = new AllOrderViewModel();
 
         //Підписка на подію додавання із каталога в кошик товарів
         CatalogVM.ProductSelected += (sender, e) => BasketVM.AddProductToBasket(e.SelectedProduct);

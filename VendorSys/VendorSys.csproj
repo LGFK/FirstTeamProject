@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <None Remove="Image\BackgroundBasket.jpeg" />
+    <None Remove="Image\minus.png" />
+    <None Remove="Image\Plus.png" />
+    <None Remove="Image\Untitled.png" />
     <None Remove="img\ArtlinePc.png" />
     <None Remove="img\CorsairHeadPhones.png" />
     <None Remove="img\Dxracer.png" />
@@ -16,6 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Image\minus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Untitled.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\ArtlinePc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

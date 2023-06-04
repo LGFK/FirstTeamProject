@@ -1,0 +1,61 @@
+﻿<Window x:Class="VendorSys.MVVM.View.SplashScreenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VendorSys.MVVM.View"
+        
+        mc:Ignorable="d"
+        Title="SplashScreenView" Height="450" Width="750"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="#272537">
+
+    <Border CornerRadius="50">
+        <Border CornerRadius="25"
+                BorderThickness="5"
+                Opacity="0.9">
+
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#462AD8" Offset="0"/>
+                    <GradientStop Color="#DA34AE" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#060531" Offset="0"/>
+                    <GradientStop Color="#1B1448" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="400*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Margin="50,0,0,0">
+                    <DockPanel>
+                        <Image DockPanel.Dock ="Left" Source="/Image/BackgroundBasket.jpeg/" Width="50" Height="50">
+                        </Image>
+                        <TextBlock DockPanel.Dock ="Right" Text="CRM shop" Foreground="White"></TextBlock>
+                    </DockPanel>
+                    <TextBlock Text="Loading Resources....." Foreground="White" FontWeight="SemiBold"
+                               HorizontalAlignment="Left" Margin="0,30,0,15"></TextBlock>
+                    <ProgressBar x:Name="progressBar" Value="0" Height="5" Width="280" IsIndeterminate="True"
+                                 ></ProgressBar>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Height="320" Width="320">
+                    <Image Source="/Image/BackgroundBasket.jpeg/"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

@@ -15,15 +15,9 @@ internal class HomeViewModel : BaseViewModel
     protected override void LoadDataAsync()
     {
         // Логіка отримання даних товарів на знижку з бази даних
-        //ProductRepository.ReadProductRepository();
-        //Data = ProductRepository.Products.ToList();
-
         VendorSysClient vendorSysClient = new VendorSysClient();
-        //Thread.Sleep(6000);
         vendorSysClient.GetProductsAsync();
-        //vendorSysClient.GetReceiptsAsync(1);
-        Data = vendorSysClient.Products;
-        
+        Data = vendorSysClient.Products;        
     }
     // Додатковий код специфічний для HomeViewModel
 
