@@ -35,7 +35,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <ListView x:Name="lvProducts" 
@@ -83,17 +83,19 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Grid.Row="1" 
-                        Width="90" Height="20"
+                <Button Grid.Row="1"
                         BorderThickness="0"
                         Content="Buy"
                         FontSize="14"
                         FontFamily="Motserrat"
                         Cursor="Hand"
                         Command="{Binding BuyCommand}"
-                        Style="{StaticResource btnStyle2 }" Margin="500,0,0,0">
-
-                </Button>
+                        Style="{StaticResource btnStyle2 }" Margin="600,3,100,3"/>
+                <TextBlock Text ="Select cashier:" Grid.Row="1"  Margin="10,10,550,10" Foreground="White"/>
+                <ComboBox Grid.Row="1"  Margin="100,10,450,10"
+                         ItemsSource="{Binding Path=Cashiers}"
+                         SelectedItem="{Binding Path=SelectedCashier}"
+                          DisplayMemberPath="SecondName"/>
             </Grid>
         </Border>
     </Border>

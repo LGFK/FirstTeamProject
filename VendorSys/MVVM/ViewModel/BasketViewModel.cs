@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Markup;
+using System.Xml.Linq;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
@@ -17,6 +19,34 @@ internal class BasketViewModel : ObservableObject
     public RelayCommand BuyCommand { get; set; }
     public RelayCommand DellCommand { get; set; }
     private Product _selectedProduct;
+
+    private Cashier _selectedCashier;
+
+    private List<Cashier> _cashiers;
+    public List<Cashier> Cashiers
+    {
+        get { return _cashiers; }
+        set
+        {
+            if (_cashiers != value)
+            {
+                _cashiers = value;
+                OnPropertyChanged(nameof(Cashiers));
+            }
+        }
+    }
+    public Cashier? SelectedCashier
+    {
+        get { return _selectedCashier; }
+        set
+        {
+            if (_selectedCashier != value)
+            {
+                _selectedCashier = value;
+                OnPropertyChanged(nameof(SelectedCashier));
+            }
+        }
+    }
     public ObservableCollection<Product> ProductInBosket { get; set; } = new ObservableCollection<Product>();
     public Product? SelectedProduct
     {
@@ -32,9 +62,7 @@ internal class BasketViewModel : ObservableObject
     }
     public BasketViewModel()
     {
-        //TEST
-        //ProductInBosket.Add(new Product(3, "Banana", 300, 3, 2, "image2.jpg", 25, new ProductType(), new List<ProductsSold>()));        
-       
+        LoadDataAsync();
         BuyCommand = new RelayCommand(o =>
         {
             // тут реалізувати логіку відправки чека на сервер (Гамлет)
@@ -49,7 +77,13 @@ internal class BasketViewModel : ObservableObject
             }
         });
     }
-
+    protected async void LoadDataAsync()
+    {
+        // Отримання товарів з бази даних
+        VendorSysClient vendorSysClient = new VendorSysClient();
+        vendorSysClient.GetCashiersAsync();
+        _cashiers = vendorSysClient.Cashiers;
+    }
     public void AddProductToBasket(Product product)
     {
         // Додати продукт до кошика
