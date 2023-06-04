@@ -13,13 +13,27 @@ namespace Server.DB
     public class VendorSysDb
     {
         VendorSysDbContext _dbContext;
-
+        
         public VendorSysDb(String _connectionString)
         {
             var dbContextOptions = new DbContextOptionsBuilder<VendorSysDbContext>().UseLazyLoadingProxies().UseSqlServer(_connectionString).Options;
             _dbContext = new VendorSysDbContext(dbContextOptions);
         }
+        public async Task<List<Receipt>> GetAllReceipts()
+        {
+            return _dbContext.Receipts.ToList();
+        }
+        public async Task AddNewProductType(ProductType productType)
+        {
 
+            _dbContext.ProductTypes.Add(productType);
+            _dbContext.SaveChanges();
+        }
+
+        public async Task<List<ProductType>> GetAllTypes()
+        {
+            return _dbContext.ProductTypes.ToList();
+        }
         public async Task<List<Customer?>> GetCustomers()
         {
             return _dbContext?.Customers.ToList();
