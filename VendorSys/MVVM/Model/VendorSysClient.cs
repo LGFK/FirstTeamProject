@@ -338,15 +338,17 @@ namespace VendorSys.MVVM.Model
 
         public async Task SendNewReceiptAsync(Receipt receipt,List<Product> products,List<int> amount)
         {
+           
             var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
             TcpClient client = new TcpClient();
             client.Connect(endPoint);
 
             var networkStream = client.GetStream();
             buffer = new byte[4];
+            string receiptToSend = JsonConvert.SerializeObject(receipt);
             string productsToSend = JsonConvert.SerializeObject(products);
             string amountToSend = JsonConvert.SerializeObject(amount);
-            string message = $"AddReceipt<|>{receipt}<|>{productsToSend}<|>{amountToSend}";
+            string message = $"AddReceipt<|>{receiptToSend}<|>{productsToSend}<|>{amountToSend}";
             var requestMessage = Encoding.UTF8.GetBytes(message);
             buffer = BitConverter.GetBytes(requestMessage.Length);
             await networkStream.WriteAsync(buffer, 0, buffer.Length);

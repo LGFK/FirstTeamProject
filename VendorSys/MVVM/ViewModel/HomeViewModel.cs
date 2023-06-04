@@ -13,6 +13,7 @@ internal class HomeViewModel : BaseViewModel
 {   
     protected override  void LoadDataAsync()
     {
+        //Thread.Sleep(6000);
         // Отримання товарів зі знижкою з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
         /*List<Cashier> cashiers = Task.Run(() => vendorSysClient.GetCashiersAsync()).Result;

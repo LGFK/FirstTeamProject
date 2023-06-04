@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using System.Xml.Linq;
@@ -81,8 +82,7 @@ internal class BasketViewModel : ObservableObject
     {
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
-        vendorSysClient.GetCashiersAsync();
-        _cashiers = vendorSysClient.Cashiers;
+        //_cashiers = Task.Run(()=>;
     }
     public void AddProductToBasket(Product product)
     {
