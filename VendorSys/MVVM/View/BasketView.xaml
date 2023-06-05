@@ -95,6 +95,11 @@
                         Command="{Binding BuyCommand}"
                         Style="{StaticResource btnStyle2 }" Margin="500,0,0,0">
                 </Button>
+                <TextBlock Text ="Select cashier:" Grid.Row="1"  Margin="10,10,550,10" Foreground="White"/>
+                <ComboBox Grid.Row="1"  Margin="100,10,450,10"
+                         ItemsSource="{Binding Path=Cashiers}"
+                         SelectedItem="{Binding Path=SelectedCashier}"
+                          DisplayMemberPath="SecondName"/>
             </Grid>
         </Border>
     </Border>

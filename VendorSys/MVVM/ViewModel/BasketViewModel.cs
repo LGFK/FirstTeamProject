@@ -80,7 +80,7 @@ internal class BasketViewModel : ObservableObject
     public BasketViewModel()
     {
 
-        //LoadDataAsync();
+        LoadDataAsync();
 
         BuyCommand = new RelayCommand(o =>
         {
@@ -131,10 +131,8 @@ internal class BasketViewModel : ObservableObject
     protected async void LoadDataAsync()
     {
         // Отримання товарів з бази даних
-
-
-        //_cashiers = Task.Run(()=>;
-
+        VendorSysClient vendorSysClient = new VendorSysClient();
+        _cashiers = Task.Run(() => vendorSysClient.GetCashiersAsync()).Result;
     }
     public void AddProductToBasket(Product product)
     {
