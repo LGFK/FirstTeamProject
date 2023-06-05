@@ -96,9 +96,16 @@
                         Style="{StaticResource btnStyle2 }" Margin="500,0,0,0">
                 </Button>
                 <TextBlock Text ="Select cashier:" Grid.Row="1"  Margin="10,10,550,10" Foreground="White"/>
-                <ComboBox Grid.Row="1"  Margin="100,10,450,10"
+                <ComboBox Grid.Row="1"  Margin="100,10,500,10"
+                          IsTextSearchEnabled="True" IsEditable="True"
                          ItemsSource="{Binding Path=Cashiers}"
                          SelectedItem="{Binding Path=SelectedCashier}"
+                          DisplayMemberPath="SecondName"/>
+                <TextBlock Text ="Select customer:" Grid.Row="1"  Margin="250,10,350,10" Foreground="White"/>
+                <ComboBox Grid.Row="1"  Margin="400,10,200,10"
+                         IsTextSearchEnabled="True" IsEditable="True"
+                         ItemsSource="{Binding Path=Customers}"
+                         SelectedItem="{Binding Path=SelectedCustomer}"
                           DisplayMemberPath="SecondName"/>
             </Grid>
         </Border>

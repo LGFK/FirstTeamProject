@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Abstractions;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -63,6 +64,33 @@ internal class BasketViewModel : ObservableObject
         }
     }
 
+    private Customer _selectedCustomer;
+
+    private List<Customer> _customers;
+    public List<Customer> Customers
+    {
+        get { return _customers; }
+        set
+        {
+            if (_customers != value)
+            {
+                _customers = value;
+                OnPropertyChanged(nameof(Customers));
+            }
+        }
+    }
+    public Customer? SelectedCustomer
+    {
+        get { return _selectedCustomer; }
+        set
+        {
+            if (_selectedCustomer != value)
+            {
+                _selectedCustomer = value;
+                OnPropertyChanged(nameof(SelectedCustomer));
+            }
+        }
+    }
 
     public Product? SelectedProduct
     {
@@ -84,8 +112,36 @@ internal class BasketViewModel : ObservableObject
 
         BuyCommand = new RelayCommand(o =>
         {
+            if(!ProductInBosket.IsNullOrEmpty())
+            {
+                if(SelectedCashier == null)
+                {
+                    MessageBox.Show("Choose cashier");
+                }
+                else if(SelectedCustomer == null)
+                {
+                    MessageBox.Show("Choose customer");
+                }
+                else
+                {
+                    Receipt receipt = new Receipt();
+                    foreach (var product in ProductInBosket)
+                    {
+                        receipt.TotalPrice += product.Price;
+                    }
+                    receipt.CustomerId = SelectedCustomer.Id;
+                    receipt.CashierId = SelectedCashier.Id;
+                    receipt.Date = System.DateTime.Now;
+                    receipt.Cashier = SelectedCashier;
+                    receipt.Customer = SelectedCustomer;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Choose product");
+            }
             // тут реалізувати логіку відправки чека на сервер (Гамлет)
-            MessageBox.Show("TestBuy");
+            
         });
 
         DellCommand = new RelayCommand(o =>
@@ -133,6 +189,8 @@ internal class BasketViewModel : ObservableObject
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
         _cashiers = Task.Run(() => vendorSysClient.GetCashiersAsync()).Result;
+
+        _customers = Task.Run(() => vendorSysClient.GetCustomersAsync()).Result;
     }
     public void AddProductToBasket(Product product)
     {
