@@ -16,15 +16,5 @@ public partial class Customer
 
     public string? PhoneN { get; set; }
     [JsonIgnore]
-    public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
-
-    public Customer(int id, string firstName, string secondName, string? email, string? phoneN, ICollection<Receipt> receipts)
-    {
-        Id = id;
-        FirstName = firstName;
-        SecondName = secondName;
-        Email = email;
-        PhoneN = phoneN;
-        Receipts = receipts;
-    }
+    public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();    
 }

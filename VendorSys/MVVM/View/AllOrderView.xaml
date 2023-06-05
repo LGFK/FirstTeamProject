@@ -56,7 +56,7 @@
                          Style="{StaticResource ModernTextBox1}" 
                          Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <ListBox x:Name="lvProducts" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Stretch" FontSize="24"
+                <ListBox x:Name="lvProducts" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch" FontSize="24"
                          Background="Transparent"
                          ItemsSource="{Binding FilteredData}"
                          SelectedItem="{Binding SelectedProduct}">

@@ -27,7 +27,7 @@ public partial class SplashScreenView : Window
         InitializeComponent();
 
         DispatcherTimer.Tick += new EventHandler(MySplash);
-        DispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+        DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
         DispatcherTimer.Start();
     }
 
