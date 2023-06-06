@@ -73,7 +73,7 @@
                                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Image Margin="5" Width="50" Height="50" Grid.Column="0" Source="{Binding Image}"></Image>
-                                <TextBlock VerticalAlignment="Center" Grid.Column="1" Margin="5 0" Text="{Binding Pname}"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" Grid.Column="1" Margin="5 0" Text="{Binding CashierName}"></TextBlock>
                                 <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding Amount}"></TextBlock>
                                 <TextBlock VerticalAlignment="Center" Grid.Column="3" 
                                            Text="{Binding Price}"></TextBlock>
