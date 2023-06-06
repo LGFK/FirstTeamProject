@@ -1,4 +1,5 @@
 using ManagerClient;
+using System.Diagnostics;
 
 namespace ManagerClient
 {
@@ -7,7 +8,18 @@ namespace ManagerClient
         MyClient _cl;
         public Form1()
         {
-            InitializeComponent();
+            LoginForm lf = new LoginForm();
+            
+            if(lf.ShowDialog() == DialogResult.OK)
+            {
+                InitializeComponent();
+            }
+            else
+            {
+                InitializeComponent();
+                Process.GetCurrentProcess().Kill();
+            }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -30,6 +42,12 @@ namespace ManagerClient
         private void cashiersBttn_Click(object sender, EventArgs e)
         {
             CashiersForm frm = new CashiersForm(_cl);
+            frm.ShowDialog();
+        }
+
+        private void bttnAddMngr_Click(object sender, EventArgs e)
+        {
+            var frm = new ManagerRegForm(_cl);
             frm.ShowDialog();
         }
     }

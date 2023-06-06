@@ -77,21 +77,44 @@ namespace ManagerClient
 
         private void CashiersForm_Load(object sender, EventArgs e)
         {
+            try
+            {
+                FillWithCashiers();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message+" CashierFormLoad");
+            }
+
             
-            FillWithCashiers();
         }
 
         private void createNewBttn_Click(object sender, EventArgs e)
         {
-            AddNewCashierForm frm = new AddNewCashierForm(_cl);
-            frm.ShowDialog();
-            FillWithCashiers();
+            try
+            {
+                AddNewCashierForm frm = new AddNewCashierForm(_cl);
+                frm.ShowDialog();
+                FillWithCashiers();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void fireBttn_Click(object sender, EventArgs e)
         {
-            _cl.FireCashierById(Int32.Parse(lV1.SelectedItems[0].Text));
-            FillWithCashiers();
+            try
+            {
+                _cl.FireCashierById(Int32.Parse(lV1.SelectedItems[0].Text));
+                FillWithCashiers();
+            }
+           catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message + " fireBttnClieck");
+            }
         }
     }
 }

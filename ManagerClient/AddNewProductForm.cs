@@ -45,17 +45,25 @@ namespace ManagerClient
             
             if(string.IsNullOrEmpty(tbAmount.Text)!=true&& string.IsNullOrEmpty(tbName.Text) != true&& string.IsNullOrEmpty(tbPrice.Text) != true&&string.IsNullOrEmpty(path)!=true)
             {
-                var prodTypeId = Int32.Parse(comboBox1.SelectedItem.ToString().Split(':')[0]);
-                var prToAdd = new Product()
+                try
                 {
-                    Pname = tbName.Text,
-                    Amount = Int32.Parse(tbAmount.Text),
-                    Price = Int32.Parse(tbPrice.Text),
-                    ProdType = prodTypeId
-                };
-                Image img = Image.FromFile(path);
-                _cl.AddProduct(prToAdd, img, ".png");
-                this.Close();
+                    var prodTypeId = Int32.Parse(comboBox1.SelectedItem.ToString().Split(':')[0]);
+                    var prToAdd = new Product()
+                    {
+                        Pname = tbName.Text,
+                        Amount = Int32.Parse(tbAmount.Text),
+                        Price = Int32.Parse(tbPrice.Text),
+                        ProdType = prodTypeId
+                    };
+                    Image img = Image.FromFile(path);
+                    _cl.AddProduct(prToAdd, img, ".png");
+                    this.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
             
         }
