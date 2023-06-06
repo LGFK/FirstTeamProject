@@ -6,11 +6,25 @@
              xmlns:local="clr-namespace:VendorSys.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Style>
+        <Style>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="UserControl.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0.0"
+                                             To="1.0"
+                                             Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+    
     <Border CornerRadius="50">
-        <!--<Border.Background>
-            <ImageBrush ImageSource="/Image/BackgroundBasket.jpeg"
-                        Stretch="Fill"/>
-        </Border.Background>-->
         <Border CornerRadius="25"
                 BorderThickness="5"
                 Opacity="0.9">
@@ -29,6 +43,7 @@
                     <GradientStop Color="#1B1448" Offset="0.75"/>
                 </LinearGradientBrush>
             </Border.Background>
+
 
             <Grid>
                 <Grid.RowDefinitions>

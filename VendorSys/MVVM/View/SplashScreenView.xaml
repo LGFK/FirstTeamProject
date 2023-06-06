@@ -12,6 +12,23 @@
         AllowsTransparency="True"
         Background="#272537">
 
+    <Window.Style>
+        <Style>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="UserControl.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0.0"
+                                             To="1.0"
+                                             Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
     <Border CornerRadius="50">
         <Border CornerRadius="25"
                 BorderThickness="5"
@@ -41,7 +58,9 @@
                 <StackPanel  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                             Margin="50,0,0,0">
                     <DockPanel>
-                        <Image DockPanel.Dock ="Left" Source="/Image/BackgroundBasket.jpeg" Width="50" Height="50">
+
+                        <Image DockPanel.Dock ="Left" Source="/Image/live-online.png" Width="50" Height="50">
+
                         </Image>
                         <TextBlock DockPanel.Dock ="Right" Text="CRM shop" Foreground="White"></TextBlock>
                     </DockPanel>
@@ -51,10 +70,33 @@
                                  ></ProgressBar>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                <!--<StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                             Height="320" Width="320">
-                    <Image Source="/Image/BackgroundBasket.jpeg"/>
-                </StackPanel>
+
+                    <Image Source="/Image/SplashScreen.png"
+                           />
+                </StackPanel>-->
+
+                <Border Name="ReceiverColor"
+                BorderBrush="#FF96B2E4"
+                BorderThickness="6"
+                CornerRadius="15"
+                        Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Height="166" Width="320">
+                    <Grid>
+                        <Border Name="Mask"
+                        Background="Transparent"
+                        BorderBrush="#FF3B5998"
+                        BorderThickness=".5"
+                        CornerRadius="13">
+                        </Border>
+                        <StackPanel>
+                            <Image Name="Receiver"
+                           Source="/Image/SplashScreen.png" />
+                            
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </Grid>
         </Border>
     </Border>

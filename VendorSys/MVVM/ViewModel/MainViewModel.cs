@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media.Animation;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
@@ -61,14 +63,13 @@ class MainViewModel : ObservableObject
             else
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
             // WindowState.Minimized;
-        });
 
+        });
         CoseButtonClickCommand = new RelayCommand(o =>
         {
             Application.Current.Shutdown();
         });
     }
-
     private void SwitchBetweenPages()
     {
         HomeVM = new HomeViewModel();
