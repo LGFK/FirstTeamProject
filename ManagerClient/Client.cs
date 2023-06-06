@@ -77,7 +77,7 @@ namespace ManagerClient
                     await networkStream.ReadAsync(data, 0, size);
                     var dataStr = Encoding.UTF8.GetString(data);
                     List<Product> _prods = JsonConvert.DeserializeObject<List<Product>>(dataStr);
-                    tcpClient.Close();
+                    
                     return _prods;
                 }
                 catch(Exception ex)
@@ -85,6 +85,10 @@ namespace ManagerClient
                    //tcpClient.Close();
                     MessageBox.Show(ex.Message);
                     return new List<Product>();
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
                 
             }
@@ -98,21 +102,32 @@ namespace ManagerClient
             string req = "Cashiers";
             if (tcpClient.Connected)
             {
-                
-                var networkStream = tcpClient.GetStream();
-                byte[] data = Encoding.UTF8.GetBytes(req);
-                int size = data.Length;
-                await networkStream.WriteAsync(BitConverter.GetBytes(size), 0, 4);
-                await networkStream.WriteAsync(data, 0, data.Length);
-                var bufferSize = new byte[4];
-                await networkStream.ReadAsync(bufferSize, 0, 4);
-                size = BitConverter.ToInt32(bufferSize);
-                data = new byte[size];
-                await networkStream.ReadAsync(data, 0, size);
-                var dataStr = Encoding.UTF8.GetString(data);
-                List<Cashier> _cashiers = JsonConvert.DeserializeObject<List<Cashier>>(dataStr);
-                tcpClient.Close();
-                return _cashiers;
+                try
+                {
+                    var networkStream = tcpClient.GetStream();
+                    byte[] data = Encoding.UTF8.GetBytes(req);
+                    int size = data.Length;
+                    await networkStream.WriteAsync(BitConverter.GetBytes(size), 0, 4);
+                    await networkStream.WriteAsync(data, 0, data.Length);
+                    var bufferSize = new byte[4];
+                    await networkStream.ReadAsync(bufferSize, 0, 4);
+                    size = BitConverter.ToInt32(bufferSize);
+                    data = new byte[size];
+                    await networkStream.ReadAsync(data, 0, size);
+                    var dataStr = Encoding.UTF8.GetString(data);
+                    List<Cashier> _cashiers = JsonConvert.DeserializeObject<List<Cashier>>(dataStr);
+                   
+                    return _cashiers;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    tcpClient.Close();
+                }
+               
 
             }
             throw new Exception("Something went wrong with connection");
@@ -138,8 +153,12 @@ namespace ManagerClient
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
+                   
                     return;
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
                 
             }
@@ -171,14 +190,18 @@ namespace ManagerClient
                     await networkStream.ReadAsync(data, 0, size);
                     var dataStr = Encoding.UTF8.GetString(data);
                     
-                    tcpClient.Close();
+                    
                     return dataStr;
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
+                    
                     return null;
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
                 
             }
@@ -200,15 +223,19 @@ namespace ManagerClient
                     byte[] sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                     await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
                     await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
-                    tcpClient.Close();
+                    
                     return;
                     
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
+                    
                     return;
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
             }
             throw new Exception("Unhandled Exception On Clients Side");
@@ -229,14 +256,18 @@ namespace ManagerClient
                     byte[] sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                     await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
                     await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
-                    tcpClient.Close();
+                    
                     return;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
+                    
                     return;
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
             }
             throw new Exception("Unhandled Exception On Clients Side");
@@ -256,14 +287,18 @@ namespace ManagerClient
                     byte[] sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                     await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
                     await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
-                    tcpClient.Close();
+                    
                     return;
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
+                    
                     return;
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
             }
             throw new Exception("Unhandled Exception On Clients Side");
@@ -282,14 +317,17 @@ namespace ManagerClient
                     byte[] sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                     await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
                     await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
-                    tcpClient.Close();
+                    
                     return;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
                     return;
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
             }
             throw new Exception("Unhandled Exception On Clients Side");
@@ -354,7 +392,6 @@ namespace ManagerClient
                                 sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                                 await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
                                 await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
-                                tcpClient.Close();
                                 break;
                             }
                     }
@@ -363,19 +400,23 @@ namespace ManagerClient
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
                     
+                    
+                }
+                finally
+                {
+                    tcpClient.Close();
                 }
             }
             throw new Exception("Unhandled Exception On Clients Side");
         }
 
-        public async Task SetDiscount(int dicount,List<int> ids)
+        public async Task SetDiscount(int dicount, List<int> ids)
         {
             tcpClient = new TcpClient();
             tcpClient.Connect(_iPEndP);
             string jsonIds = JsonConvert.SerializeObject(ids);
-            
+
             string req = $"Discounts<|>{dicount}<|>{jsonIds}";
             if (tcpClient.Connected)
             {
@@ -386,15 +427,90 @@ namespace ManagerClient
                     byte[] sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                     await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
                     await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
-                    tcpClient.Close();
+                    
                     return;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    tcpClient.Close();
                     return;
                 }
+                finally
+                {
+                    tcpClient.Close();
+                }
+            }
+            throw new Exception("Unhandled Exception On Clients Side");
+        }
+
+        public async Task<bool> TryLogin(string login,string password)
+        {
+            tcpClient = new TcpClient();
+            tcpClient.Connect(_iPEndP);
+            string req = $"MLogin<|>{login}<|>{password}";
+            if(tcpClient.Connected)
+            {
+                try
+                {
+                    var networkStream = tcpClient.GetStream();
+                    var reqBytes = Encoding.UTF8.GetBytes(req);
+                    byte[] sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
+                    await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
+                    await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
+                    var sizeToRecieveBuff = new byte[4];
+                    await networkStream.ReadAsync(sizeToRecieveBuff, 0, 4);
+                    byte[] resp = new byte[BitConverter.ToInt32(sizeToRecieveBuff)];
+                    await networkStream.ReadAsync(resp, 0, resp.Length);
+                    var respStr = Encoding.UTF8.GetString(resp);
+                    
+                    if(respStr=="true")
+                    {
+                        return true;
+                    }
+
+                    return false;
+                    
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                finally
+                {
+                    tcpClient.Close();
+                }
+            }
+            throw new Exception("Unhandled Exception On Clients Side");
+
+        }
+
+        public async Task<string> RegisterNewManager(string login, string password)
+        {
+            tcpClient = new TcpClient();
+            tcpClient.Connect(_iPEndP);
+            string req = $"MReg<|>{login}<|>{password}";
+            if(tcpClient.Connected)
+            {
+                try
+                {
+                    var networkStream = tcpClient.GetStream();
+                    var reqBytes = Encoding.UTF8.GetBytes(req);
+                    byte[] sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
+                    await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
+                    await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
+                    var sizeToRecieveBuff = new byte[4];
+                    await networkStream.ReadAsync(sizeToRecieveBuff, 0, 4);
+                    byte[] resp = new byte[BitConverter.ToInt32(sizeToRecieveBuff)];
+                    await networkStream.ReadAsync(resp, 0, resp.Length);
+                    var respStr = Encoding.UTF8.GetString(resp);
+                    return respStr;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+               
             }
             throw new Exception("Unhandled Exception On Clients Side");
         }
