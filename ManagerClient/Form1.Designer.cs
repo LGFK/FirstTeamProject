@@ -31,7 +31,7 @@
             this.productsBttn = new System.Windows.Forms.Button();
             this.customersBttn = new System.Windows.Forms.Button();
             this.cashiersBttn = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.bttnAddMngr = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // productsBttn
@@ -67,32 +67,31 @@
             this.cashiersBttn.UseVisualStyleBackColor = true;
             this.cashiersBttn.Click += new System.EventHandler(this.cashiersBttn_Click);
             // 
-            // label1
+            // bttnAddMngr
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(308, 196);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "label1";
+            this.bttnAddMngr.Location = new System.Drawing.Point(12, 191);
+            this.bttnAddMngr.Name = "bttnAddMngr";
+            this.bttnAddMngr.Size = new System.Drawing.Size(343, 55);
+            this.bttnAddMngr.TabIndex = 7;
+            this.bttnAddMngr.Text = "Add Mngr";
+            this.bttnAddMngr.UseVisualStyleBackColor = true;
+            this.bttnAddMngr.Click += new System.EventHandler(this.bttnAddMngr_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(367, 194);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(367, 252);
+            this.Controls.Add(this.bttnAddMngr);
             this.Controls.Add(this.productsBttn);
             this.Controls.Add(this.customersBttn);
             this.Controls.Add(this.cashiersBttn);
-            this.MaximumSize = new System.Drawing.Size(383, 233);
             this.MinimumSize = new System.Drawing.Size(383, 233);
             this.Name = "Form1";
             this.Text = "ManagerClient";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -101,6 +100,6 @@
         private Button productsBttn;
         private Button customersBttn;
         private Button cashiersBttn;
-        private Label label1;
+        private Button bttnAddMngr;
     }
 }

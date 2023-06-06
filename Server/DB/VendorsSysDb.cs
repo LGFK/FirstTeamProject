@@ -1,6 +1,10 @@
 ﻿
+using Azure.Core;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Server.DB.ConfigFiles;
+using System.Security.Cryptography;
 
 using System;
 using System.Collections.Generic;
@@ -14,10 +18,12 @@ namespace Server.DB
     {
         VendorSysDbContext _dbContext;
         
-        public VendorSysDb(String _connectionString)
+        
+        public VendorSysDb(String _connectionString1)
         {
-            var dbContextOptions = new DbContextOptionsBuilder<VendorSysDbContext>().UseLazyLoadingProxies().UseSqlServer(_connectionString).Options;
+            var dbContextOptions = new DbContextOptionsBuilder<VendorSysDbContext>().UseLazyLoadingProxies().UseSqlServer(_connectionString1).Options;
             _dbContext = new VendorSysDbContext(dbContextOptions);
+            
         }
         public async Task<List<Receipt>> GetAllReceipts()
         {
@@ -156,6 +162,118 @@ namespace Server.DB
             throw new Exception("Unhandled Exception");
 
             
+        }
+
+        public async Task<bool> loginMngr(string login , string password)
+        {
+            
+            var mngr =await  GetManagerByLogin(login);
+            if (string.IsNullOrEmpty(mngr[0])!=true)
+            {
+                password = password+mngr[3];
+                var encodedPass = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+                if (Encoding.UTF8.GetString(encodedPass) == mngr[2])
+                {
+                    
+                    return true;
+                }
+                else
+                {
+                    
+                    return false;
+                }
+                
+            }
+            else
+            {
+                return false;
+            }
+            throw new Exception("Unhandled Server Exception(loginMngr");
+        }
+        public async Task<string> AddNewManager(string login , string passwordStr)
+        {
+           string reply="";
+           if (String.IsNullOrEmpty((await GetManagerByLogin(login))[1]))
+           {
+                try
+                {
+                    DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
+                    var config = new ConfigurationBuilder().SetBasePath(di.FullName).AddJsonFile("appsettings1.json").Build();
+                    var connection = new SqlConnection(config.GetConnectionString("ManagersConnectionString"));
+                    connection.Open();
+                    var arrWithLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
+                    var rand = new Random();
+                    StringBuilder saltStrSB = new StringBuilder();
+                    int amountOfLetterInWord = rand.Next(20, 99);
+                    for (int i = 0; i < amountOfLetterInWord; i++)
+                    {
+                        saltStrSB.Append(arrWithLetters[rand.Next(0, arrWithLetters.Length - 1)]);
+                    }
+                    var saltStr = saltStrSB.ToString();
+                    
+                    string saltedPasswordStr = passwordStr + saltStr;
+                    byte[] password = Encoding.UTF8.GetBytes(saltedPasswordStr); ;
+                    var hashedSaltedPassword = SHA256.HashData(password);
+                    var hashedPasswordToSave = Encoding.UTF8.GetString(hashedSaltedPassword);
+                    string query = "insert Managers values (@login,@password,@salt) ";
+                    var command = new SqlCommand(query, connection);
+                    command.Parameters.Add("@login", System.Data.SqlDbType.NVarChar).Value = login;
+                    command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar).Value = hashedPasswordToSave;
+                    command.Parameters.Add("@salt", System.Data.SqlDbType.NVarChar).Value = saltStr;
+                    command.ExecuteNonQuery();
+                    reply = "Manager Added";
+                    return reply;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return $"{ex.Message}";
+                }
+           }
+           else
+           {
+                reply = "User Already Exists";
+                return reply;
+           }
+           
+           
+        }
+
+        public async Task<string[]> GetManagerByLogin(string login)
+        {
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
+                var config = new ConfigurationBuilder().SetBasePath(di.FullName).AddJsonFile("appsettings1.json").Build();
+                var connection = new SqlConnection(config.GetConnectionString("ManagersConnectionString"));
+                connection.Open();
+                string query = "Select * From Managers where login = @login";
+                using SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.Add("@login", System.Data.SqlDbType.NVarChar).Value = login;
+                using var reader = command.ExecuteReader();
+                return ExecuteReader(reader);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            throw new Exception("Unhandled Exception on Server Side (GetManagersByLogin)");
+
+
+        }
+
+        public String[] ExecuteReader(SqlDataReader? reader)
+        {
+            string[] data = new string[4];
+            while(reader?.Read()??false)
+            {
+                for (int i = 0; i < reader?.FieldCount; i++)
+                {
+                    data[i] = reader[i].ToString();
+                }
+            }
+            return data;
         }
 
     }

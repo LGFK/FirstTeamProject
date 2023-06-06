@@ -54,7 +54,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
 
                 <ListBox x:Name="lvProducts" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Stretch" FontSize="24"
@@ -112,8 +112,41 @@
                         FontFamily="Motserrat"
                         Cursor="Hand"
                         Command="{Binding BuyCommand}"
-                        Style="{StaticResource btnStyle2 }" Margin="500,0,0,0">
+                        Style="{StaticResource btnStyle2 }" Margin="500,0,0,26">
                 </Button>
+                <Button Grid.Row="1" 
+                        Width="90" Height="20"
+                        BorderThickness="0"
+                        Content="Print receipt"
+                        FontSize="14"
+                        FontFamily="Motserrat"
+                        Cursor="Hand"
+                        
+                        Command="{Binding PrintReceiptCommand}"
+                        Style="{StaticResource btnStyle2 }" Margin="500,25,0,0">
+                </Button>
+                <Button Grid.Row="1" 
+                        Width="90" Height="20"
+                        BorderThickness="0"
+                        Content="Add new"
+                        FontSize="14"
+                        FontFamily="Motserrat"
+                        Cursor="Hand"
+                        Command="{Binding AddNewCustomerWindowOpenCommand}"
+                        Style="{StaticResource btnStyle2 }" Margin="200,25,0,0">
+                </Button>
+                <TextBlock Text ="Select cashier:" Grid.Row="1"  Margin="10,10,550,10" Foreground="White"/>
+                <ComboBox Grid.Row="1"  Margin="100,10,500,40"
+                          IsTextSearchEnabled="True" IsEditable="True"
+                         ItemsSource="{Binding Path=Cashiers}"
+                         SelectedItem="{Binding Path=SelectedCashier}"
+                          DisplayMemberPath="SecondName"/>
+                <TextBlock Text ="Select customer:" Grid.Row="1"  Margin="250,10,350,10" Foreground="White"/>
+                <ComboBox Grid.Row="1"  Margin="400,10,200,40"
+                         IsTextSearchEnabled="True" IsEditable="True"
+                         ItemsSource="{Binding Path=Customers}"
+                         SelectedItem="{Binding Path=SelectedCustomer}"
+                          DisplayMemberPath="SecondName"/>
             </Grid>
         </Border>
     </Border>
