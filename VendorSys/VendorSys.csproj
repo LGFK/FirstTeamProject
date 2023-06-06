@@ -9,8 +9,10 @@
 
   <ItemGroup>
     <None Remove="Image\BackgroundBasket.jpeg" />
+    <None Remove="Image\live-online.png" />
     <None Remove="Image\minus.png" />
     <None Remove="Image\Plus.png" />
+    <None Remove="Image\SplashScreen.png" />
     <None Remove="Image\Untitled.png" />
     <None Remove="img\ArtlinePc.png" />
     <None Remove="img\CorsairHeadPhones.png" />
@@ -19,10 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Image\live-online.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Image\minus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Image\Plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\SplashScreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Image\Untitled.png">
