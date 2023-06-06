@@ -23,4 +23,9 @@ public partial class BasketView : UserControl
     {
         InitializeComponent();
     }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }
