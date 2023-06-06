@@ -207,6 +207,34 @@ namespace Server
                                 db?.AddProduct(prodToAdd);
                                 break;
                             }
+                        case "MLogin":
+                            {
+
+                                if(await db.loginMngr(reqStr[1], reqStr[2])==true)
+                                {
+                                    responseToSend = Encoding.UTF8.GetBytes("true");
+                                }
+                                else
+                                {
+                                    responseToSend = Encoding.UTF8.GetBytes("false");
+                                }
+                                
+                                var sizeToSend = responseToSend.Length;
+                                buffer = BitConverter.GetBytes(sizeToSend);
+                                await networkStream.WriteAsync(buffer, 0,4);
+                                await networkStream.WriteAsync(responseToSend,0, responseToSend.Length);
+                                break;
+
+                            }
+                        case "MReg":
+                            {
+                                var res =await  db.AddNewManager(reqStr[1], reqStr[2]);
+                                responseToSend = Encoding.UTF8.GetBytes(res);
+                                buffer = BitConverter.GetBytes(responseToSend.Length);
+                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                break;
+                            }
                     }
                     
                     return logs;

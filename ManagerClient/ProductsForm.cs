@@ -89,17 +89,25 @@ namespace ManagerClient
         {
             if(string.IsNullOrEmpty(tbDiscount.Text)!=true)
             {
-                int discount = Int32.Parse(tbDiscount.Text);
-                var items = lV1.SelectedItems;
-                List<int> ids = new List<int>();
-                for (int i = 0; i < items.Count; i++)
+                try
                 {
-                    ids.Add(Int32.Parse(items[i].Text));
+                    int discount = Int32.Parse(tbDiscount.Text);
+                    var items = lV1.SelectedItems;
+                    List<int> ids = new List<int>();
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        ids.Add(Int32.Parse(items[i].Text));
 
+                    }
+                    await _cl.SetDiscount(discount, ids);
+
+                    FillProds();
                 }
-                await _cl.SetDiscount(discount, ids);
-                
-                FillProds();
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+               
             }
             
         }
