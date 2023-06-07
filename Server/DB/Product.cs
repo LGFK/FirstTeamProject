@@ -16,7 +16,7 @@ public partial class Product
 
     public int? ProdType { get; set; }
 
-    public string Image { get; set; } = null!;
+    public byte[]? Image { get; set; }
 
     public int? Discount { get; set; }
     [JsonIgnore]

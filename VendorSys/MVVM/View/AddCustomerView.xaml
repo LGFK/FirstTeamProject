@@ -23,7 +23,6 @@
         </Style>
     </UserControl.Style>
 
-
     <Border CornerRadius="50">
         <Border CornerRadius="25"
                 BorderThickness="5"
@@ -43,7 +42,6 @@
                     <GradientStop Color="#1B1448" Offset="0.75"/>
                 </LinearGradientBrush>
             </Border.Background>
-
 
             <Grid>
                 <Grid.ColumnDefinitions>
