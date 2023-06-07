@@ -73,7 +73,7 @@
                        Grid.Column="0"
                        Grid.Row="0"
                        Style="{StaticResource ModernTextBox1}" 
-                     Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                       Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <ScrollViewer x:Name="scView" Grid.Row="1" Grid.Column="1" Margin="10">
                     <StackPanel>
@@ -96,7 +96,7 @@
                                                             Style="{StaticResource btnStyle1}"
                                                             Content="Add to Cart">
                                                 </Button>
-                                                <TextBlock Margin="5" Text="{Binding Price, StringFormat={}{0:C}}" FontSize="14" Foreground="White"/>
+                                                <TextBlock Margin="5" Text="{Binding Price, StringFormat={}{0:C}}" FontSize="14"                                    Foreground="White"/>
                                                 <TextBlock Margin="5" Text="{Binding Pname }" FontSize="14" Foreground="White"/>
                                             </StackPanel>
                                         </Border>

@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VendorSys.MVVM.View"
+             xmlns:viewModel="clr-namespace:VendorSys.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+ 
+
     <UserControl.Style>
         <Style>
             <Style.Triggers>
@@ -52,25 +56,38 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel  VerticalAlignment="Center">
-                    <TextBox
+                    <Label Foreground="White">First name</Label>
+                    
+                    <TextBox x:Name="Firstn"
+                        Text="{Binding FirstName}"
                         Margin=" 10"
-                        Style="{StaticResource ModernFirstName}"></TextBox>
-
+                        Style="{StaticResource ModernFirstName}"/>
+                    
+                    <Label Foreground="White">last name</Label>
+                    
                     <TextBox
+                        Text="{Binding LastName}"
                         Margin=" 10"
-                        Style="{StaticResource ModernSecondName}"></TextBox>
-
+                        Style="{StaticResource ModernLastName}"/>
+                    
+                    <Label Foreground="White">Email</Label>
+                    
                     <TextBox
+                        Text="{Binding Email}"
                         Margin=" 10"
-                        Style="{StaticResource ModernEmail}"></TextBox>
-
+                        Style="{StaticResource ModernEmail}"/>
+                    
+                    <Label Foreground="White">Phone number</Label>
+                    
                     <TextBox
+                         Text="{Binding Phone}"
                         Margin=" 10"
-                        Style="{StaticResource ModernPhone}"></TextBox>
+                        Style="{StaticResource  ModernPhone}"/>
 
                     <Button
                         Width="100" Height="20"
-                        Style="{StaticResource btnStyle2}">Add</Button>
+                        Style="{StaticResource btnStyle2}"
+                        Command="{Binding AddCommand}">Add</Button>
                 </StackPanel>
 
                 <Image Grid.Column="1"

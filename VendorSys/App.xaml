@@ -2,23 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:VendorSys"
-             
              xmlns:viewModel="clr-namespace:VendorSys.MVVM.ViewModel"
              xmlns:view="clr-namespace:VendorSys.MVVM.View"
-             
-             
              StartupUri="\MVVM\View\SplashScreenView.xaml">
-                <!--StartupUri="\MVVM\View\MainWindow.xaml">-->
-             
-             
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/TextBoxEmail.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/TextBoxFirstName.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="Theme/TextBoxPhome.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="Theme/TextBoxSecondName.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/TextBoxEmail.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/TextBoxLastName.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/TextBoxPhone.xaml"></ResourceDictionary>
 
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/TextboxTheme.xaml"></ResourceDictionary>
@@ -54,8 +48,6 @@
             <DataTemplate DataType="{x:Type viewModel:AddCustomerViewModel}">
                 <view:AddCustomerView/>
             </DataTemplate>
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
