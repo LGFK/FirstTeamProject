@@ -57,7 +57,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="1" Text="LOGO"
+            <TextBlock Grid.Row="1" Text="Shop"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Foreground="White"

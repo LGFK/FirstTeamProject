@@ -52,23 +52,25 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel  VerticalAlignment="Center">
-                    <TextBox
+                    <TextBlock Foreground="White" Margin="5">First name</TextBlock>
+                        <TextBox
                         Margin=" 10"
                         Style="{StaticResource ModernFirstName}"></TextBox>
-
+                    <TextBlock Foreground="White" Margin="5">Second name</TextBlock>
                     <TextBox
                         Margin=" 10"
                         Style="{StaticResource ModernSecondName}"></TextBox>
-
+                    <TextBlock Foreground="White" Margin="5">Email</TextBlock>
                     <TextBox
                         Margin=" 10"
                         Style="{StaticResource ModernEmail}"></TextBox>
-
+                    <TextBlock Foreground="White" Margin="5">Phone</TextBlock>
                     <TextBox
                         Margin=" 10"
                         Style="{StaticResource ModernPhone}"></TextBox>
 
                     <Button
+                        Command="{Binding AddCommand}"
                         Width="100" Height="20"
                         Style="{StaticResource btnStyle2}">Add</Button>
                 </StackPanel>

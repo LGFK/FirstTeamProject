@@ -98,7 +98,7 @@
                                                             Style="{StaticResource btnStyle1}"
                                                             Content="Add to Cart">
                                                     </Button>
-                                                    <TextBlock Margin="5" Text="{Binding Price, StringFormat={}{0:C}}" FontSize="14" Foreground="White"/>
+                                                    <TextBlock  Margin="5" Text="{Binding Price, StringFormat={}{0:C}}" FontSize="14" Foreground="Orange"/>
                                                     <TextBlock Margin="5" Text="{Binding Pname }" FontSize="14" Foreground="White"/>
                                                 </StackPanel>
                                             </Border>
