@@ -24,12 +24,14 @@ class MainViewModel : ObservableObject
     public RelayCommand ButtonMinimizeClickCommand { get; set; }
     public RelayCommand WindowsSateButtonClickCommand { get; set; }
     public RelayCommand CoseButtonClickCommand { get; set; }
+    public RelayCommand AddCustomerCommand { get; set; }
 
     //~~~~~~~~~~//
     public HomeViewModel HomeVM { get; set; }
     public CatalogViewModel CatalogVM { get; set; }
     public BasketViewModel BasketVM { get; set; }
     public AllOrderViewModel AllOrderVM { get; set; }
+    public AddCustomerViewModel AddCustomerVM { get; set; }
 
     private object _currentView;
     public object CurrentView
@@ -76,6 +78,7 @@ class MainViewModel : ObservableObject
         BasketVM = new BasketViewModel();
         CatalogVM = new CatalogViewModel();
         AllOrderVM = new AllOrderViewModel();
+        AddCustomerVM = new AddCustomerViewModel();
 
         //Підписка на подію додавання із каталога в кошик товарів
         CatalogVM.ProductSelected += (sender, e) => BasketVM.AddProductToBasket(e.SelectedProduct);
@@ -101,6 +104,11 @@ class MainViewModel : ObservableObject
         AllOrderViewCommand = new RelayCommand(o =>
         {
             CurrentView = AllOrderVM;
+        });
+
+        AddCustomerCommand = new RelayCommand(o =>
+        {
+            CurrentView = AddCustomerVM;
         });
     }
 }

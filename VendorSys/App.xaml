@@ -15,6 +15,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/TextBoxEmail.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/TextBoxFirstName.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/TextBoxPhome.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/TextBoxSecondName.xaml"></ResourceDictionary>
+
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/TextboxTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/TextboxTheme1.xaml"></ResourceDictionary>
@@ -45,7 +50,12 @@
             <DataTemplate DataType="{x:Type viewModel:SplashScreenViewModel}">
                 <view:SplashScreenView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewModel:AddCustomerViewModel}">
+                <view:AddCustomerView/>
+            </DataTemplate>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,32 +1,15 @@
-﻿using Microsoft.IdentityModel.Abstractions;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Markup;
-using System.Xml.Linq;
-using VendorSys.Core;
-using VendorSys.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Markup;
-using Microsoft.Win32;
-using VendorSys.MVVM.View;
-using System.Runtime.ConstrainedExecution;
+using VendorSys.Core;
+using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
 /// <summary>
@@ -119,7 +102,7 @@ internal class BasketViewModel : ObservableObject
         get { return _selectedProduct; }
         set
         {
-            if(_selectedProduct != value)
+            if (_selectedProduct != value)
             {
                 _selectedProduct = value;
                 OnPropertyChanged(nameof(SelectedProduct));
@@ -149,11 +132,11 @@ internal class BasketViewModel : ObservableObject
         {
             if (!ProductInBosket.IsNullOrEmpty())
             {
-                if(SelectedCashier == null)
+                if (SelectedCashier == null)
                 {
                     MessageBox.Show("Choose cashier");
                 }
-                else if(SelectedCustomer == null)
+                else if (SelectedCustomer == null)
                 {
                     MessageBox.Show("Choose customer");
                 }
@@ -180,8 +163,8 @@ internal class BasketViewModel : ObservableObject
             else
             {
                 MessageBox.Show("Choose product");
-            }          
-            
+            }
+
         });
 
         PrintReceiptCommand = new RelayCommand(o =>
@@ -200,7 +183,7 @@ internal class BasketViewModel : ObservableObject
                         sw.WriteLine("-------------------");
                         sw.WriteLine($"Cashier: {_receipt.Cashier.FirstName} {_receipt.Cashier.SecondName}");
                         sw.WriteLineAsync("Receipt:");
-                        foreach(var product in ProductInBosket)
+                        foreach (var product in ProductInBosket)
                         {
                             sw.WriteLineAsync($"{product.Pname}\t{product.Amount} x {product.Price}");
                         }
@@ -216,12 +199,12 @@ internal class BasketViewModel : ObservableObject
         });
         AddNewCustomerWindowOpenCommand = new RelayCommand(o =>
         {
-            
+
         });
 
         DellCommand = new RelayCommand(o =>
         {
-            if(SelectedProduct != null)
+            if (SelectedProduct != null)
             {
                 _productInBosket.Remove(SelectedProduct);
             }
@@ -231,13 +214,13 @@ internal class BasketViewModel : ObservableObject
         {
             if (SelectedProduct != null)
             {
-                var p = ProductInBosket.FirstOrDefault(p=> p.Id == SelectedProduct.Id);
+                var p = ProductInBosket.FirstOrDefault(p => p.Id == SelectedProduct.Id);
                 if (p != null)
                 {
-                    var updateProduce = new Product(p.Id,p.Pname, p.Price, p.Amount+1, p.ProdType,p.Image, p.Discount, p.ProdTypeNavigation, p.ProductsSolds);
+                    var updateProduce = new Product(p.Id, p.Pname, p.Price, p.Amount + 1, p.ProdType, p.Image, p.Discount, p.ProdTypeNavigation, p.ProductsSolds);
                     var index = ProductInBosket.IndexOf(p);
                     ProductInBosket[index] = updateProduce;
-                }                
+                }
             }
         });
 
@@ -246,7 +229,7 @@ internal class BasketViewModel : ObservableObject
             if (SelectedProduct != null)
             {
                 var p = ProductInBosket.FirstOrDefault(p => p.Id == SelectedProduct.Id);
-                if (p != null && p.Amount >1)
+                if (p != null && p.Amount > 1)
                 {
                     var updateProduce = new Product(p.Id, p.Pname, p.Price, p.Amount - 1, p.ProdType, p.Image, p.Discount, p.ProdTypeNavigation, p.ProductsSolds);
                     var index = ProductInBosket.IndexOf(p);
@@ -264,7 +247,7 @@ internal class BasketViewModel : ObservableObject
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
         _cashiers = Task.Run(() => vendorSysClient.GetCashiersAsync()).Result;
-        
+
         _customers = Task.Run(() => vendorSysClient.GetCustomersAsync()).Result;
     }
     public void AddProductToBasket(Product product)
@@ -273,8 +256,8 @@ internal class BasketViewModel : ObservableObject
         {
             return;
         }
-        
-        if(ProductInBosket.Contains(product)) // логіка перевірки скільки на складі вже є
+
+        if (ProductInBosket.Contains(product)) // логіка перевірки скільки на складі вже є
         {
             int index = ProductInBosket.IndexOf(product);
             ProductInBosket[index].Amount = ProductInBosket[index].Amount++;

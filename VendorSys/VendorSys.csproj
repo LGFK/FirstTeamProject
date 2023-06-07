@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Image\01-1.png" />
     <None Remove="Image\BackgroundBasket.jpeg" />
+    <None Remove="Image\img-1.png" />
     <None Remove="Image\live-online.png" />
     <None Remove="Image\minus.png" />
     <None Remove="Image\Plus.png" />
@@ -21,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Image\01-1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\img-1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Image\live-online.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
