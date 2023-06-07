@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using VendorSys.Core;
+using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
 class AddCustomerViewModel : ObservableObject
@@ -37,6 +39,13 @@ class AddCustomerViewModel : ObservableObject
         {
             //Реалізувати логіку відправки нового клієнта на сервер
             MessageBox.Show($"{FirstName}\n{LastName}\n{Email}\n{Phone}");
+            VendorSysClient vendorSysClient = new VendorSysClient();
+            Customer customer = new Customer();
+            customer.FirstName = FirstName;
+            customer.SecondName = LastName;
+            customer.Email = Email;
+            customer.PhoneN = Phone;
+            vendorSysClient.SendNewCustomerAsync(customer).Wait();
         });
     }
 }

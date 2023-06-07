@@ -161,7 +161,7 @@ internal class BasketViewModel : ObservableObject
                     VendorSysClient vendorSysClient = new VendorSysClient();
 
                     vendorSysClient.SendNewReceiptAsync(_receipt,ProductInBosket.ToList(),_amountOfProduct).Wait();
-                    _printAvailable = true;
+                    //_printAvailable = true;
                 }
             }
             else
