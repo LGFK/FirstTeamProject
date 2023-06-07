@@ -221,7 +221,7 @@ internal class BasketViewModel : ObservableObject
                 var p = ProductInBosket.FirstOrDefault(p => p.Id == SelectedProduct.Id);
                 if (p != null)
                 {
-                    var updateProduce = new Product(p.Id, p.Pname, p.Price, p.Amount + 1, p.ProdType, p.Image, p.Discount, p.ProdTypeNavigation, p.ProductsSolds);
+                    var updateProduce = new Product(p.Id, p.Pname, p.Price, p.Amount + 1, p.ProdType, p.Discount, p.Image, p.ProdTypeNavigation, p.ProductsSolds);
                     var index = ProductInBosket.IndexOf(p);
                     ProductInBosket[index] = updateProduce;
                 }
@@ -235,7 +235,7 @@ internal class BasketViewModel : ObservableObject
                 var p = ProductInBosket.FirstOrDefault(p => p.Id == SelectedProduct.Id);
                 if (p != null && p.Amount > 1)
                 {
-                    var updateProduce = new Product(p.Id, p.Pname, p.Price, p.Amount - 1, p.ProdType, p.Image, p.Discount, p.ProdTypeNavigation, p.ProductsSolds);
+                    var updateProduce = new Product(p.Id, p.Pname, p.Price, p.Amount - 1, p.ProdType, p.Discount, p.Image, p.ProdTypeNavigation, p.ProductsSolds);
                     var index = ProductInBosket.IndexOf(p);
                     ProductInBosket[index] = updateProduce;
                 }
