@@ -44,6 +44,7 @@ class AddCustomerViewModel : ObservableObject
             customer.Email = Email;
             customer.PhoneN = Phone;
             vendorSysClient.SendNewCustomerAsync(customer).Wait();
+            MessageBox.Show("New customer added.");
         });
     }
 }

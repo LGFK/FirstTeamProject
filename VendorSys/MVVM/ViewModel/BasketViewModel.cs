@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Shapes;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
@@ -21,7 +22,6 @@ internal class BasketViewModel : ObservableObject
 {
     public RelayCommand BuyCommand { get; set; }
     public RelayCommand PrintReceiptCommand { get; set; }
-    public RelayCommand AddNewCustomerWindowOpenCommand { get; set; }
     public RelayCommand DellCommand { get; set; }
     public RelayCommand CounterMinusCommand { get; set; }
     public RelayCommand CounterPlusCommand { get; set; }
@@ -112,22 +112,8 @@ internal class BasketViewModel : ObservableObject
         }
     }
 
-    private Boolean _printAvailable;
-    public Boolean PrintAvailable
-    {
-        get { return _printAvailable; }
-        set
-        {
-            if (_printAvailable != value)
-            {
-                _printAvailable = value;
-                OnPropertyChanged(nameof(PrintAvailable));
-            }
-        }
-    }
     public BasketViewModel()
     {
-
         LoadDataAsync();
         BuyCommand = new RelayCommand(o =>
         {
@@ -156,12 +142,10 @@ internal class BasketViewModel : ObservableObject
                     _receipt.Cashier = SelectedCashier;
                     _receipt.Customer = SelectedCustomer;
 
-                    // тут реалізувати логіку відправки чека на сервер (Гамлет)
-
+                    // відправка чека на сервер (Гамлет)
                     VendorSysClient vendorSysClient = new VendorSysClient();
-
                     vendorSysClient.SendNewReceiptAsync(_receipt,ProductInBosket.ToList(),_amountOfProduct).Wait();
-                    //_printAvailable = true;
+                    MessageBox.Show("Products have been purchased.");
                 }
             }
             else
@@ -171,7 +155,7 @@ internal class BasketViewModel : ObservableObject
 
         });
 
-        PrintReceiptCommand = new RelayCommand(o =>
+        PrintReceiptCommand = new RelayCommand(async o =>
         {
             if (_receipt != null)
             {
@@ -182,17 +166,20 @@ internal class BasketViewModel : ObservableObject
                 {
                     using (var sw = new StreamWriter(fileDialog.FileName, false, Encoding.Default))
                     {
-                        sw.WriteLine("\t---SHOP---");
-                        sw.WriteLine(_receipt.Date);
-                        sw.WriteLine("-------------------");
-                        sw.WriteLine($"Cashier: {_receipt.Cashier.FirstName} {_receipt.Cashier.SecondName}");
-                        sw.WriteLineAsync("Receipt:");
-                        foreach (var product in ProductInBosket)
+                        await Task.Run(() =>
                         {
-                            sw.WriteLineAsync($"{product.Pname}\t{product.Amount} x {product.Price}");
-                        }
-                        sw.WriteLineAsync($"Total price: {_receipt.TotalPrice}");
-                        sw.WriteLineAsync($"Customer: {_receipt.Customer.FirstName} {_receipt.Customer.SecondName}");
+                            sw.WriteLine("\t---SHOP---");
+                            sw.WriteLine(_receipt.Date);
+                            sw.WriteLine("-------------------");
+                            sw.WriteLine($"Cashier: {_receipt.Cashier.FirstName} {_receipt.Cashier.SecondName}");
+                            sw.WriteLine("Receipt:");
+                            foreach (var product in ProductInBosket)
+                            {
+                                sw.WriteLine($"{product.Pname}\t{product.Amount} x {product.Price}");
+                            }
+                            sw.WriteLine($"Total price: {_receipt.TotalPrice}");
+                            sw.WriteLine($"Customer: {_receipt.Customer.FirstName} {_receipt.Customer.SecondName}");
+                        });
                     }
                 }
             }
@@ -200,10 +187,6 @@ internal class BasketViewModel : ObservableObject
             {
                 MessageBox.Show("You need to buy something");
             }
-        });
-        AddNewCustomerWindowOpenCommand = new RelayCommand(o =>
-        {
-
         });
 
         DellCommand = new RelayCommand(o =>
