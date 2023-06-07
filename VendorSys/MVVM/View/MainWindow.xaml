@@ -148,6 +148,14 @@
                              Command="{Binding AllOrderViewCommand}">
 
                 </RadioButton>
+                <RadioButton Content="Add Customer"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14 "
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding AddCustomerCommand}">
+
+                </RadioButton>
             </StackPanel>
             
             <!--Visibility="Hidden"-->
