@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VendorSys.MVVM.ViewModel;
 
 namespace VendorSys.MVVM.View;
 /// <summary>
@@ -22,5 +23,6 @@ public partial class AddCustomerView : UserControl
     public AddCustomerView()
     {
         InitializeComponent();
+        
     }
 }

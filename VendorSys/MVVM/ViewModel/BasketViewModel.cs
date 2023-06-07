@@ -261,7 +261,7 @@ internal class BasketViewModel : ObservableObject
             return;
         }
 
-        if (ProductInBosket.Contains(product)) // логіка перевірки скільки на складі вже є
+        if (ProductInBosket.Contains(product))
         {
             int index = ProductInBosket.IndexOf(product);
             ProductInBosket[index].Amount = ProductInBosket[index].Amount++;
