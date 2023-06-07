@@ -4,23 +4,49 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
 namespace VendorSys.MVVM.ViewModel;
 internal class AllOrderViewModel : ObservableObject
 {
-    public ObservableCollection<Receipt> ReceiptCollection { get; set; } = new ObservableCollection<Receipt>();
-    private List<Receipt> _data;
-    private Receipt _selectedReceipt;
+    public ObservableCollection<AllOrderReceipt> ReceiptCollection { get; set; } = new ObservableCollection<AllOrderReceipt>();
+    private List<AllOrderReceipt> _data;
+    private AllOrderReceipt _selectedReceipt;
     private string? _filterText;
-    private List<Receipt> _filteredData;
+    private List<AllOrderReceipt> _filteredData;
     public AllOrderViewModel()
-    { 
-        Data = new List<Receipt>() { new Receipt() {Id =1, TotalPrice = 100, CashierId = 1, CustomerId = 1 , Date = DateTime.Now} };
+    {
+        VendorSysClient vendorSysClient = new VendorSysClient();
+        //Data = new List<Receipt>() { new Receipt() {Id =1, TotalPrice = 100, CashierId = 1, CustomerId = 1 , Date = DateTime.Now} };
+        try
+        {
+            var receipts = Task.Run(() => vendorSysClient.GetAllReceiptsAsync()).Result;
+            var cashiers = Task.Run(() => vendorSysClient.GetCashiersAsync()).Result;
+            var customers = Task.Run(() => vendorSysClient.GetCustomersAsync()).Result;
+            List<AllOrderReceipt> allOrderReceipts = new List<AllOrderReceipt>();
+            string customerName;
+            foreach (var receipt in receipts)
+            {
+                if (receipt.CustomerId == null)
+                    customerName = " ";
+                else
+                    customerName = (from c in customers where c.Id == receipt.CustomerId select c.SecondName).First();
+
+                allOrderReceipts.Add(new AllOrderReceipt(receipt.Id, receipt.TotalPrice, customerName,
+                    (from c in cashiers where c.Id == receipt.CashierId select c.SecondName ?? " ").First(),
+                    receipt.Date));
+            }
+            Data = allOrderReceipts;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
-    public List<Receipt> Data
+    public List<AllOrderReceipt> Data
     {
         get { return _data; }
         set
@@ -33,7 +59,7 @@ internal class AllOrderViewModel : ObservableObject
         }
     }
 
-    public List<Receipt> FilteredData
+    public List<AllOrderReceipt> FilteredData
     {
         get { return _filteredData; }
         set
@@ -46,7 +72,7 @@ internal class AllOrderViewModel : ObservableObject
         }
     }
 
-    public Receipt SelectedReceipt
+    public AllOrderReceipt SelectedReceipt
     {
         get => _selectedReceipt;
         set

@@ -38,6 +38,7 @@ internal class BasketViewModel : ObservableObject
         }
     }
 
+    List<int> _amountOfProduct;
 
     Receipt _receipt;
 
@@ -143,9 +144,11 @@ internal class BasketViewModel : ObservableObject
                 else
                 {
                     _receipt = new Receipt();
+                    _amountOfProduct = new List<int>();
                     foreach (var product in ProductInBosket)
                     {
                         _receipt.TotalPrice += product.Price;
+                        _amountOfProduct.Add(product.Amount);
                     }
                     _receipt.CustomerId = SelectedCustomer.Id;
                     _receipt.CashierId = SelectedCashier.Id;
@@ -155,8 +158,9 @@ internal class BasketViewModel : ObservableObject
 
                     // тут реалізувати логіку відправки чека на сервер (Гамлет)
 
+                    VendorSysClient vendorSysClient = new VendorSysClient();
 
-
+                    vendorSysClient.SendNewReceiptAsync(_receipt,ProductInBosket.ToList(),_amountOfProduct).Wait();
                     _printAvailable = true;
                 }
             }
