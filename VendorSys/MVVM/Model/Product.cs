@@ -16,24 +16,25 @@ public partial class Product
 
     public int? ProdType { get; set; }
 
-    public string Image { get; set; } = null!;
+    public byte[] Image { get; set; } = null!;
 
     public int? Discount { get; set; }
     [JsonIgnore]
     public virtual ProductType? ProdTypeNavigation { get; set; }
     [JsonIgnore]
     public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
-    public Product(int id, string pname, decimal price, int amount, int? prodType, string image, int? discount, ProductType? prodTypeNavigation, ICollection<ProductsSold> productsSolds)
+    public Product(int id, string pname, decimal price, int amount, int? prodType, int? discount, byte[] image, ProductType? prodTypeNavigation, ICollection<ProductsSold> productsSolds)
     {
+        Image = new byte[image.Length];
         Id = id;
         Pname = pname;
         Price = price;
         Amount = amount;
         ProdType = prodType;
-        Image = image;
         Discount = discount;
         ProdTypeNavigation = prodTypeNavigation;
         ProductsSolds = productsSolds;
+        Image = image;
     }
     //public string ToLower()
     //{
