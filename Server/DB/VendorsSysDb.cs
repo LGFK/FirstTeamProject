@@ -3,7 +3,7 @@ using Azure.Core;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Server.DB.ConfigFiles;
+
 using System.Security.Cryptography;
 
 using System;
@@ -17,13 +17,13 @@ namespace Server.DB
     public class VendorSysDb
     {
         VendorSysDbContext _dbContext;
-        
-        
+
+
         public VendorSysDb(String _connectionString1)
         {
             var dbContextOptions = new DbContextOptionsBuilder<VendorSysDbContext>().UseLazyLoadingProxies().UseSqlServer(_connectionString1).Options;
             _dbContext = new VendorSysDbContext(dbContextOptions);
-            
+
         }
         public async Task<List<Receipt>> GetAllReceipts()
         {
@@ -35,12 +35,12 @@ namespace Server.DB
             _dbContext.ProductTypes.Add(productType);
             _dbContext.SaveChanges();
         }
-        public async Task SetDiscounts(List<int> _ids,int discount)
+        public async Task SetDiscounts(List<int> _ids, int discount)
         {
-            for(int i=0;i<_ids.Count;i++)
+            for (int i = 0; i < _ids.Count; i++)
             {
                 _dbContext.Products.FirstOrDefault(x => x.Id == _ids[i]).Discount = discount;
-                
+
             }
             _dbContext.SaveChanges();
         }
@@ -69,11 +69,11 @@ namespace Server.DB
                 _dbContext.Remove(_dbContext.Customers.FirstOrDefault(x => x.Id == _id));
                 _dbContext.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         public async Task<(Receipt? _receipt, List<Product?> _prodsInReceipt)> GetConcreeteReceiptById(int id)
@@ -154,35 +154,35 @@ namespace Server.DB
 
         public async Task<string> GetProductTypeById(int id)
         {
-            var res = _dbContext.ProductTypes.Where(x=>x.Id == id).Select(x => x.TypeName);
+            var res = _dbContext.ProductTypes.Where(x => x.Id == id).Select(x => x.TypeName);
             foreach (var type in res)
             {
                 return type;
             }
             throw new Exception("Unhandled Exception");
 
-            
+
         }
 
-        public async Task<bool> loginMngr(string login , string password)
+        public async Task<bool> loginMngr(string login, string password)
         {
-            
-            var mngr =await  GetManagerByLogin(login);
-            if (string.IsNullOrEmpty(mngr[0])!=true)
+
+            var mngr = await GetManagerByLogin(login);
+            if (string.IsNullOrEmpty(mngr[0]) != true)
             {
-                password = password+mngr[3];
+                password = password + mngr[3];
                 var encodedPass = SHA256.HashData(Encoding.UTF8.GetBytes(password));
                 if (Encoding.UTF8.GetString(encodedPass) == mngr[2])
                 {
-                    
+
                     return true;
                 }
                 else
                 {
-                    
+
                     return false;
                 }
-                
+
             }
             else
             {
@@ -190,11 +190,11 @@ namespace Server.DB
             }
             throw new Exception("Unhandled Server Exception(loginMngr");
         }
-        public async Task<string> AddNewManager(string login , string passwordStr)
+        public async Task<string> AddNewManager(string login, string passwordStr)
         {
-           string reply="";
-           if (String.IsNullOrEmpty((await GetManagerByLogin(login))[1]))
-           {
+            string reply = "";
+            if (String.IsNullOrEmpty((await GetManagerByLogin(login))[1]))
+            {
                 try
                 {
                     DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
@@ -210,7 +210,7 @@ namespace Server.DB
                         saltStrSB.Append(arrWithLetters[rand.Next(0, arrWithLetters.Length - 1)]);
                     }
                     var saltStr = saltStrSB.ToString();
-                    
+
                     string saltedPasswordStr = passwordStr + saltStr;
                     byte[] password = Encoding.UTF8.GetBytes(saltedPasswordStr); ;
                     var hashedSaltedPassword = SHA256.HashData(password);
@@ -224,19 +224,19 @@ namespace Server.DB
                     reply = "Manager Added";
                     return reply;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     return $"{ex.Message}";
                 }
-           }
-           else
-           {
+            }
+            else
+            {
                 reply = "User Already Exists";
                 return reply;
-           }
-           
-           
+            }
+
+
         }
 
         public async Task<string[]> GetManagerByLogin(string login)
@@ -253,7 +253,7 @@ namespace Server.DB
                 using var reader = command.ExecuteReader();
                 return ExecuteReader(reader);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return null;
@@ -266,7 +266,7 @@ namespace Server.DB
         public String[] ExecuteReader(SqlDataReader? reader)
         {
             string[] data = new string[4];
-            while(reader?.Read()??false)
+            while (reader?.Read() ?? false)
             {
                 for (int i = 0; i < reader?.FieldCount; i++)
                 {

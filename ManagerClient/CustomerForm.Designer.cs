@@ -41,7 +41,7 @@
             this.deleteFromDbBttn.Name = "deleteFromDbBttn";
             this.deleteFromDbBttn.Size = new System.Drawing.Size(115, 27);
             this.deleteFromDbBttn.TabIndex = 10;
-            this.deleteFromDbBttn.Text = "Delete From DB";
+            this.deleteFromDbBttn.Text = "Delete From Model";
             this.deleteFromDbBttn.UseVisualStyleBackColor = true;
             this.deleteFromDbBttn.Click += new System.EventHandler(this.deleteFromDbBttn_Click);
             // 

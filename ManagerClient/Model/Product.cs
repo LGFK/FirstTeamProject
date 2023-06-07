@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ManagerClient.Model;
+using Newtonsoft.Json;
 
-namespace ManagerClient.Model;
+namespace ManagerClient;
 
 public partial class Product
 {
@@ -16,12 +17,11 @@ public partial class Product
 
     public int? ProdType { get; set; }
 
-    public string Image { get; set; } = null!;
-
     public int? Discount { get; set; }
+
+    public byte[] Image { get; set; } = null!;
     [JsonIgnore]
     public virtual ProductType? ProdTypeNavigation { get; set; }
     [JsonIgnore]
     public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
-    
 }

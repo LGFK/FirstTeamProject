@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,15 +49,21 @@ namespace ManagerClient
                 try
                 {
                     var prodTypeId = Int32.Parse(comboBox1.SelectedItem.ToString().Split(':')[0]);
+                    Image img = Image.FromFile(path);
+                    MemoryStream ms = new MemoryStream();
+                    img.Save(ms, ImageFormat.Png);
+                    var reqBytes = ms.ToArray();
+                    
                     var prToAdd = new Product()
                     {
                         Pname = tbName.Text,
                         Amount = Int32.Parse(tbAmount.Text),
                         Price = Int32.Parse(tbPrice.Text),
-                        ProdType = prodTypeId
+                        ProdType = prodTypeId,
+                        
                     };
-                    Image img = Image.FromFile(path);
-                    _cl.AddProduct(prToAdd, img, ".png");
+                    
+                    _cl.AddProduct(prToAdd,img, ".png");
                     this.Close();
                 }
                 catch(Exception ex)

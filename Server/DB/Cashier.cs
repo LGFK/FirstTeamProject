@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Server.DB;
 
-namespace Server.DB.ConfigFiles;
+namespace Server.DB;
 
 public partial class Cashier
 {

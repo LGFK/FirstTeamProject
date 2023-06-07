@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
 using Server.DB;
-using Server.DB.ConfigFiles;
+
 using System.Diagnostics.Eventing.Reader;
 using System.Net;
 using System.Net.Sockets;
@@ -88,18 +88,18 @@ namespace Server
                             {
                                 List<Receipt> receipts = await db.GetAllReceipts();
                                 jsonToSend = JsonConvert.SerializeObject(receipts, Formatting.Indented);
-                                responseToSend= Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer= BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer , 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend,0,responseToSend.Length);
+                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+                                buffer = BitConverter.GetBytes(responseToSend.Length);
+                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
                             }
                         case "Discounts":
                             {
                                 int discount = Int32.Parse(reqStr[1]);
                                 List<int> _ids = JsonConvert.DeserializeObject<List<int>>(reqStr[2]);
-                                
-                                db.SetDiscounts(_ids,discount);
+
+                                db.SetDiscounts(_ids, discount);
                                 break;
                             }
                         case "Receipts":
@@ -114,8 +114,8 @@ namespace Server
                                 jsonToSend = JsonConvert.SerializeObject(_receipt._prodsInReceipt);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer,0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend,0, responseToSend.Length);
+                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
                             }
                         case "Products":
@@ -156,7 +156,7 @@ namespace Server
                                 var prodsInReceipt = JsonConvert.DeserializeObject<List<Product>>(reqStr[2]);
                                 var amountList = JsonConvert.DeserializeObject<List<int>>(reqStr[3]);
                                 List<(Product, int)> listToAdd = new List<(Product, int)>();
-                                for(int i = 0; i < prodsInReceipt.Count; i++)
+                                for (int i = 0; i < prodsInReceipt.Count; i++)
                                 {
                                     listToAdd.Add((prodsInReceipt[i], amountList[i]));
                                 }
@@ -178,9 +178,9 @@ namespace Server
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
                                 await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
-                                
+
                             }
-                            
+
                         case "DeleteCust":
                             {
                                 int id = Int32.Parse(reqStr[1]);
@@ -200,17 +200,15 @@ namespace Server
                                 reqSize = BitConverter.ToInt32(buffer, 0);
                                 buffer = new byte[reqSize];
                                 await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                                Image imgToAdd = Image.FromStream(new MemoryStream(buffer));
-                                string path = @"..\..\..\DB\Images\" + prodToAdd.Pname + ".png";
-                                imgToAdd.Save(path);
-                                prodToAdd.Image = path;
+                                MessageBox.Show(Encoding.UTF8.GetString(buffer));
+                                prodToAdd.Image = buffer;
                                 db?.AddProduct(prodToAdd);
                                 break;
                             }
                         case "MLogin":
                             {
 
-                                if(await db.loginMngr(reqStr[1], reqStr[2])==true)
+                                if (await db.loginMngr(reqStr[1], reqStr[2]) == true)
                                 {
                                     responseToSend = Encoding.UTF8.GetBytes("true");
                                 }
@@ -218,17 +216,17 @@ namespace Server
                                 {
                                     responseToSend = Encoding.UTF8.GetBytes("false");
                                 }
-                                
+
                                 var sizeToSend = responseToSend.Length;
                                 buffer = BitConverter.GetBytes(sizeToSend);
-                                await networkStream.WriteAsync(buffer, 0,4);
-                                await networkStream.WriteAsync(responseToSend,0, responseToSend.Length);
+                                await networkStream.WriteAsync(buffer, 0, 4);
+                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
                                 break;
 
                             }
                         case "MReg":
                             {
-                                var res =await  db.AddNewManager(reqStr[1], reqStr[2]);
+                                var res = await db.AddNewManager(reqStr[1], reqStr[2]);
                                 responseToSend = Encoding.UTF8.GetBytes(res);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -236,17 +234,17 @@ namespace Server
                                 break;
                             }
                     }
-                    
+
                     return logs;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message + "Server");
                 }
-                
+
             }
             throw new Exception("Somethig Went Wrong On The Server Side");
-            
+
 
         }
 

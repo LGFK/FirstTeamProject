@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ManagerClient.Model;
+using Newtonsoft.Json;
 
-namespace ManagerClient.Model;
+namespace ManagerClient;
 
 public partial class Receipt
 {
@@ -18,7 +19,9 @@ public partial class Receipt
     [JsonIgnore]
     public virtual Cashier? Cashier { get; set; }
     [JsonIgnore]
+
     public virtual Customer? Customer { get; set; }
     [JsonIgnore]
+
     public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
 }
