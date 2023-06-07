@@ -127,16 +127,6 @@
                                   ItemsSource="{Binding Path=Customers}"
                                   SelectedItem="{Binding Path=SelectedCustomer}"
                                   DisplayMemberPath="SecondName"/>
-                        <Button Grid.Row="1" 
-                                Width="90" Height="20"
-                                BorderThickness="0"
-                                Content="Add new"
-                                FontSize="14"
-                                FontFamily="Motserrat"
-                                Cursor="Hand"
-                                Command="{Binding AddNewCustomerWindowOpenCommand}"
-                                Style="{StaticResource btnStyle2 }" Margin="100,0,0,0">
-                        </Button>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
