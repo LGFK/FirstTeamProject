@@ -37,8 +37,6 @@ class AddCustomerViewModel : ObservableObject
     {      
         AddCommand = new RelayCommand(o =>
         {
-            //Реалізувати логіку відправки нового клієнта на сервер
-            MessageBox.Show($"{FirstName}\n{LastName}\n{Email}\n{Phone}");
             VendorSysClient vendorSysClient = new VendorSysClient();
             Customer customer = new Customer();
             customer.FirstName = FirstName;

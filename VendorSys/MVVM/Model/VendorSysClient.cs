@@ -314,6 +314,21 @@ namespace VendorSys.MVVM.Model
             await networkStream.WriteAsync(buffer, 0, buffer.Length);
             await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
         }
+        public async Task SendNewCustomerAsync(Customer customer)
+        {
+            var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
+            TcpClient client = new TcpClient();
+            client.Connect(endPoint);
+
+            var networkStream = client.GetStream();
+            buffer = new byte[4];
+            string customerToSend = JsonConvert.SerializeObject(customer);
+            string message = $"AddCustomer<|>{customerToSend}";
+            var requestMessage = Encoding.UTF8.GetBytes(message);
+            buffer = BitConverter.GetBytes(requestMessage.Length);
+            await networkStream.WriteAsync(buffer, 0, buffer.Length);
+            await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
+        }
 
     }
 }
