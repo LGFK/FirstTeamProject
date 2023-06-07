@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
+using Newtonsoft.Json;
 namespace ManagerClient.Model;
 
 public partial class Customer
@@ -17,6 +16,4 @@ public partial class Customer
     public string? PhoneN { get; set; }
     [JsonIgnore]
     public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
-
-    
 }

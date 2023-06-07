@@ -82,7 +82,7 @@ namespace ManagerClient
                 }
                 catch(Exception ex)
                 {
-                   //tcpClient.Close();
+                    
                     MessageBox.Show(ex.Message);
                     return new List<Product>();
                 }
@@ -383,7 +383,7 @@ namespace ManagerClient
                     networkStream.Write(sizeToSendBuff, 0, 4);
                     networkStream.Write(reqBytes, 0, reqBytes.Length);
                     MemoryStream memoryStream = new MemoryStream();
-                    switch(format)
+                    switch (format)
                     {
                         case ".png":
                             {
@@ -395,7 +395,7 @@ namespace ManagerClient
                                 break;
                             }
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {

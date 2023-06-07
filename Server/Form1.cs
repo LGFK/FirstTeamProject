@@ -14,7 +14,7 @@ namespace Server
             InitializeComponent();
         }
 
-  
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -30,7 +30,7 @@ namespace Server
             _server.StartServer();
             AcceptClients();
             serverStart.Enabled = false;
-            serverStart.BackColor= Color.Green;
+            serverStart.BackColor = Color.Green;
         }
 
         private void AcceptClients()

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Server.DB.ConfigFiles;
 
 namespace Server.DB;
+
 public partial class VendorSysDbContext : DbContext
 {
     public VendorSysDbContext()
@@ -27,7 +27,8 @@ public partial class VendorSysDbContext : DbContext
 
     public virtual DbSet<Receipt> Receipts { get; set; }
 
-    
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Cashier>(entity =>
@@ -55,7 +56,9 @@ public partial class VendorSysDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Products__3214EC07B0305AF2");
 
             entity.Property(e => e.Discount).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Image).HasMaxLength(1000);
+            entity.Property(e => e.Image)
+                .HasDefaultValueSql("('awdad')")
+                .HasColumnType("image");
             entity.Property(e => e.Pname)
                 .HasMaxLength(100)
                 .HasColumnName("PName");

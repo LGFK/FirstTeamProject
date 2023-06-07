@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json;
 
 namespace ManagerClient.Model;
 
@@ -20,6 +19,4 @@ public partial class Cashier
     public bool IsFired { get; set; }
     [JsonIgnore]
     public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
-
-    
 }
