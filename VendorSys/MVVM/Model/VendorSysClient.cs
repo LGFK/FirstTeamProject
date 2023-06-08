@@ -193,6 +193,7 @@ namespace VendorSys.MVVM.Model
                  networkStream.Read(buffer, 0, buffer.Length);
                 respSize = BitConverter.ToInt32(buffer, 0);
 
+                //Thread.Sleep(500);
                 requestToReceive = new byte[respSize];
                  networkStream.Read(requestToReceive, 0, requestToReceive.Length);
                 jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
@@ -235,6 +236,7 @@ namespace VendorSys.MVVM.Model
                 networkStream.Read(buffer, 0, buffer.Length);
                 respSize = BitConverter.ToInt32(buffer, 0);
 
+                //Thread.Sleep(500);
                 requestToReceive = new byte[respSize];
                 networkStream.Read(requestToReceive, 0, requestToReceive.Length);
                 jsonToReceive = Encoding.UTF8.GetString(requestToReceive);

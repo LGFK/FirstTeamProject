@@ -21,7 +21,11 @@ namespace ManagerClient
             InitializeComponent();
             _cl = cl;
             FillComboBoxTypes();
-            comboBox1.SelectedIndex = 0;      
+            if(comboBox1.Items.Count>0)
+            {
+                comboBox1.SelectedIndex = 0;  
+            }
+                
         }
 
         private void button1_Click(object sender, EventArgs e)

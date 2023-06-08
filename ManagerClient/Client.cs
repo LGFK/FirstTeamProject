@@ -73,6 +73,8 @@ namespace ManagerClient
                     var bufferSize = new byte[4];
                     await networkStream.ReadAsync(bufferSize, 0, 4);
                     size = BitConverter.ToInt32(bufferSize);
+
+                    //Thread.Sleep(500);
                     data = new byte[size];
                     await networkStream.ReadAsync(data, 0, size);
                     var dataStr = Encoding.UTF8.GetString(data);
@@ -80,7 +82,7 @@ namespace ManagerClient
                     File.WriteAllText("test.txt",dataStr);
                     Thread.Sleep(500);
                     
-                    return _prods;
+                    return await Task.FromResult(_prods);
                 }
                 catch(Exception ex)
                 {
@@ -386,6 +388,7 @@ namespace ManagerClient
                     networkStream.Write(reqBytes, 0, reqBytes.Length);
                     using (MemoryStream memoryStream = new MemoryStream())
                     {
+
                         switch (format)
                         {
                             case ".png":
@@ -401,7 +404,7 @@ namespace ManagerClient
                                 }
                         }
                     };
-                    
+
 
                 }
                 catch (Exception ex)

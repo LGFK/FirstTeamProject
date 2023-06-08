@@ -52,7 +52,7 @@ namespace ManagerClient
             ch5.Width = 100;
             lV1.Columns.Add(ch5);
 
-            var products = await _cl.GetAllProducts();
+            var products = Task.Run(()=>_cl.GetAllProducts()).Result;
             foreach (var product in products)
             {
                 ListViewItem lvItem = new ListViewItem(product.Id.ToString());
