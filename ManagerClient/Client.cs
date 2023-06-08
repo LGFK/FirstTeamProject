@@ -79,6 +79,8 @@ namespace ManagerClient
                     await networkStream.ReadAsync(data, 0, size);
                     var dataStr = Encoding.UTF8.GetString(data);
                     List<Product> _prods = JsonConvert.DeserializeObject<List<Product>>(dataStr);
+                    File.WriteAllText("test.txt",dataStr);
+                    Thread.Sleep(500);
                     
                     return await Task.FromResult(_prods);
                 }
@@ -384,20 +386,25 @@ namespace ManagerClient
                     var sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                     networkStream.Write(sizeToSendBuff, 0, 4);
                     networkStream.Write(reqBytes, 0, reqBytes.Length);
-                    MemoryStream memoryStream = new MemoryStream();
-                    switch (format)
+                    using (MemoryStream memoryStream = new MemoryStream())
                     {
-                        case ".png":
-                            {
-                                imgOfProduct.Save(memoryStream, ImageFormat.Png);
-                                reqBytes = memoryStream.ToArray();
-                                sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
-                                await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
-                                //Thread.Sleep(500);
-                                await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
-                                break;
-                            }
-                    }
+
+                        switch (format)
+                        {
+                            case ".png":
+                                {
+                                    imgOfProduct.Save(memoryStream, ImageFormat.Png);
+                                    reqBytes = memoryStream.ToArray();
+                                    sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
+                                    await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
+                                    Thread.Sleep(400);
+                                    await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
+                                    Thread.Sleep(400);
+                                    break;
+                                }
+                        }
+                    };
+
 
                 }
                 catch (Exception ex)
