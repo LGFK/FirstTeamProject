@@ -42,6 +42,8 @@ internal class BasketViewModel : ObservableObject
 
     Receipt _receipt;
 
+    private ObservableCollection<Product> _previousProductInBosket = new ObservableCollection<Product>();
+
     private Cashier _selectedCashier;
 
     private List<Cashier> _cashiers;
@@ -110,7 +112,7 @@ internal class BasketViewModel : ObservableObject
 
             }
         }
-    }
+    }    
 
     public BasketViewModel()
     {
@@ -130,6 +132,10 @@ internal class BasketViewModel : ObservableObject
                 else
                 {
                     _receipt = new Receipt();
+                    foreach (var product in ProductInBosket)
+                    {
+                        _previousProductInBosket.Add(product);
+                    }
                     _amountOfProduct = new List<int>();
                     foreach (var product in ProductInBosket)
                     {
@@ -176,12 +182,13 @@ internal class BasketViewModel : ObservableObject
                             sw.WriteLine("-------------------");
                             sw.WriteLine($"Cashier: {_receipt.Cashier.FirstName} {_receipt.Cashier.SecondName}");
                             sw.WriteLine("Receipt:");
-                            foreach (var product in ProductInBosket)
+                            foreach (var product in _previousProductInBosket)
                             {
                                 sw.WriteLine($"{product.Pname}\t{product.Amount} x {product.Price}");
                             }
                             sw.WriteLine($"Total price: {_receipt.TotalPrice}");
                             sw.WriteLine($"Customer: {_receipt.Customer.FirstName} {_receipt.Customer.SecondName}");
+                            
                         });
                     }
                 }
