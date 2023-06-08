@@ -176,11 +176,10 @@ namespace VendorSys.MVVM.Model
         {
             var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
             TcpClient client = new TcpClient();
+            List<Product>? products = new List<Product>();
             try
-            {
-               
+            {               
                 client.Connect(endPoint);
-
                
                 var networkStream = client.GetStream();
                 buffer = new byte[4];
@@ -193,15 +192,15 @@ namespace VendorSys.MVVM.Model
                  networkStream.Read(buffer, 0, buffer.Length);
                 respSize = BitConverter.ToInt32(buffer, 0);
 
-                //Thread.Sleep(500);
+                Thread.Sleep(1000);
                 requestToReceive = new byte[respSize];
                  networkStream.Read(requestToReceive, 0, requestToReceive.Length);
                 jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
-                List<Product>? products = new List<Product>();
+                
                 products = JsonConvert.DeserializeObject<List<Product>>(jsonToReceive)??new List<Product>();
                 
-                Thread.Sleep(500);
-                return  products;
+                Thread.Sleep(1000);
+                
             }
             catch (Exception ex)
             {
@@ -211,12 +210,14 @@ namespace VendorSys.MVVM.Model
             {
                 client.Close();
             }
-            throw new Exception();
+            return products;
         }
         public async Task<List<Product>> GetDiscountProductsAsync()
         {
             var endPoint = new IPEndPoint(IPAddress.Loopback, 1488);
             TcpClient client = new TcpClient();
+            List<Product>? products = new List<Product>();
+            var productsWithDiscount = new List<Product>();
             try
             {
                 
@@ -236,18 +237,18 @@ namespace VendorSys.MVVM.Model
                 networkStream.Read(buffer, 0, buffer.Length);
                 respSize = BitConverter.ToInt32(buffer, 0);
 
-                //Thread.Sleep(500);
+                Thread.Sleep(1000);
                 requestToReceive = new byte[respSize];
                 networkStream.Read(requestToReceive, 0, requestToReceive.Length);
                 jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
-                List<Product>? products = new List<Product>();
+                
                 products = JsonConvert.DeserializeObject<List<Product>>(jsonToReceive);
 
-                Thread.Sleep(500);
-                var productsWithDiscount = new List<Product>();
+                Thread.Sleep(1000);
+                
                 productsWithDiscount = products?.Where(item => item.Discount > 0).ToList() ?? new List<Product>();
                 
-                return  productsWithDiscount;
+                
             }
             catch (Exception ex)
             {
@@ -257,7 +258,7 @@ namespace VendorSys.MVVM.Model
             {
                 client.Close();
             }
-            throw new Exception();
+            return productsWithDiscount;
         }
 
         public async Task<string> GetProductTypeAsync(int id)
