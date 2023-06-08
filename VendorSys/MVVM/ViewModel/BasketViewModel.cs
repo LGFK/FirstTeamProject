@@ -42,6 +42,8 @@ internal class BasketViewModel : ObservableObject
 
     Receipt _receipt;
 
+    private List<Product> _previousProductInBosket = new List<Product>();
+
     private Cashier _selectedCashier;
 
     private List<Cashier> _cashiers;
@@ -130,6 +132,10 @@ internal class BasketViewModel : ObservableObject
                 else
                 {
                     _receipt = new Receipt();
+                    foreach (var product in ProductInBosket)
+                    {
+                        _previousProductInBosket.Add(product);
+                    }
                     _amountOfProduct = new List<int>();
                     foreach (var product in ProductInBosket)
                     {
@@ -144,7 +150,7 @@ internal class BasketViewModel : ObservableObject
 
                     // відправка чека на сервер (Гамлет)
                     VendorSysClient vendorSysClient = new VendorSysClient();
-                    vendorSysClient.SendNewReceiptAsync(_receipt,ProductInBosket.ToList(),_amountOfProduct).Wait();
+                    vendorSysClient.SendNewReceiptAsync(_receipt, ProductInBosket.ToList(), _amountOfProduct).Wait();
                     MessageBox.Show("Products have been purchased.");
                     ProductInBosket.Clear();
                     SelectedCashier = null;
@@ -176,12 +182,13 @@ internal class BasketViewModel : ObservableObject
                             sw.WriteLine("-------------------");
                             sw.WriteLine($"Cashier: {_receipt.Cashier.FirstName} {_receipt.Cashier.SecondName}");
                             sw.WriteLine("Receipt:");
-                            foreach (var product in ProductInBosket)
+                            foreach (var product in _previousProductInBosket)
                             {
                                 sw.WriteLine($"{product.Pname}\t{product.Amount} x {product.Price}");
                             }
                             sw.WriteLine($"Total price: {_receipt.TotalPrice}");
                             sw.WriteLine($"Customer: {_receipt.Customer.FirstName} {_receipt.Customer.SecondName}");
+
                         });
                     }
                 }
