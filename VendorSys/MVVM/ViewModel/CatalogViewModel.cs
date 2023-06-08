@@ -9,12 +9,12 @@ using VendorSys.MVVM.Model;
 namespace VendorSys.MVVM.ViewModel;
 internal class CatalogViewModel : BaseViewModel
 {
-    protected override void LoadDataAsync()
+    protected async override void LoadDataAsync()
     {
 
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
-        Data = Task.Run(() => vendorSysClient.GetProductsAsync()).Result;
+        Data = await vendorSysClient.GetProductsAsync();
     }
     // Додатковий код специфічний для CatalogViewModel
 }

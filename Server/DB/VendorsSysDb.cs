@@ -25,17 +25,17 @@ namespace Server.DB
             _dbContext = new VendorSysDbContext(dbContextOptions);
 
         }
-        public async Task<List<Receipt>> GetAllReceipts()
+        public List<Receipt> GetAllReceipts()
         {
             return _dbContext.Receipts.ToList();
         }
-        public async Task AddNewProductType(ProductType productType)
+        public void AddNewProductType(ProductType productType)
         {
 
             _dbContext.ProductTypes.Add(productType);
             _dbContext.SaveChanges();
         }
-        public async Task SetDiscounts(List<int> _ids, int discount)
+        public void SetDiscounts(List<int> _ids, int discount)
         {
             for (int i = 0; i < _ids.Count; i++)
             {
@@ -44,25 +44,25 @@ namespace Server.DB
             }
             _dbContext.SaveChanges();
         }
-        public async Task<List<ProductType>> GetAllTypes()
+        public  List<ProductType> GetAllTypes()
         {
             return _dbContext.ProductTypes.ToList();
         }
-        public async Task<List<Customer?>> GetCustomers()
+        public  List<Customer?> GetCustomers()
         {
             return _dbContext?.Customers.ToList();
         }
-        public async Task<Customer?> GetConcreeteCustomer(int id)
+        public Customer? GetConcreeteCustomer(int id)
         {
             return _dbContext.Customers.Where(x => x.Id == id).FirstOrDefault();
         }
-        public async Task AddCustomer(Customer _cust)
+        public void AddCustomer(Customer _cust)
         {
             _dbContext?.Customers.Add(_cust);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
-        public async Task DelCustomer(int _id)
+        public void DelCustomer(int _id)
         {
             try
             {
@@ -76,12 +76,12 @@ namespace Server.DB
 
         }
 
-        public async Task<(Receipt? _receipt, List<Product?> _prodsInReceipt)> GetConcreeteReceiptById(int id)
+        public (Receipt? _receipt, List<Product?> _prodsInReceipt) GetConcreeteReceiptById(int id)
         {
             return (_dbContext.Receipts.Where(x => x.Id == id).FirstOrDefault(), _dbContext.ProductsSolds.Where(x => x.ReceiptId == id).Select(x => x.Product).ToList());
         }
 
-        public async Task AddReceipt(Receipt _receipt, List<(Product product, int amSold)> _productsFromReceipt)
+        public  void AddReceipt(Receipt _receipt, List<(Product product, int amSold)> _productsFromReceipt)
         {
 
             try
@@ -114,45 +114,45 @@ namespace Server.DB
             _dbContext.SaveChanges();
         }
 
-        public async Task<Product> GetProductByName(string _name)
+        public  Product GetProductByName(string _name)
         {
             return _dbContext.Products.Where(x => x.Pname == _name).FirstOrDefault();
         }
-        public async Task<List<Product>> GetProductsList()
+        public  List<Product> GetProductsList()
         {
             return _dbContext.Products.ToList();
         }
 
-        public async Task AddProduct(Product? _prod)
+        public  void  AddProduct(Product? _prod)
         {
             _dbContext.Products.Add(_prod);
             _dbContext.SaveChanges();
         }
 
-        public async Task<List<Cashier?>> GetCashiers()
+        public List<Cashier?> GetCashiers()
         {
             return _dbContext?.Cashiers.ToList();
         }
 
-        public async Task AddCashier(Cashier? _cashier)
+        public void AddCashier(Cashier? _cashier)
         {
             _dbContext.Cashiers.Add(_cashier);
             _dbContext.SaveChanges();
         }
 
-        public async Task FireCashierById(int _id)
+        public void FireCashierById(int _id)
         {
             _dbContext.Cashiers.Where(x => x.Id == _id).FirstOrDefault().IsFired = true;
             _dbContext.SaveChanges();
         }
 
-        public async Task<Cashier?> GetCashierById(int _id)
+        public Cashier? GetCashierById(int _id)
         {
             return _dbContext.Cashiers.Where(x => x.Id == _id).FirstOrDefault();
         }
 
 
-        public async Task<string> GetProductTypeById(int id)
+        public string GetProductTypeById(int id)
         {
             var res = _dbContext.ProductTypes.Where(x => x.Id == id).Select(x => x.TypeName);
             foreach (var type in res)
@@ -164,10 +164,10 @@ namespace Server.DB
 
         }
 
-        public async Task<bool> loginMngr(string login, string password)
+        public bool loginMngr(string login, string password)
         {
 
-            var mngr = await GetManagerByLogin(login);
+            var mngr =  GetManagerByLogin(login);
             if (string.IsNullOrEmpty(mngr[0]) != true)
             {
                 password = password + mngr[3];
@@ -190,10 +190,10 @@ namespace Server.DB
             }
             throw new Exception("Unhandled Server Exception(loginMngr");
         }
-        public async Task<string> AddNewManager(string login, string passwordStr)
+        public string AddNewManager(string login, string passwordStr)
         {
             string reply = "";
-            if (String.IsNullOrEmpty((await GetManagerByLogin(login))[1]))
+            if (String.IsNullOrEmpty(GetManagerByLogin(login)[1]))
             {
                 try
                 {
@@ -239,7 +239,7 @@ namespace Server.DB
 
         }
 
-        public async Task<string[]> GetManagerByLogin(string login)
+        public string[] GetManagerByLogin(string login)
         {
             try
             {

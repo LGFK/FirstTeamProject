@@ -43,7 +43,7 @@ namespace Server
             }
         }
 
-        public async Task<string> HandleConnectionAsync(TcpClient _client)
+        public async Task HandleConnectionAsync(TcpClient _client)
         {
             DirectoryInfo di = new DirectoryInfo(@"..\..\..\DB\ConfigFiles");
             var config = new ConfigurationBuilder().SetBasePath(di.FullName).AddJsonFile("appsettings1.json").Build();
@@ -66,7 +66,7 @@ namespace Server
                     {
                         case "Customers":
                             {
-                                var _customers = await db.GetCustomers();
+                                var _customers =  db.GetCustomers();
                                 jsonToSend = JsonConvert.SerializeObject(_customers, Formatting.Indented);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
@@ -76,7 +76,7 @@ namespace Server
                             }
                         case "Cashiers":
                             {
-                                var _cashiers = await db.GetCashiers();
+                                var _cashiers =  db.GetCashiers();
                                 jsonToSend = JsonConvert.SerializeObject(_cashiers, Formatting.Indented);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
@@ -86,7 +86,7 @@ namespace Server
                             }
                         case "AllReceipts":
                             {
-                                List<Receipt> receipts = await db.GetAllReceipts();
+                                List<Receipt> receipts = db.GetAllReceipts();
                                 jsonToSend = JsonConvert.SerializeObject(receipts, Formatting.Indented);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
@@ -105,7 +105,7 @@ namespace Server
                         case "Receipts":
                             {
                                 var id = Int32.Parse(reqStr[1]);
-                                var _receipt = await db.GetConcreeteReceiptById(id);
+                                var _receipt = db.GetConcreeteReceiptById(id);
                                 jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
@@ -120,18 +120,21 @@ namespace Server
                             }
                         case "Products":
                             {
-                                var _products = await db.GetProductsList();
+                                var _products = db.GetProductsList();
                                 jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                
+                                networkStream.Write(buffer, 0, buffer.Length);
+                                
+                                networkStream.Write(responseToSend, 0, responseToSend.Length);
+                                
                                 break;
                             }
                         case "ProductType":
                             {
                                 int id = Int32.Parse(reqStr[1]);
-                                var _pType = await db.GetProductTypeById(id);
+                                var _pType =  db.GetProductTypeById(id);
                                 responseToSend = Encoding.UTF8.GetBytes(_pType);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -171,7 +174,7 @@ namespace Server
                             }
                         case "GetProductTypes":
                             {
-                                var _products = await db.GetAllTypes();
+                                var _products = db.GetAllTypes();
                                 jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented);
                                 responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
@@ -189,7 +192,7 @@ namespace Server
                             }
                         case "FireCashier":
                             {
-                                await db.FireCashierById(Int32.Parse(reqStr[1]));
+                                db.FireCashierById(Int32.Parse(reqStr[1]));
                                 break;
                             }
                         case "AddProduct":
@@ -208,7 +211,7 @@ namespace Server
                         case "MLogin":
                             {
 
-                                if (await db.loginMngr(reqStr[1], reqStr[2]) == true)
+                                if ( db.loginMngr(reqStr[1], reqStr[2]) == true)
                                 {
                                     responseToSend = Encoding.UTF8.GetBytes("true");
                                 }
@@ -226,7 +229,7 @@ namespace Server
                             }
                         case "MReg":
                             {
-                                var res = await db.AddNewManager(reqStr[1], reqStr[2]);
+                                var res = db.AddNewManager(reqStr[1], reqStr[2]);
                                 responseToSend = Encoding.UTF8.GetBytes(res);
                                 buffer = BitConverter.GetBytes(responseToSend.Length);
                                 await networkStream.WriteAsync(buffer, 0, buffer.Length);
@@ -235,7 +238,7 @@ namespace Server
                             }
                     }
 
-                    return logs;
+                    
                 }
                 catch (Exception ex)
                 {

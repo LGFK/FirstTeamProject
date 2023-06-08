@@ -186,20 +186,20 @@ namespace VendorSys.MVVM.Model
                 string message = "Products";
                 var requestMessage = Encoding.UTF8.GetBytes(message);
                 buffer = BitConverter.GetBytes(requestMessage.Length);
-                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                await networkStream.WriteAsync(requestMessage, 0, requestMessage.Length);
+                networkStream.Write(buffer, 0, buffer.Length);
+                networkStream.Write(requestMessage, 0, requestMessage.Length);
 
-                await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                 networkStream.Read(buffer, 0, buffer.Length);
                 respSize = BitConverter.ToInt32(buffer, 0);
 
                 requestToReceive = new byte[respSize];
-                await networkStream.ReadAsync(requestToReceive, 0, requestToReceive.Length);
+                 networkStream.Read(requestToReceive, 0, requestToReceive.Length);
                 jsonToReceive = Encoding.UTF8.GetString(requestToReceive);
                 List<Product>? products = new List<Product>();
                 products = JsonConvert.DeserializeObject<List<Product>>(jsonToReceive)??new List<Product>();
                 client.Close();
-
-                return await Task.FromResult(products);
+                //Thread.Sleep(300);
+                return  products;
             }
             catch (Exception ex)
             {
@@ -236,7 +236,7 @@ namespace VendorSys.MVVM.Model
 
                 var productsWithDiscount = new List<Product>();
                 productsWithDiscount = products?.Where(item => item.Discount > 0).ToList() ?? new List<Product>();
-                return await Task.FromResult(productsWithDiscount);
+                return  productsWithDiscount;
             }
             catch (Exception ex)
             {
