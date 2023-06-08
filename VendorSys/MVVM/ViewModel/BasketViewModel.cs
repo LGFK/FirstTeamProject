@@ -146,6 +146,9 @@ internal class BasketViewModel : ObservableObject
                     VendorSysClient vendorSysClient = new VendorSysClient();
                     vendorSysClient.SendNewReceiptAsync(_receipt,ProductInBosket.ToList(),_amountOfProduct).Wait();
                     MessageBox.Show("Products have been purchased.");
+                    ProductInBosket.Clear();
+                    SelectedCashier = null;
+                    SelectedCustomer = null;
                 }
             }
             else
