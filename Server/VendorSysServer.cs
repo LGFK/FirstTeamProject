@@ -203,7 +203,7 @@ namespace Server
                                 reqSize = BitConverter.ToInt32(buffer, 0);
                                 buffer = new byte[reqSize];
                                 await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                                MessageBox.Show(Encoding.UTF8.GetString(buffer));
+                                
                                 prodToAdd.Image = buffer;
                                 db?.AddProduct(prodToAdd);
                                 break;
