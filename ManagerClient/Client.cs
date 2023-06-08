@@ -73,12 +73,14 @@ namespace ManagerClient
                     var bufferSize = new byte[4];
                     await networkStream.ReadAsync(bufferSize, 0, 4);
                     size = BitConverter.ToInt32(bufferSize);
+
+                    //Thread.Sleep(500);
                     data = new byte[size];
                     await networkStream.ReadAsync(data, 0, size);
                     var dataStr = Encoding.UTF8.GetString(data);
                     List<Product> _prods = JsonConvert.DeserializeObject<List<Product>>(dataStr);
                     
-                    return _prods;
+                    return await Task.FromResult(_prods);
                 }
                 catch(Exception ex)
                 {
@@ -391,6 +393,7 @@ namespace ManagerClient
                                 reqBytes = memoryStream.ToArray();
                                 sizeToSendBuff = BitConverter.GetBytes(reqBytes.Length);
                                 await networkStream.WriteAsync(sizeToSendBuff, 0, 4);
+                                //Thread.Sleep(500);
                                 await networkStream.WriteAsync(reqBytes, 0, reqBytes.Length);
                                 break;
                             }
