@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Animation;
@@ -75,9 +76,13 @@ class MainViewModel : ObservableObject
     private void SwitchBetweenPages()
     {
         HomeVM = new HomeViewModel();
+        
         BasketVM = new BasketViewModel();
+        
         CatalogVM = new CatalogViewModel();
+        
         AllOrderVM = new AllOrderViewModel();
+        
         AddCustomerVM = new AddCustomerViewModel();
 
         //Підписка на подію додавання із каталога в кошик товарів

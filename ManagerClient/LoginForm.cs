@@ -17,6 +17,7 @@ namespace ManagerClient
         {
             _cl = new MyClient();
             InitializeComponent();
+            
         }
 
         private async void bttnLogin_Click(object sender, EventArgs e)

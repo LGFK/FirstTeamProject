@@ -25,7 +25,7 @@ public partial class Product
     public virtual ICollection<ProductsSold> ProductsSolds { get; set; } = new List<ProductsSold>();
     public Product(int id, string pname, decimal price, int amount, int? prodType, int? discount, byte[] image, ProductType? prodTypeNavigation, ICollection<ProductsSold> productsSolds)
     {
-        Image = new byte[image.Length];
+        
         Id = id;
         Pname = pname;
         Price = price;
@@ -34,7 +34,7 @@ public partial class Product
         Discount = discount;
         ProdTypeNavigation = prodTypeNavigation;
         ProductsSolds = productsSolds;
-        Image = image;
+        
     }
     //public string ToLower()
     //{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using VendorSys.Core;
@@ -14,6 +15,7 @@ internal class CatalogViewModel : BaseViewModel
 
         // Отримання товарів з бази даних
         VendorSysClient vendorSysClient = new VendorSysClient();
+        
         Data = await vendorSysClient.GetProductsAsync();
     }
     // Додатковий код специфічний для CatalogViewModel
