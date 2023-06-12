@@ -18,7 +18,7 @@ public partial class Product
     public int? ProdType { get; set; }
 
     public int? Discount { get; set; }
-
+    [JsonIgnore]
     public byte[] Image { get; set; } = null!;
     [JsonIgnore]
     public virtual ProductType? ProdTypeNavigation { get; set; }

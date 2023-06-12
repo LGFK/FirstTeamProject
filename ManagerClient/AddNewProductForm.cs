@@ -23,7 +23,7 @@ namespace ManagerClient
             FillComboBoxTypes();
             if(comboBox1.Items.Count>0)
             {
-                comboBox1.SelectedIndex = 0;  
+                comboBox1.SelectedIndex = 0;
             }
                 
         }

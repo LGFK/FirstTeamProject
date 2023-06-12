@@ -42,6 +42,155 @@ namespace Server
                 MessageBox.Show(ex.Message);
             }
         }
+        public void SendCustomers(NetworkStream _ns)
+        {
+            var _customers = db.GetCustomers();
+            var jsonToSend = JsonConvert.SerializeObject(_customers, Formatting.Indented);
+            var responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+            var buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, 4);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+        }
+        public void SendCashiers(NetworkStream _ns)
+        {
+            var _cashiers = db.GetCashiers();
+            var jsonToSend = JsonConvert.SerializeObject(_cashiers, Formatting.Indented);
+            var responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+            var  buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+        }
+        public void SendReceipts(NetworkStream _ns)
+        {
+            List<Receipt> receipts = db.GetAllReceipts();
+            var jsonToSend = JsonConvert.SerializeObject(receipts, Formatting.Indented);
+            var responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+            var  buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+        }
+        public void SetDiscounts(List<int> _ids,int discountPercentage)
+        {
+            db.SetDiscounts(_ids, discountPercentage);
+        }
+        public void SendReceiptById(int id,NetworkStream _ns)
+        {
+            var _receipt = db.GetConcreeteReceiptById(id);
+            var jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
+            var responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+            var buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+            jsonToSend = JsonConvert.SerializeObject(_receipt._prodsInReceipt);
+            responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+            buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+            
+        }
+        public void SendAllProds(NetworkStream _ns)
+        {
+            var _products = db.GetProductsList();
+            var jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented);
+            var responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+            var buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+            string tmp = null;
+            foreach (var product in _products)
+            {
+                responseToSend = product.Image;
+                buffer = BitConverter.GetBytes(responseToSend.Length);
+                _ns.Write(buffer, 0, buffer.Length);
+                _ns.Write(responseToSend, 0, responseToSend.Length);
+
+            }
+            
+            Thread.Sleep(100);
+
+
+        }
+        public void SendProdType(NetworkStream _ns,int id)
+        {
+            var _pType = db.GetProductTypeById(id);
+            var responseToSend = Encoding.UTF8.GetBytes(_pType);
+            var buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+        }
+        public void AddCashier(Cashier cashierToAdd)
+        {
+            db?.AddCashier(cashierToAdd);
+        }
+        public void AddCustomer(Customer custToAdd)
+        {
+            db?.AddCustomer(custToAdd);
+        }
+        public void AddReceipt(Receipt receipt,List<Product>? prodsInReceipt,List<int> amountList)
+        {
+            List<(Product, int)> listToAdd = new List<(Product, int)>();
+            for (int i = 0; i < prodsInReceipt.Count; i++)
+            {
+                listToAdd.Add((prodsInReceipt[i], amountList[i]));
+            }
+            db.AddReceipt(receipt, listToAdd);
+            
+        }
+        public void AddProductType(ProductType pT)
+        {
+            db.AddNewProductType(pT);
+        }
+        public void SendProductTypes(NetworkStream _ns)
+        {
+            var _products = db.GetAllTypes();
+            var  jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented);
+            var responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+            var  buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+        }
+        public void DeleteCustomer(int id)
+        {
+            db?.DelCustomer(id);
+        }
+        public void FireCashier(int id)
+        {
+            db.FireCashierById(id);
+        }
+        public void AddProduct(Product prodToAdd,NetworkStream _ns)
+        {
+            var buffer = new byte[4];
+            _ns.Read(buffer, 0, buffer.Length);
+            var reqSize = BitConverter.ToInt32(buffer, 0);
+            buffer = new byte[reqSize];
+            _ns.Read(buffer, 0, buffer.Length);
+            prodToAdd.Image = buffer;
+            db?.AddProduct(prodToAdd);
+        }
+        public void ManagerLogin(string login, string password, NetworkStream _ns)
+        {
+            byte[] responseToSend = null;
+            if (db.loginMngr(login, password) == true)
+            {
+                 responseToSend = Encoding.UTF8.GetBytes("true");
+            }
+            else
+            {
+                 responseToSend = Encoding.UTF8.GetBytes("false");
+            }
+            var sizeToSend = responseToSend.Length;
+            var buffer = BitConverter.GetBytes(sizeToSend);
+            _ns.Write(buffer, 0, 4);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+        }
+        public void ManagerRegister(string login,string password,NetworkStream _ns)
+        {
+            var res = db.AddNewManager(login, password);
+            var responseToSend = Encoding.UTF8.GetBytes(res);
+            var buffer = BitConverter.GetBytes(responseToSend.Length);
+            _ns.Write(buffer, 0, buffer.Length);
+            _ns.Write(responseToSend, 0, responseToSend.Length);
+        }
 
         public async Task HandleConnectionAsync(TcpClient _client)
         {
@@ -66,91 +215,66 @@ namespace Server
                     {
                         case "Customers":
                             {
-                                var _customers =  db.GetCustomers();
-                                jsonToSend = JsonConvert.SerializeObject(_customers, Formatting.Indented);
-                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, 4);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                SendCustomers(networkStream);
                                 break;
                             }
                         case "Cashiers":
                             {
-                                var _cashiers =  db.GetCashiers();
-                                jsonToSend = JsonConvert.SerializeObject(_cashiers, Formatting.Indented);
-                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                SendCashiers(networkStream);
                                 break;
                             }
                         case "AllReceipts":
                             {
-                                List<Receipt> receipts = db.GetAllReceipts();
-                                jsonToSend = JsonConvert.SerializeObject(receipts, Formatting.Indented);
-                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                SendReceipts(networkStream);
                                 break;
                             }
                         case "Discounts":
                             {
-                                int discount = Int32.Parse(reqStr[1]);
-                                List<int> _ids = JsonConvert.DeserializeObject<List<int>>(reqStr[2]);
-
-                                db.SetDiscounts(_ids, discount);
+                                //int discount = Int32.Parse(reqStr[1]);
+                                //List<int> _ids = JsonConvert.DeserializeObject<List<int>>(reqStr[2]);
+                                //db.SetDiscounts(_ids, discount);
+                                SetDiscounts(JsonConvert.DeserializeObject<List<int>>(reqStr[2]), Int32.Parse(reqStr[1]));
                                 break;
                             }
                         case "Receipts":
                             {
-                                var id = Int32.Parse(reqStr[1]);
-                                var _receipt = db.GetConcreeteReceiptById(id);
-                                jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
-                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
-                                jsonToSend = JsonConvert.SerializeObject(_receipt._prodsInReceipt);
-                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                //var id = Int32.Parse(reqStr[1]);
+                                //var _receipt = db.GetConcreeteReceiptById(id);
+                                //jsonToSend = JsonConvert.SerializeObject(_receipt._receipt);
+                                //responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+                                //buffer = BitConverter.GetBytes(responseToSend.Length);
+                                //await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                //await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                //jsonToSend = JsonConvert.SerializeObject(_receipt._prodsInReceipt);
+                                //responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
+                                //buffer = BitConverter.GetBytes(responseToSend.Length);
+                                //await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                                //await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                SendReceiptById(Int32.Parse(reqStr[1]), networkStream);
                                 break;
                             }
                         case "Products":
                             {
-                                var _products = db.GetProductsList();
-                                jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented);
-                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                
-                                networkStream.Write(buffer, 0, buffer.Length);
-                                
-                                networkStream.Write(responseToSend, 0, responseToSend.Length);
-                                
+                                SendAllProds(networkStream);
                                 break;
                             }
                         case "ProductType":
                             {
-                                int id = Int32.Parse(reqStr[1]);
-                                var _pType =  db.GetProductTypeById(id);
-                                responseToSend = Encoding.UTF8.GetBytes(_pType);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                
+                                SendProdType(networkStream, Int32.Parse(reqStr[1]));
                                 break;
                             }
                         case "AddCashier":
                             {
-                                Cashier cashierToAdd = JsonConvert.DeserializeObject<Cashier>(reqStr[1]);
-                                db?.AddCashier(cashierToAdd);
+                                
+                                AddCashier(JsonConvert.DeserializeObject<Cashier>(reqStr[1]));
+                                
                                 break;
                             }
                         case "AddCustomer":
                             {
-                                Customer custToSave = JsonConvert.DeserializeObject<Customer>(reqStr[1]);
-                                db?.AddCustomer(custToSave);
+                                AddCustomer(JsonConvert.DeserializeObject<Customer>(reqStr[1]));
+                                
                                 break;
                             }
                         case "AddReceipt":
@@ -158,82 +282,45 @@ namespace Server
                                 var receipt = JsonConvert.DeserializeObject<Receipt>(reqStr[1]);
                                 var prodsInReceipt = JsonConvert.DeserializeObject<List<Product>>(reqStr[2]);
                                 var amountList = JsonConvert.DeserializeObject<List<int>>(reqStr[3]);
-                                List<(Product, int)> listToAdd = new List<(Product, int)>();
-                                for (int i = 0; i < prodsInReceipt.Count; i++)
-                                {
-                                    listToAdd.Add((prodsInReceipt[i], amountList[i]));
-                                }
-                                db.AddReceipt(receipt, listToAdd);
+                                AddReceipt(receipt, prodsInReceipt, amountList);
                                 break;
                             }
                         case "AddProductType":
                             {
-                                ProductType pT = new ProductType() { TypeName = reqStr[1] };
-                                db.AddNewProductType(pT);
+                                
+                                AddProductType(new ProductType() { TypeName = reqStr[1] });
                                 break;
                             }
                         case "GetProductTypes":
                             {
-                                var _products = db.GetAllTypes();
-                                jsonToSend = JsonConvert.SerializeObject(_products, Formatting.Indented);
-                                responseToSend = Encoding.UTF8.GetBytes(jsonToSend);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                SendProductTypes(networkStream);
                                 break;
 
                             }
 
                         case "DeleteCust":
                             {
-                                int id = Int32.Parse(reqStr[1]);
-                                db?.DelCustomer(id);
+                                DeleteCustomer(Int32.Parse(reqStr[1]));
                                 break;
                             }
                         case "FireCashier":
                             {
-                                db.FireCashierById(Int32.Parse(reqStr[1]));
+                                FireCashier(Int32.Parse(reqStr[1]));
                                 break;
                             }
                         case "AddProduct":
                             {
-                                Product prodToAdd = JsonConvert.DeserializeObject<Product>(reqStr[1]);
-                                buffer = new byte[4];
-                                await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                                reqSize = BitConverter.ToInt32(buffer, 0);
-                                buffer = new byte[reqSize];
-                                await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                                
-                                prodToAdd.Image = buffer;
-                                db?.AddProduct(prodToAdd);
+                                AddProduct(JsonConvert.DeserializeObject<Product>(reqStr[1]), networkStream);
                                 break;
                             }
                         case "MLogin":
                             {
-
-                                if ( db.loginMngr(reqStr[1], reqStr[2]) == true)
-                                {
-                                    responseToSend = Encoding.UTF8.GetBytes("true");
-                                }
-                                else
-                                {
-                                    responseToSend = Encoding.UTF8.GetBytes("false");
-                                }
-
-                                var sizeToSend = responseToSend.Length;
-                                buffer = BitConverter.GetBytes(sizeToSend);
-                                await networkStream.WriteAsync(buffer, 0, 4);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                ManagerLogin(reqStr[1], reqStr[2],networkStream);
                                 break;
-
                             }
                         case "MReg":
                             {
-                                var res = db.AddNewManager(reqStr[1], reqStr[2]);
-                                responseToSend = Encoding.UTF8.GetBytes(res);
-                                buffer = BitConverter.GetBytes(responseToSend.Length);
-                                await networkStream.WriteAsync(buffer, 0, buffer.Length);
-                                await networkStream.WriteAsync(responseToSend, 0, responseToSend.Length);
+                                ManagerRegister(reqStr[1], reqStr[2], networkStream);
                                 break;
                             }
                     }

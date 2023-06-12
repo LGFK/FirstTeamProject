@@ -74,12 +74,21 @@ namespace ManagerClient
                     await networkStream.ReadAsync(bufferSize, 0, 4);
                     size = BitConverter.ToInt32(bufferSize);
 
-                    //Thread.Sleep(500);
+                    Thread.Sleep(500);
                     data = new byte[size];
                     await networkStream.ReadAsync(data, 0, size);
                     var dataStr = Encoding.UTF8.GetString(data);
                     List<Product> _prods = JsonConvert.DeserializeObject<List<Product>>(dataStr);
-                    File.WriteAllText("test.txt",dataStr);
+                    foreach (var product in _prods)
+                    {
+                        bufferSize=new byte[4];
+                        await networkStream.ReadAsync(bufferSize, 0, 4);
+                        size = BitConverter.ToInt32(bufferSize);
+                        data = new byte[size];
+                        await networkStream.ReadAsync(data,0, size);
+                        product.Image = data;
+                    }
+                    
                     Thread.Sleep(500);
                     
                     return await Task.FromResult(_prods);
@@ -87,7 +96,7 @@ namespace ManagerClient
                 catch(Exception ex)
                 {
                     
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message+"Client");
                     return new List<Product>();
                 }
                 finally

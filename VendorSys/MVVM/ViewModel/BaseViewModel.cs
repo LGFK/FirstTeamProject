@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VendorSys.Core;
 using VendorSys.MVVM.Model;
 
@@ -92,7 +93,7 @@ internal abstract class BaseViewModel : ObservableObject
 
     protected BaseViewModel()
     {
-        LoadDataAsync();
+        Task.Run(()=>LoadDataAsync()).Wait();
         FilterData();
 
         AddToCartCommand = new RelayCommand(AddToCart);
